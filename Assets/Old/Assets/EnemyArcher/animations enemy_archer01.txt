@@ -1,0 +1,66 @@
+
+idle dech normalne stoji s lukem
+1-40
+
+idle dech ve strehu s lukem
+50-90
+
+walk s lukem normalni
+100-130
+
+taseni
+140-163
+
+walk dopredu s lukem ve strehu
+140-185
+
+walk doleva s lukem ve strehu
+190-226
+
+walk doprava s lukem ve strehu
+240-276
+
+run s lukem
+280-300
+
+smrt01
+320-345
+
+smrt02
+350-390
+
+walk dozadu s mecem ve strehu
+400-439
+
+hit zepredu
+450-465
+
+hit zezadu
+470-485
+
+omraceni start s padem na zem
+500-520
+
+omraceni loop na zemi
+520-525
+
+omraceni vstavani ze zeme
+530-595
+
+zabiti v omraceni na zemi
+600-620
+
+630-710 
+natazeni luku
+
+711-720 
+vystreleni sipu (sip leti uz id 711)
+
+721-735
+navrat do strehu
+
+750-769
+oteceni doprava
+
+780-799
+otaceni doleva

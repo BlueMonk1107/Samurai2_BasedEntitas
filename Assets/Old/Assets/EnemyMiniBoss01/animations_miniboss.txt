@@ -1,0 +1,75 @@
+-
+walk
+1-40
+
+attack light
+50-77
+
+navrat
+78-85
+
+attack heavy
+90-126
+
+navrat
+127-132
+
+rvani (pak nasleduje vzdy attack heavy
+140-187
+
+block start
+190-200
+
+block loop
+200-210
+
+block navrat
+211-217
+
+stand idle
+220-269
+
+prekracovani v bloku doleva
+280-299
+
+prekracovani v bloku doprava
+310-329
+
+chuze doleva
+350-387
+
+chuze doprava
+400-436
+
+injury
+450-461
+
+death
+470-528
+
+rotovani doleva ve strehu
+550-569
+
+rotovani doprava ve strehu
+580-599
+
+600-625
+prorazeny blok
+
+640-648
+hit blok
+
+odstrceni z bloku 
+660-690
+
+death02
+700-730
+
+kleknuti do rollu
+750-849
+
+roll loop
+850-852
+
+zvednuti z rollu
+853-875

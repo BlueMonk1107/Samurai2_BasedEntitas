@@ -1,0 +1,53 @@
+samurai 2 animations player_run_evade_attack.max
+
+1-16 run cycle sword
+
+20-32 evade back
+
+35-46 attack front
+
+47-50 attack front return
+
+55-66 attack left
+
+67-70 attack left return
+
+75-86 attack right
+
+87-90 attack right return
+
+95-125 idle stoj s meèem
+
+130 bare hands stand static
+
+135-150 run cycle bare hands
+
+160-175 evade front
+
+180-209 walk cycle bez meèe
+
+215-248 walk cycle s meèem
+
+260-290 idle stoj bez meèe
+
+300-320 taseni mec objevit ve framu 310
+
+330-405 schovani mece mec schovat ve framu 402
+
+410-510 tahani za paku vytahu (zone01lift)
+
+520-547 skok a sek
+
+548-553 navrat
+
+560-575 injury player
+
+580-625 smrt zezadu
+
+640-664 death zepredu
+
+680-730 dobití omraceneho enemy
+
+750-768 vytahne mec (horni polovina tela)
+
+780-810 zasune mec (horni polovina tela)

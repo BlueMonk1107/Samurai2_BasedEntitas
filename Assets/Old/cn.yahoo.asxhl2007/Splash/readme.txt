@@ -1,0 +1,9 @@
+1.将Splash和SplashSettings两个对象拖到启动的Scene中
+2.设置SplashSettings对象的appstore
+3.设置logo，选择下列方式之一
+	1）设置logoList
+	2）设置cpLogo、the9Logo、mmLogo（已设置默认值，通常仅需要改cpLogo即可）
+	两种方式的不同：使用1）将固定按此logoList顺序播放logo，
+				   使用2）则自动根据appstore来播放logo（目前仅有mm与其他logo不同）
+4.设置Splash中的logo属性，如播放时间、加载方式等
+5.将unity3d的默认splash设置为全白或全黑的图，这样mm或the9的logo就能显示在第一屏。

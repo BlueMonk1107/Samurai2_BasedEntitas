@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: a1dc569a43d43e2418d44a9a41650f59
+timeCreated: 18446744011573954816
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - guiSkin: {fileID: 11400000, guid: afed710c4250e324b8d1ee2246d792fc, type: 2}
+  - titleFont: {fileID: 12800000, guid: 8536504d1fdebbe49b8cf62ea14ba9e9, type: 3}
+  - textFont: {fileID: 12800000, guid: fa7e8b33655a5b647bd882364d161fb7, type: 3}
+  - dialogBG: {fileID: 2800000, guid: 7942fb64067cb0240881cf772952235d, type: 3}
+  - titleBG: {fileID: 2800000, guid: 4328bb0692c6793408df037f79fb6ffa, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

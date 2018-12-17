@@ -1,0 +1,118 @@
+
+idle dech bez mece
+1-40
+
+idle dech s mecem
+50-90
+
+walk bez mece
+100-130
+
+taseni
+140-163
+
+walk dopredu s mecem ve strehu
+170-215
+
+walk doleva s mecem ve strehu
+220-256
+
+walk doprava s mecem ve strehu
+270-306
+
+run s mecem
+310-330
+
+utok prvni (doprava)
+340-357
+
+navrat
+358-366
+
+
+utok druhy (doprava)
+380-397
+
+navrat
+398-405
+
+utok tezky cast 01 doleva
+400-429
+
+navrat
+430-447
+
+smrt01
+440-465
+
+smrt02
+480-514
+
+walk dozadu s mecem ve strehu
+520-556
+
+hit zepredu
+570-585
+
+hit zezadu
+590-605
+
+zasunuti mece
+620-644
+
+blok start
+650-653
+
+blok loop
+654-659
+
+blok navrat
+660-664
+
+blok fail
+674-690
+
+omraceni start s padem na zem
+700-720
+
+omraceni loop na zemi
+720-725
+
+omraceni vstavani ze zeme
+730-795
+
+zabiti v omraceni na zemi
+800-820
+
+830-850 run backward
+
+880-895
+injury01
+
+900-915
+injury02
+
+920-935
+injury03
+
+940-959
+preslapavani v bloku doleva
+
+970-990
+preslapavani v boku doprava
+
+1000-1012
+block hit
+
+1020-1149
+taunt
+
+1160-1215
+dead 02
+
+1220-1295
+dead 03
+
+1300-1440
+rotace
+

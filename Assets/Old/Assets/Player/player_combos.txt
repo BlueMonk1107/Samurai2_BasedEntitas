@@ -1,0 +1,198 @@
+Combo 1: X,X,X,X,X
+
+combo01 sek01
+
+1-11 sek
+12-20 zanchin
+21-25 navrat
+
+combo01 sek02
+
+30-41 sek
+42-50 zanchin
+51-55 navrat
+
+combo01 sek03
+
+61-71 sek
+72-80 zanchin
+81-85 navrat
+
+combo01 sek04
+
+91-101 sek
+102-110 zanchin
+11-115 navrat
+
+combo01 sek05
+
+121-131 sek
+132-140 zanchin
+141-145 navrat
+
+
+
+
+
+Combo 2: O,O,O,O,O
+
+
+combo02 sek01
+
+1-19 sek
+17-30 zanchin
+31-40 navrat
+
+combo02 sek02
+
+50-74 sek
+75-85 zanchin
+86-95 navrat
+
+combo02 sek03
+
+110-139 sek
+140-150 zanchin
+151-160 navrat
+
+combo02 sek04
+
+180-200 sek
+201-210 zanchin
+211-220 navrat
+
+combo02 sek05
+
+240-265 sek
+266-275 zanchin
+276-285 navrat
+
+
+
+
+Combo 3: X,O,O,X,X
+
+
+
+combo02 sek01- pouzij combo01 sek01
+
+
+
+combo03 sek02
+
+50-74 sek
+75-80 zanchin
+81-90 navrat
+
+combo03 sek03
+
+100-117 sek
+118-127 zanchin
+128-137 navrat
+
+combo03 sek04
+
+150-171 sek
+172-180 zanchin
+181-192 navrat
+
+combo03 sek05
+
+200-224 sek
+225-243 zanchin
+244-252 navrat
+
+
+
+
+Combo 4: X,X,O,X,X
+
+
+combo04 sek01- pouzij combo01 sek01
+
+
+combo04 sek02- pouzij combo01 sek02
+
+
+
+combo04 sek03
+
+70-90 sek
+91-100 zanchin
+101-110 navrat
+
+combo04 sek04
+
+130-150 sek
+151-165 zanchin
+166-175 navrat
+
+combo04 sek05
+
+190-212 sek
+213-222 zanchin
+223-233 navrat
+
+
+
+Combo 5: O,O,X,O,O
+
+
+combo05 sek01- pouzij combo02 sek01
+
+
+combo05 sek02- pouzij combo02 sek02
+
+
+combo05 sek03
+
+70-89 sek
+90-97 zanchin
+98-107 navrat
+
+combo05 sek04
+
+120-152 sek
+153-159 zanchin
+160-165 navrat
+
+combo05 sek05
+
+180-210 sek
+211-220 zanchin
+221-230 navrat
+
+
+
+
+Combo 6: O,X,O,X,O
+
+
+combo06 sek01- pouzij combo02 sek01
+
+
+
+combo06 sek02
+
+60-74 sek
+75-85 zanchin
+86-95 navrat
+
+combo06 sek03
+
+110-130 sek
+131-138 zanchin
+139-148 navrat
+
+combo06 sek04
+
+170-187 sek
+188-192 zanchin
+193-202 navrat
+
+combo06 sek05
+
+210-226 sek
+227-236 zanchin
+237-246 navrat
+

@@ -1,0 +1,49 @@
+player combo 01
+
+combo01 sek01
+
+1-11 sek
+12-20 zanchin
+21-25 navrat
+
+combo01 sek02
+
+30-41 sek
+42-50 zanchin
+51-55 navrat
+
+combo01 sek03
+
+61-71 sek
+72-80 zanchin
+81-85 navrat
+
+combo01 sek04
+
+91-101 sek
+102-110 zanchin
+11-115 navrat
+
+combo01 sek05
+
+121-131 sek
+132-140 zanchin
+141-145 navrat
+
+combo02 sek01
+
+151-165 sek
+166-170 zanchin
+171-175 navrat
+
+combo02 sek02
+
+181-195 sek
+196-200 zanchin
+201-205 navrat
+
+combo02 sek03
+
+211-225 sek
+226-230 zanchin
+231-235 navrat

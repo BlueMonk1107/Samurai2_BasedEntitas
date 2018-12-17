@@ -1,0 +1,162 @@
+fileFormatVersion: 2
+guid: 24cc6d1eca62b4c2e8bd23cf4c692ea9
+timeCreated: 18446744011573954816
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: lis_RightBoneMove07
+    100004: lis_LeftBoneMove07
+    100006: lis_RightBoneRotate07
+    100008: lis_RightBoneMove06
+    100010: lis_LeftBoneRotate07
+    100012: lis_LeftBoneMove06
+    100014: lis_RightBoneRotate06
+    100016: lis_RightBoneMove05
+    100018: lis_LeftBoneRotate06
+    100020: lis_LeftBoneMove05
+    100022: lis_RightBoneRotate05
+    100024: lis_RightBoneMove04
+    100026: lis_LeftBoneRotate05
+    100028: lis_LeftBoneMove04
+    100030: lis_RightBoneRotate04
+    100032: lis_RightBoneMove03
+    100034: lis_LeftBoneRotate04
+    100036: lis_LeftBoneMove03
+    100038: lis_RightBoneRotate03
+    100040: lis_RightBoneMove02
+    100042: lis_LeftBoneRotate03
+    100044: lis_LeftBoneMove02
+    100046: lis_RightBoneRotate02
+    100048: lis_RightBoneMove01
+    100050: lis_LeftBoneRotate02
+    100052: lis_LeftBoneMove01
+    100054: lis_RightBoneRotate01
+    100056: lis_LeftBoneMove
+    100058: lis_LeftBoneRotate01
+    100060: lis_RightBoneMove
+    100062: lis_LeftBoneRotate
+    100064: Lis
+    100066: lis_RightBoneRotate
+    100068: lis_mesh
+    100070: lis_collisionout
+    400000: //RootNode
+    400002: lis_RightBoneMove07
+    400004: lis_LeftBoneMove07
+    400006: lis_RightBoneRotate07
+    400008: lis_RightBoneMove06
+    400010: lis_LeftBoneRotate07
+    400012: lis_LeftBoneMove06
+    400014: lis_RightBoneRotate06
+    400016: lis_RightBoneMove05
+    400018: lis_LeftBoneRotate06
+    400020: lis_LeftBoneMove05
+    400022: lis_RightBoneRotate05
+    400024: lis_RightBoneMove04
+    400026: lis_LeftBoneRotate05
+    400028: lis_LeftBoneMove04
+    400030: lis_RightBoneRotate04
+    400032: lis_RightBoneMove03
+    400034: lis_LeftBoneRotate04
+    400036: lis_LeftBoneMove03
+    400038: lis_RightBoneRotate03
+    400040: lis_RightBoneMove02
+    400042: lis_LeftBoneRotate03
+    400044: lis_LeftBoneMove02
+    400046: lis_RightBoneRotate02
+    400048: lis_RightBoneMove01
+    400050: lis_LeftBoneRotate02
+    400052: lis_LeftBoneMove01
+    400054: lis_RightBoneRotate01
+    400056: lis_LeftBoneMove
+    400058: lis_LeftBoneRotate01
+    400060: lis_RightBoneMove
+    400062: lis_LeftBoneRotate
+    400064: Lis
+    400066: lis_RightBoneRotate
+    400068: lis_mesh
+    400070: lis_collisionout
+    4300000: lis_mesh
+    7400000: Take 001
+    11100000: //RootNode
+    13700000: lis_mesh
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 3
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 2
+    tangentImportMode: 2
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

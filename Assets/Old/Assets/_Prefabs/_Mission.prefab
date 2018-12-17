@@ -1,0 +1,393 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &100000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 400000}
+  - component: {fileID: 11400000}
+  - component: {fileID: 8200000}
+  - component: {fileID: 11400002}
+  - component: {fileID: 11400004}
+  - component: {fileID: 11400006}
+  - component: {fileID: 11400008}
+  - component: {fileID: 11400010}
+  - component: {fileID: 11400012}
+  m_Layer: 0
+  m_Name: _Mission
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1002 &100001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!4 &400000
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.719738, y: 3.9864433, z: -11.555385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1002 &400001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c8da732f0779d44d3bce713cdc3ee2eb, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 1.01817584e-35
+      outSlope: 2.18603e-40
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.00020000001
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.00040000002
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.00080000004
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.0016000001
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.0032000002
+      value: 0.9433963
+      inSlope: -45.18162
+      outSlope: -43.838097
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.0064000003
+      value: 0.8196721
+      inSlope: -34.49805
+      outSlope: -32.734406
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.012800001
+      value: 0.64935064
+      inSlope: -21.996954
+      outSlope: -20.241644
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.025600001
+      value: 0.4587156
+      inSlope: -11.177279
+      outSlope: -9.937514
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.051200002
+      value: 0.28901735
+      inSlope: -4.5102496
+      outSlope: -3.8888245
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.102400005
+      value: 0.16611296
+      inSlope: -1.5079232
+      outSlope: -1.2715317
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.20480001
+      value: 0.08976661
+      inSlope: -0.44368607
+      outSlope: -0.3689849
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.40960002
+      value: 0.04677268
+      inSlope: -0.120972246
+      outSlope: -0.099822044
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.81920004
+      value: 0.023889154
+      inSlope: -0.031629495
+      outSlope: -0.025991336
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0.019646365
+      inSlope: 1.01817584e-35
+      outSlope: 2.18603e-40
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!1002 &8200001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595d6029f82d54a56b32672a70ac225c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameZones:
+  - {fileID: 0}
+  ManagedGameObject: []
+  Music: {fileID: 8200000}
+  HumansCache:
+  - EnemyType: 0
+    MaxCount: 10
+  - EnemyType: 1
+    MaxCount: 10
+  - EnemyType: 5
+    MaxCount: 10
+  - EnemyType: 3
+    MaxCount: 10
+  - EnemyType: 2
+    MaxCount: 10
+  DeadBodies:
+  - EnemyType: 3
+    MaxCount: 5
+  - EnemyType: 1
+    MaxCount: 5
+  - EnemyType: 0
+    MaxCount: 5
+  - EnemyType: 5
+    MaxCount: 5
+  - EnemyType: 2
+    MaxCount: 5
+  AchievementID: 0
+  LeaderBoardID: 0
+--- !u!1002 &11400001
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b928fa8cb592040c18e96ce12e63a6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blood:
+    Prefab: {fileID: 100004, guid: 821aeac12293145609ef1b3d9a0e6e2b, type: 2}
+  BloodBig:
+    Prefab: {fileID: 100002, guid: baa0e0e942a304c1ebc1dd16006fb9b0, type: 2}
+  BlockHit:
+    Prefab: {fileID: 100000, guid: bb4bbd2a64dfa4e80ba77e405b328826, type: 2}
+  BlockBreak:
+    Prefab: {fileID: 100002, guid: 3706f12f71b5f4afe8011191446fc59d, type: 2}
+  Critical:
+    Prefab: {fileID: 100004, guid: f80bceff73e7b49ed941e064a1af5a1a, type: 2}
+  Knockdown:
+    Prefab: {fileID: 100002, guid: f78cde12df0c34ab69a60c3e6363f5aa, type: 2}
+  Spawn:
+    Prefab: {fileID: 100000, guid: 4b9e9c60a13b2429490a64fcadf6f372, type: 2}
+  Disappear:
+    Prefab: {fileID: 100000, guid: d869f87835f394a869840c6b7d71825d, type: 2}
+  Whirl:
+    Prefab: {fileID: 100000, guid: d71bb106a6b57479f9da6d3242250753, type: 2}
+  Roll:
+    Prefab: {fileID: 100000, guid: c0b972b34f46046a399f48784c81438d, type: 2}
+--- !u!1002 &11400003
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be866c819b16409bbd65d947cd3d727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlSounds:
+  - {fileID: 8300000, guid: 0e984d42128034a8ead16ef47766b055, type: 3}
+  - {fileID: 8300000, guid: 70b5e16f630ba473597da8fde88c8185, type: 3}
+  - {fileID: 8300000, guid: b8fa8f8ad428547589ab21bea6a0a80f, type: 3}
+  KnockDownSound: {fileID: 8300000, guid: b8ee86b9eebc84f4199c6a53723d13cf, type: 3}
+  FatalitySound: {fileID: 8300000, guid: 499fa7df9e7b4467ead5d2e1d9b285a6, type: 3}
+  KatanaOnSound: {fileID: 0}
+  KatanaOffSound: {fileID: 8300000, guid: db3c5b233ce77427ba90c76d31c751e6, type: 3}
+  ShopBuyHealth: {fileID: 8300000, guid: 0f0d6235e92bd4621b7d15abff1be8bc, type: 3}
+  ShopBuySword: {fileID: 8300000, guid: 865fe8e43933f4f789f05ccca735eadf, type: 3}
+  ShopBuyCombo: {fileID: 8300000, guid: c95f28691f80342aca6e4deaf69680ff, type: 3}
+  ActionFilename: action1
+  ActionMusicFadeOutTime: 0.4
+  ActionMusicFadeInTime: 0.4
+  ActionMusicVolume: 1
+  CalmFilename: ambi_quiet1
+  CalmMusicFadeOutTime: 0.4
+  CalmMusicFadeInTime: 0.4
+  CalmMusicVolume: 1
+--- !u!1002 &11400005
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8bde1a240b347798e2cda2789deaa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSprites: 30
+--- !u!1002 &11400007
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea6409acf08f4425a85d874a25b25f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 85ce5d83390ae489b9e5e8631c8f287f, type: 2}
+  allocBlockSize: 50
+  plane: 1
+  winding: 1
+  autoUpdateBounds: 1
+--- !u!1002 &11400009
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52931f60d57f14317b7da288b8736e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Arrow: {fileID: 100000, guid: 126f0702e84514b23a2ffc0686ddbbcf, type: 2}
+--- !u!1002 &11400011
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66df4039c0743487393d2d1920bcbefe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemiesTransform: []
+  LastAttackTime: 0
+--- !u!1002 &11400013
+EditorExtensionImpl:
+  serializedVersion: 6
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 100000}
+  m_IsPrefabParent: 1
+--- !u!1002 &100100001
+EditorExtensionImpl:
+  serializedVersion: 6

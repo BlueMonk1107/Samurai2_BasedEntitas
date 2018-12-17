@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 3cbcb8784a1a34c58b49d8dae7eda7ff
+timeCreated: 18446744011573954816
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: trail_OOO
+    100004: trail_XXXX
+    100006: dust
+    100008: trail_XX
+    100010: trail_XOOXX
+    100012: trail_XOOX
+    100014: trail_OXOOO
+    100016: trail_XO
+    100018: trail_OOOXX
+    100020: trail_XOO
+    100022: trail_XXO
+    100024: trail_OO
+    100026: trail_OOOX
+    100028: trail_OOX
+    100030: trail_XXOXX
+    100032: trail_XXXXX
+    100034: trail_OX
+    100036: trail_OOXXX
+    100038: trail_OXO
+    100040: trail_O
+    100042: trail_XXOX
+    100044: trail_OOXX
+    100046: trail_X
+    100048: trail_XXX
+    100050: trail_OXOO
+    400000: //RootNode
+    400002: trail_OOO
+    400004: trail_XXXX
+    400006: dust
+    400008: trail_XX
+    400010: trail_XOOXX
+    400012: trail_XOOX
+    400014: trail_OXOOO
+    400016: trail_XO
+    400018: trail_OOOXX
+    400020: trail_XOO
+    400022: trail_XXO
+    400024: trail_OO
+    400026: trail_OOOX
+    400028: trail_OOX
+    400030: trail_XXOXX
+    400032: trail_XXXXX
+    400034: trail_OX
+    400036: trail_OOXXX
+    400038: trail_OXO
+    400040: trail_O
+    400042: trail_XXOX
+    400044: trail_OOXX
+    400046: trail_X
+    400048: trail_XXX
+    400050: trail_OXOO
+    2300000: trail_OOO
+    2300002: trail_XXXX
+    2300004: dust
+    2300006: trail_XX
+    2300008: trail_XOOXX
+    2300010: trail_XOOX
+    2300012: trail_OXOOO
+    2300014: trail_XO
+    2300016: trail_OOOXX
+    2300018: trail_XOO
+    2300020: trail_XXO
+    2300022: trail_OO
+    2300024: trail_OOOX
+    2300026: trail_OOX
+    2300028: trail_XXOXX
+    2300030: trail_XXXXX
+    2300032: trail_OX
+    2300034: trail_OOXXX
+    2300036: trail_OXO
+    2300038: trail_O
+    2300040: trail_XXOX
+    2300042: trail_OOXX
+    2300044: trail_X
+    2300046: trail_XXX
+    2300048: trail_OXOO
+    3300000: trail_OOO
+    3300002: trail_XXXX
+    3300004: dust
+    3300006: trail_XX
+    3300008: trail_XOOXX
+    3300010: trail_XOOX
+    3300012: trail_OXOOO
+    3300014: trail_XO
+    3300016: trail_OOOXX
+    3300018: trail_XOO
+    3300020: trail_XXO
+    3300022: trail_OO
+    3300024: trail_OOOX
+    3300026: trail_OOX
+    3300028: trail_XXOXX
+    3300030: trail_XXXXX
+    3300032: trail_OX
+    3300034: trail_OOXXX
+    3300036: trail_OXO
+    3300038: trail_O
+    3300040: trail_XXOX
+    3300042: trail_OOXX
+    3300044: trail_X
+    3300046: trail_XXX
+    3300048: trail_OXOO
+    4300000: trail_OOX
+    4300002: trail_OO
+    4300004: trail_XXO
+    4300006: trail_OOOX
+    4300008: trail_OOOXX
+    4300010: trail_XO
+    4300012: trail_XOO
+    4300014: trail_XOOX
+    4300016: trail_XOOXX
+    4300018: trail_OXOOO
+    4300020: trail_XXOX
+    4300022: trail_O
+    4300024: trail_OOXX
+    4300026: trail_OOXXX
+    4300028: trail_OX
+    4300030: trail_OXO
+    4300032: trail_OXOO
+    4300034: trail_XXOXX
+    4300036: trail_XXXXX
+    4300038: trail_X
+    4300040: trail_XX
+    4300042: trail_XXX
+    4300044: trail_XXXX
+    4300046: trail_OOO
+    4300048: dust
+    11100000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 3
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 3
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

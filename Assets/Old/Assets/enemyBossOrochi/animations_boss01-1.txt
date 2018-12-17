@@ -1,0 +1,70 @@
+boss 01
+
+walk cycle
+1-37
+
+light attack 1
+45-70
+
+navrat
+71-79
+
+light attack 2
+80-106
+
+navrat
+107-116
+
+HeavyAttack part 1
+120-144
+
+navrat
+145-155
+
+HeavyAttack part 2
+160-190
+
+navrat
+191-200
+
+rvani
+210-305
+
+idle
+310-400
+
+injury level 01 (predklon)
+400-416
+
+injury level 02 (vetsi predklon)
+420-440
+
+injury level 03 (pad na kolena)
+440-460
+
+kleceni na zemi, otrepani a zvednuti se
+460-540
+
+360degree attack
+540-575
+
+bouchnuti o zem
+600-630
+
+turn to left
+650-670
+
+turn to right
+680-700
+
+death v klece
+710-775
+
+sek co se zasekne do zeme
+790-820 zasek do zeme
+
+vykvedlani zbrane ze zeme a navrat
+721-891
+
+
+
