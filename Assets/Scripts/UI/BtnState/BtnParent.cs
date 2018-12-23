@@ -1,14 +1,32 @@
+using System;
 using System.Collections.Generic;
+using Const;
 using UnityEngine;
 
 namespace UIFrame
 {
     public class BtnParent : MonoBehaviour     
     {
+        public SelectedState SelectedState
+        {
+            set
+            {
+                ResetChildState();
+
+                if (value == SelectedState.SELECTED)
+                {
+                    childs[_childId].SelectedState = SelectedState.SELECTED;
+                }
+            }
+        }
+
         public int Index { get; private set; }
-        public int ChildCount {
+
+        public int ChildCount
+        {
             get { return transform.childCount; }
         }
+
         private List<SelectedBtn> childs;
         private int _childId;
 
@@ -23,23 +41,23 @@ namespace UIFrame
             }
         }
 
+        public void SelectedButton()
+        {
+            childs[_childId].SelectedButton();
+        }
+
         public void SelectedDefaut()
         {
             Selected(childs[0].transform);
         }
 
-        public void Selected(Transform selected)
+        private void Selected(Transform selected)
         {
             var btn = selected.GetComponentInChildren<SelectedBtn>();
             if (btn != null)
             {
                 btn.Selected();
             }
-        }
-
-        public void CancelSelected()
-        {
-            
         }
 
         public bool Left()
@@ -55,7 +73,6 @@ namespace UIFrame
                 _childId = 0;
                 return false;
             }
-           
         }
 
         public bool Right()
@@ -70,6 +87,14 @@ namespace UIFrame
             {
                 _childId = ChildCount - 1;
                 return false;
+            }
+        }
+
+        private void ResetChildState()
+        {
+            foreach (SelectedBtn child in childs)
+            {
+                child.SelectedState = SelectedState.UNSELECTED;
             }
         }
     }

@@ -58,6 +58,11 @@ namespace UIFrame
             _btnStateManager.Right();
         }
 
+        public void SelectedButton()
+        {
+            _btnStateManager.SelectedButton();
+        }
+
         private void ExcuteEffect(Tuple<Transform, Transform> uiPara)
         {
             _effectManager.Show(uiPara.Item1);

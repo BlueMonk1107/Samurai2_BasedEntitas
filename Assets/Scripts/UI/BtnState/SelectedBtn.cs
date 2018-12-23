@@ -1,3 +1,5 @@
+using System;
+using Const;
 using DG.Tweening;
 using UnityEngine;
 using Util;
@@ -6,16 +8,38 @@ namespace UIFrame
 {
     public class SelectedBtn : MonoBehaviour
     {
+        public SelectedState SelectedState
+        {
+            set
+            {
+                switch (value)
+                {
+                    case SelectedState.SELECTED:
+                        Selected();
+                        break;
+                    case SelectedState.UNSELECTED:
+                        CancelSelected();
+                        break;
+                }
+            }
+        }
+
         public int Index
         {
             get { return transform.GetSiblingIndex(); }
         }
+
         private Color _defaultColor;
+
+        private void Awake()
+        {
+            SaveDefaultColor(transform);
+        }
+
         public void Selected()
         {
             if (!JudgeException(transform))
             {
-                SaveDefaultColor(transform);
                 PlayEffect(transform);
             }
         }
@@ -23,6 +47,11 @@ namespace UIFrame
         public void CancelSelected()
         {
             KillEffect(transform);
+        }
+
+        public void SelectedButton()
+        {
+            transform.Button().onClick.Invoke();
         }
 
         private void KillEffect(Transform btn)

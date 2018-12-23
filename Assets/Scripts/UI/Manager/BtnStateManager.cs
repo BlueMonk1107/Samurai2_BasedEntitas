@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Const;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,11 @@ namespace UIFrame
                     parent.SelectedDefaut();
                 }
             }
+        }
+
+        public void SelectedButton()
+        {
+            _currentParents[_parentId].SelectedButton();
         }
 
         public void Show(Transform showUI)
@@ -66,10 +72,12 @@ namespace UIFrame
             {
                 if (moveAction())
                 {
+                    _currentParents[_parentId].SelectedState = SelectedState.SELECTED;
                     return true;
                 }
                 else
                 {
+                    _currentParents[_parentId].SelectedState = SelectedState.UNSELECTED;
                     _parentId += symbol;
                     return MoveIndex(moveAction, symbol);
                 }
@@ -77,6 +85,7 @@ namespace UIFrame
             else
             {
                 ResetParentId();
+                _currentParents[_parentId].SelectedState = SelectedState.SELECTED;
                 return true;
             }
         }
@@ -104,9 +113,10 @@ namespace UIFrame
             {
                 _parentId = 0;
                 return;
-            }else if (_parentId >= _currentParents.Count)
+            }
+            else if (_parentId >= _currentParents.Count)
             {
-                _parentId = _currentParents.Count;
+                _parentId = _currentParents.Count -1;
             }
         }
     }
