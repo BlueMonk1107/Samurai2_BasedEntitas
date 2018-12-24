@@ -35,10 +35,20 @@ namespace UIFrame
             Index = index;
             _childId = 0;
             childs = new List<SelectedBtn>();
+            SelectedBtn temp;
             foreach (Transform trans in transform)
             {
-                childs.Add(trans.gameObject.AddComponent<SelectedBtn>());
+                temp = trans.gameObject.AddComponent<SelectedBtn>();
+                childs.Add(temp);
+                temp.AddSelectActionListener(SelectButtonMouse);
             }
+        }
+
+        private void SelectButtonMouse(SelectedBtn btn)
+        {
+            _childId = btn.Index;
+            ResetChildState();
+            btn.SelectedState = SelectedState.SELECTED;
         }
 
         public void SelectedButton()
