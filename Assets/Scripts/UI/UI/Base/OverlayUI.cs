@@ -1,12 +1,13 @@
+using Const;
 using UnityEngine;
 
 namespace UIFrame
 {
     public abstract class OverlayUI : UIBase
     {
-        protected override void Init()
+        public override UILayer GetUiLayer()
         {
-            Layer = Const.UILayer.OVERLAY_UI;
+            return UILayer.OVERLAY_UI;
         }
     }
 }

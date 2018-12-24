@@ -1,4 +1,5 @@
 using System;
+using Const;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,13 @@ namespace Util
             var button = rect.GetComponent<Button>() ?? rect.gameObject.AddComponent<Button>();
 
             button.onClick.AddListener(()=> action());
+        }
+
+        public static void AddBtnListener(this Transform rect, Action action)
+        {
+            var button = rect.GetComponent<Button>() ?? rect.gameObject.AddComponent<Button>();
+
+            button.onClick.AddListener(() => action());
         }
 
         public static RectTransform RectTransform(this Transform transform)
@@ -58,6 +66,34 @@ namespace Util
             {
                 Debug.LogError("can not find Image");
                 return null;
+            }
+        }
+
+        public static Transform GetBtnParent(this Transform transform)
+        {
+            var parent = transform.Find(ConstValue.BUTTON_PARENT_NAME);
+            if (parent == null)
+            {
+              Debug.LogError("can not find ButtonParent name:"+ ConstValue.BUTTON_PARENT_NAME);
+                return null;
+            }
+            else
+            {
+                return parent;
+            }
+           
+        }
+
+        public static void AddBtnListener(this Transform transform, string btnName, Action callBack)
+        {
+            var buttonTrans = transform.Find(ConstValue.BUTTON_PARENT_NAME + "/" + btnName);
+            if (buttonTrans == null)
+            {
+                Debug.LogError("can not find button, name:"+ btnName);
+            }
+            else
+            {
+                buttonTrans.AddBtnListener(callBack);
             }
         }
     }

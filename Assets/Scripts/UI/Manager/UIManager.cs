@@ -30,7 +30,7 @@ namespace UIFrame
             InitUi(uiScript);
 
             Transform hideUI = null;
-            if (uiScript.Layer == UILayer.BASIC_UI)
+            if (uiScript.GetUiLayer() == UILayer.BASIC_UI)
             {
                 uiScript.UiState = UIState.SHOW;
                 hideUI = Hide();
@@ -61,7 +61,7 @@ namespace UIFrame
             {
                 UIBase hideUI = _uiStack.Pop();
                 Transform shouUI = null;
-                if (hideUI.Layer == UILayer.BASIC_UI)
+                if (hideUI.GetUiLayer() == UILayer.BASIC_UI)
                 {
                     hideUI.UiState = UIState.HIDE;
                     _uiStack.Peek().UiState = UIState.SHOW;
@@ -80,6 +80,11 @@ namespace UIFrame
                 return null;
             }
             
+        }
+
+        public Transform GetCurrentUiTrans()
+        {
+            return _uiStack.Peek().transform;
         }
 
         public List<Transform> GetBtnParents(Transform showUI)
@@ -119,7 +124,7 @@ namespace UIFrame
             if (uiScript.UiState == UIState.NORMAL)
             {
                 Transform ui = uiScript.transform;
-                ui.SetParent(GetLayerObject?.Invoke(uiScript.Layer));
+                ui.SetParent(GetLayerObject?.Invoke(uiScript.GetUiLayer()));
                 ui.localPosition = Vector3.zero;
                 ui.localScale = Vector3.one;
                 ui.RectTransform().offsetMax = Vector2.zero;

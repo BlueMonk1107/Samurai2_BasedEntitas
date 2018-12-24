@@ -100,6 +100,11 @@ namespace UIFrame
             }
         }
 
+        public void ResetChild()
+        {
+            ResetChildState();
+        }
+
         private void ResetChildState()
         {
             foreach (SelectedBtn child in childs)

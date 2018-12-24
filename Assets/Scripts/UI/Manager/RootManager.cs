@@ -40,12 +40,14 @@ namespace UIFrame
         {
             var uiPara = _uiManager.Show(id);
             ExcuteEffect(uiPara);
+            ShowBtnState(uiPara.Item1);
         }
 
         public void Back()
         {
             var uiPara = _uiManager.Back();
             ExcuteEffect(uiPara);
+            ShowBtnState(_uiManager.GetCurrentUiTrans());
         }
 
         public void ButtonLeft()
@@ -67,7 +69,11 @@ namespace UIFrame
         {
             _effectManager.Show(uiPara.Item1);
             _effectManager.Hide(uiPara.Item2);
-            _btnStateManager.Show(uiPara.Item1);
+        }
+
+        private void ShowBtnState(Transform ui)
+        {
+            _btnStateManager.Show(ui);
         }
     }
 }

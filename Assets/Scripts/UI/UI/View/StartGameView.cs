@@ -16,16 +16,17 @@ namespace UIFrame
         public override List<Transform> GetBtnParents()
         {
             List<Transform> list = new List<Transform>();
-            list.Add(transform.Find("Buttons"));
+            list.Add(transform.GetBtnParent());
             return list;
         }
 
-        public void Start()
+        protected override void Init()
         {
-            transform.Find("Buttons/Continue").RectTransform().AddBtnListener(() => { });
-            transform.Find("Buttons/Easy").RectTransform().AddBtnListener(() => { });
-            transform.Find("Buttons/Normal").RectTransform().AddBtnListener(() => { });
-            transform.Find("Buttons/Hard").RectTransform().AddBtnListener(() => { });
+            base.Init();
+            transform.AddBtnListener("Continue",() => { });
+            transform.AddBtnListener("Easy", () => { RootManager.Instance.Show(UiId.NewGameWarning);});
+            transform.AddBtnListener("Normal", () => { });
+            transform.AddBtnListener("Hard", () => { });
         }
     }
 }

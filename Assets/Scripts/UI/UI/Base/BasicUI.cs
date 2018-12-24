@@ -6,9 +6,9 @@ namespace UIFrame
 {
     public abstract class BasicUI : UIBase
     {
-        protected override void Init()
+        public override UILayer GetUiLayer()
         {
-            Layer = Const.UILayer.BASIC_UI;
+            return UILayer.BASIC_UI;
         }
     }
 }

@@ -22,8 +22,8 @@ namespace UIFrame
             float time = 1;
             transform.DOKill();
             transform.RectTransform().DOKill();
-            transform.DOScale(Vector3.one, time);
-            transform.RectTransform().DOAnchorPos(new Vector2(550f, 290f), time).OnComplete(() => _onEnterComplete?.Invoke());
+            transform.DOScale(Vector3.one * 1.5f, time);
+            transform.RectTransform().DOAnchorPos(new Vector2(497f, 198f), time).OnComplete(() => _onEnterComplete?.Invoke());
         }
 
         public override UiEffect GetEffectLevel()

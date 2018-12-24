@@ -25,7 +25,8 @@ namespace Const
     public enum UiId
     {
         MainMenu,
-        StartGame
+        StartGame,
+        NewGameWarning
     }
 
     public enum UiEffect
