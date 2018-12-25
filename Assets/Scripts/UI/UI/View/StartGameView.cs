@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Const;
+using Data;
 using UnityEngine;
 using UnityEngine.UI;
 using Util;
@@ -24,9 +25,34 @@ namespace UIFrame
         {
             base.Init();
             transform.AddBtnListener("Continue",() => { });
-            transform.AddBtnListener("Easy", () => { RootManager.Instance.Show(UiId.NewGameWarning);});
-            transform.AddBtnListener("Normal", () => { });
-            transform.AddBtnListener("Hard", () => { });
+            transform.AddBtnListener("Easy", LoadScene);
+            transform.AddBtnListener("Normal", LoadScene);
+            transform.AddBtnListener("Hard", LoadScene);
+        }
+
+        protected override void Show()
+        {
+            base.Show();
+            SetContinueBtnState();
+        }
+
+        private void SetContinueBtnState()
+        {
+            bool exist = DataManager.JudgeExistData();
+            transform.GetBtnParent().Find("Continue").gameObject.SetActive(exist);
+        }
+
+        private void LoadScene()
+        {
+            bool exist = DataManager.JudgeExistData();
+            if (exist)
+            {
+                RootManager.Instance.Show(UiId.NewGameWarning);
+            }
+            else
+            {
+                //Ìø×ª³¡¾°
+            }
         }
     }
 }

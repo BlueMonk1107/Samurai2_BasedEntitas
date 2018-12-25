@@ -40,4 +40,22 @@ namespace Const
         SELECTED,
         UNSELECTED
     }
+
+    public enum UIAudioName
+    {
+        UI_bg,
+        UI_click,
+        UI_in,
+        UI_logo_in,
+        UI_logo_out,
+        UI_out
+    }
+
+    public enum DifficultLevel
+    {
+        NONE,
+        EASY,
+        NORMAL,
+        HARD
+    }
 }

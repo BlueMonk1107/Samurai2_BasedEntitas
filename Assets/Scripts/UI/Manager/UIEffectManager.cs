@@ -26,6 +26,24 @@ namespace UIFrame
             }
         }
 
+        public void ShowOthersEffect(Transform ui)
+        {
+            foreach (UIEffectBase effectBase in ui.GetComponentsInChildren<UIEffectBase>(true))
+            {
+                if (effectBase.GetEffectLevel() == UiEffect.OTHERS_EFFECT)
+                    effectBase.Enter();
+            }
+        }
+
+        public void HideOthersEffect(Transform ui)
+        {
+            foreach (UIEffectBase effectBase in ui.GetComponentsInChildren<UIEffectBase>(true))
+            {
+                if (effectBase.GetEffectLevel() == UiEffect.OTHERS_EFFECT)
+                    effectBase.Exit();
+            }
+        }
+
         public void AddViewEffectEnterListener(Transform ui,Action enterComplete)
         {
             foreach (UIEffectBase effectBase in ui.GetComponentsInChildren<UIEffectBase>(true))

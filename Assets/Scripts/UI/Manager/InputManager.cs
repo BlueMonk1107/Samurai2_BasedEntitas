@@ -1,3 +1,4 @@
+using Const;
 using UnityEngine;
 
 namespace UIFrame
@@ -9,6 +10,11 @@ namespace UIFrame
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 RootManager.Instance.Back();
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                RootManager.Instance.PlayAudio(UIAudioName.UI_click);
             }
 
             BtnSelected();

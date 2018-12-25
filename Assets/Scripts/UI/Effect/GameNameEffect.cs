@@ -15,6 +15,7 @@ namespace UIFrame
             transform.RectTransform().DOKill();
             transform.DOScale(Vector3.one * 2, time);
             transform.RectTransform().DOAnchorPos(_defaultAncherPos, time).OnComplete(() => _onExitComplete?.Invoke());
+            RootManager.Instance.PlayAudio(UIAudioName.UI_logo_in);
         }
 
         public override void Exit()
@@ -24,6 +25,7 @@ namespace UIFrame
             transform.RectTransform().DOKill();
             transform.DOScale(Vector3.one * 1.5f, time);
             transform.RectTransform().DOAnchorPos(new Vector2(497f, 198f), time).OnComplete(() => _onEnterComplete?.Invoke());
+            RootManager.Instance.PlayAudio(UIAudioName.UI_logo_out);
         }
 
         public override UiEffect GetEffectLevel()

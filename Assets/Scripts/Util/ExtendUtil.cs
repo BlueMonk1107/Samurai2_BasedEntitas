@@ -96,5 +96,18 @@ namespace Util
                 buttonTrans.AddBtnListener(callBack);
             }
         }
+
+        public static T GetOrAddComponent<T>(this Transform transform) where T:Component
+        {
+            var component = transform.GetComponent<T>();
+            if (component == null)
+            {
+                return transform.gameObject.AddComponent<T>();
+            }
+            else
+            {
+                return component;
+            }
+        }
     }
 }

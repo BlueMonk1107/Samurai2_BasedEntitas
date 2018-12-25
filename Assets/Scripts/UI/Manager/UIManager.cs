@@ -87,6 +87,19 @@ namespace UIFrame
             return _uiStack.Peek().transform;
         }
 
+        public Transform GetBaiscUiTrans()
+        {
+            var arrray = _uiStack.ToArray();
+            for (int i = 0; i < arrray.Length; i++)
+            {
+                if (arrray[i].GetUiLayer() == UILayer.BASIC_UI)
+                {
+                    return arrray[i].transform;
+                }
+            }
+            return null;
+        }
+
         public List<Transform> GetBtnParents(Transform showUI)
         {
             if (showUI != null)
@@ -138,7 +151,7 @@ namespace UIFrame
         {
             if (!_prefabDictionary.ContainsKey(id) || _prefabDictionary[id] == null)
             {
-                GameObject prefab = LoadManager.Instacne.Load<GameObject>(Path.UIPath, id.ToString());
+                GameObject prefab = LoadManager.Instacne.Load<GameObject>(Path.UI_PATH, id.ToString());
                 if (prefab != null)
                 {
                     _prefabDictionary[id] = Instantiate(prefab);
