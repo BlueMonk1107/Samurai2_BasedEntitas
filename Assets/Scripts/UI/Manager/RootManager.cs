@@ -1,5 +1,6 @@
 using System;
 using Const;
+using Manager;
 using UnityEngine;
 
 namespace UIFrame
@@ -25,7 +26,7 @@ namespace UIFrame
             _btnStateManager = gameObject.AddComponent<BtnStateManager>();
             _audioManager = gameObject.AddComponent<UIAudioManager>();
 
-            _audioManager.Init(Path.UI_AUDIO_PATH,LoadManager.Instacne.LoadAll<AudioClip>);
+            _audioManager.Init(Path.UI_AUDIO_PATH,LoadManager.Single.LoadAll<AudioClip>);
             _uiManager.AddGetLayerObjectListener(_layerManager.GetLayerObject);
             _uiManager.AddInitCallBackListener((uiTrans) =>
             {

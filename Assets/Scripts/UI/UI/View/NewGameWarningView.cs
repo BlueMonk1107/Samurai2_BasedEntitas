@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Const;
+using Manager;
 using UnityEngine;
 using Util;
 
@@ -22,7 +23,11 @@ namespace UIFrame
         protected override void Init()
         {
             base.Init();
-            transform.AddBtnListener("Yes", () => { Debug.Log("yes");});
+            transform.AddBtnListener("Yes", () =>
+            {
+                DataManager.Single.ResetData();
+                RootManager.Instance.Show(UiId.Loading);
+            });
             transform.AddBtnListener("No", () => { RootManager.Instance.Back(); });
         }
     }

@@ -11,5 +11,9 @@ namespace Const
         public const string DIFFICULT_LEVEL = "DifficultLevel";
         public const string LEVEL_INDEX = "LevelIndex";
         public const string LEVEL_PART_INDEX = "LevelPartIndex";
+
+        public const string MAIN_SCENE = "Main";
+        public const string COMICS_SCENE = "Comics";
+        public const string LEVEL_SCENE = "Level";
     }
 }

@@ -1,14 +1,13 @@
 using System;
+using UIFrame;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace UIFrame
+namespace Manager
 {
-    public class LoadManager      
+    public class LoadManager : SingletonBase<LoadManager>
     {
-        public static LoadManager Instacne { get; private set; } = new LoadManager();
-
-        public T Load<T>(string path,string name) where T:class 
+        public T Load<T>(string path, string name) where T : class
         {
             return Resources.Load(path + name) as T;
         }
