@@ -109,5 +109,19 @@ namespace Util
                 return component;
             }
         }
+
+        public static Transform GetByName(this Transform transform,string name)
+        {
+            var temp = transform.Find(name);
+            if (temp == null)
+            {
+                Debug.LogError("can not find "+name+" under the parent:"+ transform.name);
+                return null;
+            }
+            else
+            {
+                return temp;
+            }
+        }
     }
 }

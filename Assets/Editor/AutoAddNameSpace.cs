@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using UnityEditor;
 using UnityEngine;
 
 namespace CustomTool
@@ -19,6 +20,7 @@ namespace CustomTool
                 var newText = GetNewScriptContext(GetClassName(text));
                 File.WriteAllText(path, newText);
             }
+            AssetDatabase.Refresh();
         }
 
         //获取新的脚本内容
