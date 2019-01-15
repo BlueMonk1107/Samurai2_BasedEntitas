@@ -17,7 +17,12 @@ namespace CustomTool
             {
                 string text = "";
                 text += File.ReadAllText(path);
-                var newText = GetNewScriptContext(GetClassName(text));
+                string name = GetClassName(text);
+                if (string.IsNullOrEmpty(name))
+                {
+                    return;
+                }
+                var newText = GetNewScriptContext(name);
                 File.WriteAllText(path, newText);
             }
             AssetDatabase.Refresh();
@@ -29,7 +34,9 @@ namespace CustomTool
             var script = new ScriptBuildHelp();
             script.WriteUsing("UnityEngine");
             script.WriteEmptyLine();
-            script.WriteNamespace("UIFrame");
+            var data = AddNamespaceWindow.GetData();
+            string name = data == null ? "UIFrame" : data.name;
+            script.WriteNamespace(name);
 
             script.IndentTimes++;
             script.WriteClass(className);
