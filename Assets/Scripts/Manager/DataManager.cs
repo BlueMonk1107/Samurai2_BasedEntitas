@@ -1,5 +1,6 @@
 using System;
 using Const;
+using Game;
 using UIFrame;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,22 +28,28 @@ namespace Manager
             }
         }
 
-        public int LevelIndex
+        /// <summary>
+        /// 关卡数据标记 默认是1
+        /// </summary>
+        public LevelID LevelIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX,value);}
-            get { return PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX, 1); }
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX,(int)value);}
+            get { return (LevelID)PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX, 1); }
         }
 
-        public int LevelPartIndex
+        /// <summary>
+        /// 关卡的第几部分的标记 默认是1
+        /// </summary>
+        public LevelPartID LevelPartIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, value); }
-            get { return PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1); }
+            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
+            get { return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1); }
         }
 
         public void ResetData()
         {
-            LevelIndex = 1;
-            LevelPartIndex = 1;
+            LevelIndex = LevelID.ONE;
+            LevelPartIndex = LevelPartID.ONE;
         }
 
         public bool JudgeExistData()

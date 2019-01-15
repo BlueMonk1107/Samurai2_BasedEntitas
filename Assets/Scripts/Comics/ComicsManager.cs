@@ -73,7 +73,7 @@ namespace UIFrame
 
         private List<Sprite> GetSprites()
         {
-            string path = Path.COMICS_PATH + DataManager.Single.LevelIndex.ToString("00");
+            string path = Path.COMICS_PATH + ((int)DataManager.Single.LevelIndex).ToString("00");
             return LoadManager.Single.LoadAll<Sprite>(path).ToList();
         }
 
