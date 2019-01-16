@@ -30,7 +30,7 @@ public sealed class GameCameraStateEventSystem : Entitas.ReactiveSystem<GameEnti
             _listenerBuffer.Clear();
             _listenerBuffer.AddRange(e.gameCameraStateListener.value);
             foreach (var listener in _listenerBuffer) {
-                listener.OnGameCameraState(e, component.state);
+                listener.OnGameCameraState(e, component.State);
             }
         }
     }

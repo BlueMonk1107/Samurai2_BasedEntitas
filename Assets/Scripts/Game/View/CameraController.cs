@@ -20,9 +20,8 @@ namespace Game
             InitParent();
             InitCamera();
 
-            GameEntity entity = Contexts.sharedInstance.game.CreateEntity();
+            GameEntity entity = Contexts.sharedInstance.game.SetGameCameraState(CameraAniName.START_GAME_ANI);
             gameObject.Link(entity, Contexts.sharedInstance.game);
-            entity.AddGameCameraState(CameraAniName.START_GAME_ANI);
             entity.AddGameCameraStateListener(this);
         }
 
@@ -85,7 +84,6 @@ namespace Game
 
         public void OnGameCameraState(GameEntity entity, CameraAniName state)
         {
-            Debug.Log("ssss");
             Transform parnet = null;
             switch (state)
             {

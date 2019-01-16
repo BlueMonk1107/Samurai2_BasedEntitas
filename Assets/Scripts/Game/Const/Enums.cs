@@ -40,5 +40,16 @@ namespace Game
         TWO
     }
 
-
+    /// <summary>
+    ///  ‰»Î∞¥≈•
+    /// </summary>
+    public enum InputButton
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ATTACK_O,
+        ATTACK_X
+    }
 }

@@ -12,4 +12,13 @@ namespace Game
     {
         public IFindObjectService FindObjectService;
     }
+
+    /// <summary>
+    /// 输入服务组件
+    /// </summary>
+    [Game, Unique]
+    public class InputServiceComponent : IComponent
+    {
+        public IInputService InputService;
+    }
 }
