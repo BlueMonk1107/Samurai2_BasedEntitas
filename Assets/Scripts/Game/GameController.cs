@@ -9,7 +9,12 @@ namespace Game
 
         public void Start()
         {
-            var services = new Services(new FindObjectService());
+            var services = new Services(
+                new FindObjectService(),
+                new EntitasInputService(),
+                new UnityInputService(),
+                new LogService());
+
             _systems = new InitFeature(Contexts.sharedInstance, services);
 
             _systems.Initialize();

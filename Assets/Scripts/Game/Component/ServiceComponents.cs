@@ -17,8 +17,17 @@ namespace Game
     /// 输入服务组件
     /// </summary>
     [Game, Unique]
-    public class InputServiceComponent : IComponent
+    public class EntitasInputServiceComponent : IComponent
     {
-        public IInputService InputService;
+        public IInputService EntitasInputService;
+    }
+
+    /// <summary>
+    /// 输入服务组件
+    /// </summary>
+    [Game, Unique]
+    public class LogServiceComponent : IComponent
+    {
+        public ILogService LogService;
     }
 }

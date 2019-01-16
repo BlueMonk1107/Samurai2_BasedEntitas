@@ -7,5 +7,5 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 public interface IGameCameraStateListener {
-    void OnGameCameraState(GameEntity entity, Game.CameraAniName state);
+    void OnGameCameraState(GameEntity entity, Game.CameraAniName State);
 }

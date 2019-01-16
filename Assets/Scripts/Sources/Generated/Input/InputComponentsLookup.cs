@@ -8,15 +8,15 @@
 //------------------------------------------------------------------------------
 public static class InputComponentsLookup {
 
+    public const int GameInputButton = 0;
 
-
-    public const int TotalComponents = 0;
+    public const int TotalComponents = 1;
 
     public static readonly string[] componentNames = {
-
+        "GameInputButton"
     };
 
     public static readonly System.Type[] componentTypes = {
-
+        typeof(Game.InputButtonComponent)
     };
 }

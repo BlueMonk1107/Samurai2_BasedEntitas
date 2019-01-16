@@ -45,6 +45,7 @@ namespace Game
     /// </summary>
     public enum InputButton
     {
+        NULL,
         UP,
         DOWN,
         LEFT,
