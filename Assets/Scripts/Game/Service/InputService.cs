@@ -86,61 +86,66 @@ namespace Game
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Up();
-            }
+            Up();
 
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Down();
-            }
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Left();
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                Right();
-            }
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                AttackO();
-            }
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                AttackX();
-            }
+            Down();
+
+            Left();
+
+            Right();
+
+            AttackO();
+
+            AttackX();
+            
         }
 
         public void Up()
         {
-            _entitaInputService.Up();
+            if (Input.GetKey(KeyCode.W))
+            {
+                _entitaInputService.Up();
+            }
         }
 
         public void Down()
         {
-            _entitaInputService.Down();
+            if (Input.GetKey(KeyCode.S))
+            {
+                _entitaInputService.Down();
+            }
         }
 
         public void Left()
         {
-            _entitaInputService.Left();
+            if (Input.GetKey(KeyCode.A))
+            {
+                _entitaInputService.Left();
+            }
         }
 
         public void Right()
         {
-            _entitaInputService.Right();
+            if (Input.GetKey(KeyCode.D))
+            {
+                _entitaInputService.Right();
+            }
         }
 
         public void AttackO()
         {
-            _entitaInputService.AttackO();
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                _entitaInputService.AttackO();
+            }
         }
 
         public void AttackX()
         {
-            _entitaInputService.AttackX();
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                _entitaInputService.AttackX();
+            }
         }
     }
 }

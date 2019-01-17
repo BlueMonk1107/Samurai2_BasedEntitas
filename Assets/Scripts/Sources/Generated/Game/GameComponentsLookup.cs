@@ -11,15 +11,17 @@ public static class GameComponentsLookup {
     public const int GameCameraState = 0;
     public const int GameEntitasInputService = 1;
     public const int GameFindObjectService = 2;
-    public const int GameLogService = 3;
-    public const int GameCameraStateListener = 4;
+    public const int GameLoadService = 3;
+    public const int GameLogService = 4;
+    public const int GameCameraStateListener = 5;
 
-    public const int TotalComponents = 5;
+    public const int TotalComponents = 6;
 
     public static readonly string[] componentNames = {
         "GameCameraState",
         "GameEntitasInputService",
         "GameFindObjectService",
+        "GameLoadService",
         "GameLogService",
         "GameCameraStateListener"
     };
@@ -28,6 +30,7 @@ public static class GameComponentsLookup {
         typeof(Game.CameraState),
         typeof(Game.EntitasInputServiceComponent),
         typeof(Game.FindObjectServiceComponent),
+        typeof(Game.LoadServiceComponent),
         typeof(Game.LogServiceComponent),
         typeof(GameCameraStateListenerComponent)
     };

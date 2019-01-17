@@ -40,6 +40,7 @@ namespace Game
             contexts.game.SetGameFindObjectService(services.FindObjectService);
             contexts.game.SetGameEntitasInputService(services.EntitasInputService);
             contexts.game.SetGameLogService(services.LogService);
+            contexts.game.SetGameLoadService(services.LoadService);
         }
     }
 }

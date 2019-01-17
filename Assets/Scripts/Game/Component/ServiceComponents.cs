@@ -30,4 +30,13 @@ namespace Game
     {
         public ILogService LogService;
     }
+
+    /// <summary>
+    /// 输入服务组件
+    /// </summary>
+    [Game, Unique]
+    public class LoadServiceComponent : IComponent
+    {
+        public ILoadService LoadService;
+    }
 }

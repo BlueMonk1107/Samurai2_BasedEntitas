@@ -13,7 +13,8 @@ namespace Game
                 new FindObjectService(),
                 new EntitasInputService(),
                 new UnityInputService(),
-                new LogService());
+                new LogService(),
+                new LoadService());
 
             _systems = new InitFeature(Contexts.sharedInstance, services);
 
