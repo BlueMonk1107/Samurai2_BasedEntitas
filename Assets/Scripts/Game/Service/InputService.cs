@@ -6,22 +6,10 @@ namespace Game
     /// <summary>
     /// 输入服务接口
     /// </summary>
-    public interface IInputService
+    public interface IInputService : IPlayerBehaviour
     {
         void Init(Contexts contexts);
         void Update();
-        void Up();
-        void Down();
-        void Left();
-        void Right();
-        /// <summary>
-        /// 攻击键（按下K）
-        /// </summary>
-        void AttackO();
-        /// <summary>
-        /// 攻击键 （按下L）
-        /// </summary>
-        void AttackX();
     }
     /// <summary>
     /// 与Entitas交互的输入服务

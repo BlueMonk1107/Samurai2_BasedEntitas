@@ -53,4 +53,14 @@ namespace Game
         ATTACK_O,
         ATTACK_X
     }
+
+    /// <summary>
+    /// сно╥в╢л╛
+    /// </summary>
+    public enum GameState
+    {
+        START,
+        PAUSE,
+        END
+    }
 }

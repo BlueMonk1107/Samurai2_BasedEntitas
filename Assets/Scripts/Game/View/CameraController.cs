@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using Entitas;
 using Entitas.Unity;
@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Game
 {
     /// <summary>
-    /// Ïà»ú¿ØÖÆ
+    /// ç›¸æœºæ§åˆ¶
     /// </summary>
     public class CameraController : ViewService, IGameCameraStateListener
     {
@@ -32,7 +32,7 @@ namespace Game
 
             if (camera == null)
             {
-                Debug.LogError("ÎŞ·¨²éÕÒµ½Ïà»ú");
+                Debug.LogError("æ— æ³•æŸ¥æ‰¾åˆ°ç›¸æœº");
             }
             else
             {
@@ -70,7 +70,7 @@ namespace Game
                 }
                 else
                 {
-                    Debug.LogError("ÎŞ·¨ÕÒµ½ÃûÎª£º" + parent + " µÄÏà»ú¸¸ÎïÌå");
+                    Debug.LogError("æ— æ³•æ‰¾åˆ°åä¸ºï¼š" + parent + " çš„ç›¸æœºçˆ¶ç‰©ä½“");
                 }
             }
         }

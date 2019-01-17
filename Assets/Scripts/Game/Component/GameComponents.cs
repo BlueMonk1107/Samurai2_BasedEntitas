@@ -13,5 +13,13 @@ namespace Game
         public CameraAniName State;
     }
 
+    /// <summary>
+    /// сно╥в╢л╛
+    /// </summary>
+    [Game,Unique]
+    public class GameStateComponent : IComponent
+    {
+        public GameState GameState;
+    }
  
 }
