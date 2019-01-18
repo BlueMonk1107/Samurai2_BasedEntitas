@@ -4,11 +4,11 @@ using System.Collections.Generic;
 namespace Game
 {
     /// <summary>
-    /// 向上按键响应系统
+    /// 向前按键响应系统
     /// </summary>
-    public class InputUpButtonSystem : InputButtonSystemBase
+    public class InputForwardButtonSystem : InputButtonSystemBase
     {
-        public InputUpButtonSystem(Contexts contexts) : base(contexts)
+        public InputForwardButtonSystem(Contexts contexts) : base(contexts)
         {
         }
 
@@ -19,16 +19,16 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("Up");
+            _contexts.game.gamePlayer.Behaviour.Forward();
         }
     }
 
     /// <summary>
-    /// 向下按键响应系统
+    /// 向后按键响应系统
     /// </summary>
-    public class InputDownButtonSystem : InputButtonSystemBase
+    public class InputBackButtonSystem : InputButtonSystemBase
     {
-        public InputDownButtonSystem(Contexts contexts) : base(contexts)
+        public InputBackButtonSystem(Contexts contexts) : base(contexts)
         {
         }
 
@@ -39,7 +39,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("down");
+            _contexts.game.gamePlayer.Behaviour.Back();
         }
     }
 
@@ -59,7 +59,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("left");
+            _contexts.game.gamePlayer.Behaviour.Left();
         }
     }
 
@@ -79,7 +79,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("right");
+            _contexts.game.gamePlayer.Behaviour.Right();
         }
     }
 
@@ -99,7 +99,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("attack o");
+            _contexts.game.gamePlayer.Behaviour.AttackO();
         }
     }
 
@@ -119,7 +119,7 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gameLogService.LogService.Log("attack x");
+            _contexts.game.gamePlayer.Behaviour.AttackX();
         }
     }
 

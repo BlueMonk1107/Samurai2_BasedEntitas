@@ -21,9 +21,13 @@ namespace Game
         public GameState GameState;
     }
 
+    /// <summary>
+    /// Íæ¼Ò
+    /// </summary>
     [Game,Unique]
     public class PlayerComponent : IComponent
     {
+        public IView Player;
         public IPlayerBehaviour Behaviour;
     }
  

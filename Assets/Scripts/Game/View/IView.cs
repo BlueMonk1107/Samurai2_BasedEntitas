@@ -1,3 +1,4 @@
+using Entitas;
 using UnityEngine;
 
 namespace Game
@@ -7,6 +8,6 @@ namespace Game
     /// </summary>
     public interface IView
     {
-        void Init();
+        void Init(Contexts contexts,IEntity entity);
     }
 }

@@ -12,7 +12,7 @@ namespace Game
         /// <summary>
         /// º”‘ÿÕÊº“‘§÷∆
         /// </summary>
-        IPlayerBehaviour LoadPlayer();
+        void LoadPlayer();
     }
 
     public class LoadService : ILoadService
@@ -38,12 +38,15 @@ namespace Game
             return LoadManager.Single.LoadAll<T>(path);
         }
 
-        public IPlayerBehaviour LoadPlayer()
+        public void LoadPlayer()
         {
             var player = LoadAndInstaniate(Path.PLAYER_PREFAB, _parentManager.GetParnetTrans(ParentName.PlayerRoot));
             PlayerView view = player.AddComponent<PlayerView>();
-            view.Init();
-            return view;
+            IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform);
+
+            var entity = Contexts.sharedInstance.game.CreateEntity();
+            entity.AddGamePlayer(view, behaviour);
+            view.Init(Contexts.sharedInstance, entity);
         }
     }
 }

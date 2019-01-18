@@ -1,42 +1,17 @@
+using Entitas;
+using Entitas.Unity;
 using UnityEngine;
 
 namespace Game
 {
-    public class PlayerView : MonoBehaviour,IView, IPlayerBehaviour
+    /// <summary>
+    /// Íæ¼ÒÔ¤ÖÆView
+    /// </summary>
+    public class PlayerView : ViewService
     {
-        public void Init()
+        public override void Init(Contexts contexts, IEntity entity)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void Up()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Down()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Left()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void Right()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AttackO()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AttackX()
-        {
-            throw new System.NotImplementedException();
+            gameObject.Link(entity, contexts.game);
         }
     }
 }

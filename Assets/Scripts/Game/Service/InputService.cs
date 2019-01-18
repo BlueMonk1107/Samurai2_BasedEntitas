@@ -39,7 +39,7 @@ namespace Game
             _contexts.input.ReplaceGameInputButton(InputButton.ATTACK_X);
         }
 
-        public void Down()
+        public void Back()
         {
             _contexts.input.ReplaceGameInputButton(InputButton.DOWN);
         }
@@ -54,7 +54,7 @@ namespace Game
             _contexts.input.ReplaceGameInputButton(InputButton.RIGHT);
         }
 
-        public void Up()
+        public void Forward()
         {
             _contexts.input.ReplaceGameInputButton(InputButton.UP);
         }
@@ -74,9 +74,9 @@ namespace Game
 
         public void Update()
         {
-            Up();
+            Forward();
 
-            Down();
+            Back();
 
             Left();
 
@@ -88,19 +88,19 @@ namespace Game
             
         }
 
-        public void Up()
+        public void Forward()
         {
             if (Input.GetKey(KeyCode.W))
             {
-                _entitaInputService.Up();
+                _entitaInputService.Forward();
             }
         }
 
-        public void Down()
+        public void Back()
         {
             if (Input.GetKey(KeyCode.S))
             {
-                _entitaInputService.Down();
+                _entitaInputService.Back();
             }
         }
 

@@ -7,6 +7,7 @@ namespace Game
     /// </summary>
     public enum CameraAniName
     {
+        NULL,
         /// <summary>
         /// 开场相机动画
         /// </summary>

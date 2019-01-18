@@ -15,14 +15,15 @@ namespace Game
         private Dictionary<CameraParent, Transform> _parentDic;
         private CameraMove _cameraMove;
 
-        public override void Init()
+        public override void Init(Contexts contexts, IEntity entity)
         {
             InitParent();
             InitCamera();
 
-            GameEntity entity = Contexts.sharedInstance.game.SetGameCameraState(CameraAniName.START_GAME_ANI);
-            gameObject.Link(entity, Contexts.sharedInstance.game);
-            entity.AddGameCameraStateListener(this);
+            gameObject.Link(entity, contexts.game);
+
+            GameEntity gameEntity = (GameEntity) entity;
+            gameEntity.AddGameCameraStateListener(this);
         }
 
 

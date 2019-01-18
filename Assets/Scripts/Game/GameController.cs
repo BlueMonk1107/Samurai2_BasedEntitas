@@ -9,9 +9,11 @@ namespace Game
     {
         private Systems _systems;
         private GameParentManager _parentManager;
+        private Contexts _contexts;
 
         public void Start()
         {
+            _contexts = Contexts.sharedInstance;
             InitManager();
             var services = new Services(
                 new FindObjectService(),
@@ -23,8 +25,8 @@ namespace Game
             _systems = new InitFeature(Contexts.sharedInstance, services);
 
             _systems.Initialize();
-
-            Contexts.sharedInstance.game.SetGameGameState(GameState.START);
+           
+            _contexts.game.SetGameGameState(GameState.START);
         }
 
         private void InitManager()
@@ -33,7 +35,10 @@ namespace Game
             _parentManager.Init();
 
             var cameraContrller = _parentManager.GetParnetTrans(ParentName.CameraController);
-            cameraContrller.gameObject.AddComponent<CameraController>();
+            CameraController cameraController = cameraContrller.gameObject.AddComponent<CameraController>();
+            var entity = _contexts.game.CreateEntity();
+            entity.AddGameCameraState(CameraAniName.NULL);
+            cameraController.Init(_contexts, entity);
         }
 
         private void Update()

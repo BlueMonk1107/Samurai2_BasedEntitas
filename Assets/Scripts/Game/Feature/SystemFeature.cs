@@ -11,8 +11,8 @@ namespace Game
 
         private void AddInputSystem(Contexts contexts)
         {
-            Add(new InputUpButtonSystem(contexts));
-            Add(new InputDownButtonSystem(contexts));
+            Add(new InputForwardButtonSystem(contexts));
+            Add(new InputBackButtonSystem(contexts));
             Add(new InputLeftButtonSystem(contexts));
             Add(new InputRightButtonSystem(contexts));
             Add(new InputAttackOButtonSystem(contexts));
