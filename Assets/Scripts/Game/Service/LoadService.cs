@@ -12,7 +12,7 @@ namespace Game
         /// <summary>
         /// º”‘ÿÕÊº“‘§÷∆
         /// </summary>
-        void LoadPlayer();
+        IPlayerBehaviour LoadPlayer();
     }
 
     public class LoadService : ILoadService
@@ -38,9 +38,12 @@ namespace Game
             return LoadManager.Single.LoadAll<T>(path);
         }
 
-        public void LoadPlayer()
+        public IPlayerBehaviour LoadPlayer()
         {
             var player = LoadAndInstaniate(Path.PLAYER_PREFAB, _parentManager.GetParnetTrans(ParentName.PlayerRoot));
+            PlayerView view = player.AddComponent<PlayerView>();
+            view.Init();
+            return view;
         }
     }
 }

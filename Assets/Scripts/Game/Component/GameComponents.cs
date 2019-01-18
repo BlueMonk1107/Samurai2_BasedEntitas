@@ -1,6 +1,5 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using UnityEngine;
 
 namespace Game
 {
@@ -20,6 +19,12 @@ namespace Game
     public class GameStateComponent : IComponent
     {
         public GameState GameState;
+    }
+
+    [Game,Unique]
+    public class PlayerComponent : IComponent
+    {
+        public IPlayerBehaviour Behaviour;
     }
  
 }

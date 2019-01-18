@@ -44,7 +44,8 @@ namespace Game
 
         protected override void Execute(List<GameEntity> entities)
         {
-            _contexts.game.gameLoadService.LoadService.LoadPlayer();
+            IPlayerBehaviour behaviour = _contexts.game.gameLoadService.LoadService.LoadPlayer();
+            _contexts.game.SetGamePlayer(behaviour);
         }
     }
 
