@@ -1,5 +1,7 @@
 using Entitas;
+using Manager;
 using Manager.Parent;
+using Model;
 using UnityEngine;
 using Util;
 
@@ -39,6 +41,8 @@ namespace Game
             var entity = _contexts.game.CreateEntity();
             entity.AddGameCameraState(CameraAniName.NULL);
             cameraController.Init(_contexts, entity);
+
+            ModelManager.Single.Init();
         }
 
         private void Update()

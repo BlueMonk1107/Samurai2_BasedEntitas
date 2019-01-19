@@ -1,3 +1,4 @@
+using Model;
 using UnityEngine;
 
 namespace Game
@@ -8,32 +9,34 @@ namespace Game
     public class PlayerBehaviour : IPlayerBehaviour
     {
         private readonly Transform _playerTrans;
-        public PlayerBehaviour(Transform player)
+        private readonly PlayerDataModel _model;
+        public PlayerBehaviour(Transform player, PlayerDataModel model)
         {
             _playerTrans = player;
+            _model = model;
         }
 
         public void Forward()
         {
-            Move(5, Vector3.forward);
+            Move(Vector3.forward);
             PlayerOrientation(Vector3.zero);
         }
 
         public void Back()
         {
-            Move(5, Vector3.back);
+            Move(Vector3.back);
             PlayerOrientation(Vector3.up * 180);
         }
 
         public void Left()
         {
-            Move(5, Vector3.left);
+            Move(Vector3.left);
             PlayerOrientation(Vector3.up * -90);
         }
 
         public void Right()
         {
-            Move(5, Vector3.right);
+            Move(Vector3.right);
             PlayerOrientation(Vector3.up * 90);
         }
 
@@ -47,9 +50,9 @@ namespace Game
             throw new System.NotImplementedException();
         }
 
-        private void Move(float speed, Vector3 direction)
+        private void Move(Vector3 direction)
         {
-            _playerTrans.Translate(Time.deltaTime * speed * direction, Space.World);
+            _playerTrans.Translate(Time.deltaTime * _model.Speed * direction, Space.World);
         }
 
         private void PlayerOrientation(Vector3 direction)

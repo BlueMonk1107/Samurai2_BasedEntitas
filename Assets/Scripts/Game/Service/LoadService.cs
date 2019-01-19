@@ -42,7 +42,7 @@ namespace Game
         {
             var player = LoadAndInstaniate(Path.PLAYER_PREFAB, _parentManager.GetParnetTrans(ParentName.PlayerRoot));
             PlayerView view = player.AddComponent<PlayerView>();
-            IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform);
+            IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform,ModelManager.Single.PlayerData);
 
             var entity = Contexts.sharedInstance.game.CreateEntity();
             entity.AddGamePlayer(view, behaviour);
