@@ -1,6 +1,7 @@
 fileFormatVersion: 2
 guid: 324dfd59a13dd4f0ba3ae88e80e7667a
-timeCreated: 18446744011573954816
+timeCreated: 1547882435
+licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -53,7 +54,7 @@ ModelImporter:
     4300024: Box07
     4300026: Box08
     4300028: Box09
-    7400000: Take 001
+    7400000: Test
     7400002: runSword
     7400004: runBo
     7400006: run
@@ -93,6 +94,7 @@ ModelImporter:
     7400074: attackKnockdown
     7400076: hidSwordRun
     7400078: showSwordRun
+    9500000: //RootNode
     11100000: //RootNode
     13700000: player
   externalObjects: {}
@@ -114,7 +116,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -217,7 +219,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 1
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -273,7 +275,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -655,7 +657,7 @@ ModelImporter:
     tangentImportMode: 2
     normalCalculationMode: 0
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human: []
@@ -670,10 +672,11 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 0
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 8587865fa730747079c008901485f92d,
+    type: 3}
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -14,10 +14,11 @@ public static class GameComponentsLookup {
     public const int GameGameState = 3;
     public const int GameLoadService = 4;
     public const int GameLogService = 5;
-    public const int GamePlayer = 6;
-    public const int GameCameraStateListener = 7;
+    public const int GamePlayerAniState = 6;
+    public const int GamePlayer = 7;
+    public const int GameCameraStateListener = 8;
 
-    public const int TotalComponents = 8;
+    public const int TotalComponents = 9;
 
     public static readonly string[] componentNames = {
         "GameCameraState",
@@ -26,6 +27,7 @@ public static class GameComponentsLookup {
         "GameGameState",
         "GameLoadService",
         "GameLogService",
+        "GamePlayerAniState",
         "GamePlayer",
         "GameCameraStateListener"
     };
@@ -37,6 +39,7 @@ public static class GameComponentsLookup {
         typeof(Game.GameStateComponent),
         typeof(Game.LoadServiceComponent),
         typeof(Game.LogServiceComponent),
+        typeof(Game.PlayerAniState),
         typeof(Game.PlayerComponent),
         typeof(GameCameraStateListenerComponent)
     };

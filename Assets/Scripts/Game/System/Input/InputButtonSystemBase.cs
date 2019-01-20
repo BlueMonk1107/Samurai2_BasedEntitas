@@ -24,7 +24,7 @@ namespace Game
 
         protected override bool Filter(InputEntity entity)
         {
-            return entity.hasGameInputButton && entity.gameInputButton.InputButton != InputButton.NULL && FilterCondition(entity);
+            return entity.hasGameInputButton && FilterCondition(entity);
         }
 
         /// <summary>

@@ -54,6 +54,11 @@ namespace Game
             _contexts.input.ReplaceGameInputButton(InputButton.RIGHT);
         }
 
+        public void Idle()
+        {
+            _contexts.input.ReplaceGameInputButton(InputButton.NULL);
+        }
+
         public void Forward()
         {
             _contexts.input.ReplaceGameInputButton(InputButton.UP);
@@ -66,6 +71,7 @@ namespace Game
     public class UnityInputService : IInputService
     {
         private IInputService _entitaInputService;
+        private bool _isPress;
 
         public void Init(Contexts contexts)
         {
@@ -74,6 +80,8 @@ namespace Game
 
         public void Update()
         {
+            _isPress = false;
+
             Forward();
 
             Back();
@@ -85,7 +93,15 @@ namespace Game
             AttackO();
 
             AttackX();
-            
+
+            Idle();
+        }
+        public void Idle()
+        {
+            if (!_isPress)
+            {
+                _entitaInputService.Idle();
+            }
         }
 
         public void Forward()
@@ -93,6 +109,7 @@ namespace Game
             if (Input.GetKey(KeyCode.W))
             {
                 _entitaInputService.Forward();
+                _isPress = true;
             }
         }
 
@@ -101,6 +118,7 @@ namespace Game
             if (Input.GetKey(KeyCode.S))
             {
                 _entitaInputService.Back();
+                _isPress = true;
             }
         }
 
@@ -109,6 +127,7 @@ namespace Game
             if (Input.GetKey(KeyCode.A))
             {
                 _entitaInputService.Left();
+                _isPress = true;
             }
         }
 
@@ -117,6 +136,7 @@ namespace Game
             if (Input.GetKey(KeyCode.D))
             {
                 _entitaInputService.Right();
+                _isPress = true;
             }
         }
 
@@ -125,6 +145,7 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.K))
             {
                 _entitaInputService.AttackO();
+                _isPress = true;
             }
         }
 
@@ -133,6 +154,7 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.L))
             {
                 _entitaInputService.AttackX();
+                _isPress = true;
             }
         }
     }

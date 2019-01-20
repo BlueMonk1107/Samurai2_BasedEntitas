@@ -16,6 +16,11 @@ namespace Game
             _model = model;
         }
 
+        public void Idle()
+        {
+
+        }
+
         public void Forward()
         {
             Move(Vector3.forward);

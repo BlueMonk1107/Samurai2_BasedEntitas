@@ -4,6 +4,29 @@ using System.Collections.Generic;
 namespace Game
 {
     /// <summary>
+    /// 没有按键按下的状态
+    /// </summary>
+    public class InputNullSysytem : InputButtonSystemBase
+    {
+        public InputNullSysytem(Contexts contexts) : base(contexts)
+        {
+        }
+
+        protected override bool FilterCondition(InputEntity entity)
+        {
+            return entity.gameInputButton.InputButton == InputButton.NULL;
+        }
+
+        protected override void Execute(List<InputEntity> entities)
+        {
+            if (_contexts.game.hasGamePlayer)
+            {
+                _contexts.game.gamePlayer.Ani.Idle();
+            }
+        }
+    }
+
+    /// <summary>
     /// 向前按键响应系统
     /// </summary>
     public class InputForwardButtonSystem : InputButtonSystemBase
@@ -20,6 +43,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.Forward();
+            _contexts.game.gamePlayer.Ani.Forward();
         }
     }
 
@@ -40,6 +64,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.Back();
+            _contexts.game.gamePlayer.Ani.Back();
         }
     }
 
@@ -60,6 +85,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.Left();
+            _contexts.game.gamePlayer.Ani.Left();
         }
     }
 
@@ -80,6 +106,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.Right();
+            _contexts.game.gamePlayer.Ani.Right();
         }
     }
 
@@ -100,6 +127,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.AttackO();
+            _contexts.game.gamePlayer.Ani.AttackO();
         }
     }
 
@@ -120,6 +148,7 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.AttackX();
+            _contexts.game.gamePlayer.Ani.AttackX();
         }
     }
 

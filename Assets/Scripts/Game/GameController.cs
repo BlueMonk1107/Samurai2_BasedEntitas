@@ -22,7 +22,8 @@ namespace Game
                 new EntitasInputService(),
                 new UnityInputService(),
                 new LogService(),
-                new LoadService(_parentManager));
+                new LoadService(_parentManager),
+                new TimerService(_contexts));
 
             _systems = new InitFeature(Contexts.sharedInstance, services);
 

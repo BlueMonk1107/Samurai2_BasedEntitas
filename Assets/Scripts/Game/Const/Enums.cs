@@ -64,4 +64,14 @@ namespace Game
         PAUSE,
         END
     }
+
+    /// <summary>
+    /// 动画参数对应枚举
+    /// </summary>
+    public enum PlayerAniIndex
+    {
+        IDLE,
+        RUN,
+        WALK
+    }
 }

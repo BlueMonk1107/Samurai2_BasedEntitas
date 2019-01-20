@@ -29,6 +29,16 @@ namespace Game
     {
         public IView Player;
         public IPlayerBehaviour Behaviour;
+        public IPlayerAni Ani;
+    }
+
+    /// <summary>
+    /// Íæ¼Ò¶¯»­
+    /// </summary>
+    [Game]
+    public class PlayerAniState : IComponent
+    {
+        public PlayerAniIndex AniIndex;
     }
  
 }

@@ -15,5 +15,12 @@ namespace Const
         public const string MAIN_SCENE = "Main";
         public const string COMICS_SCENE = "Comics";
         public const string LEVEL_SCENE = "Level";
+
+
+        //ani para name
+        /// <summary>
+        /// 玩家动画参数名称
+        /// </summary>
+        public const string PLAYER_PARA_NAME = "AniIndex";
     }
 }

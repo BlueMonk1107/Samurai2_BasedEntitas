@@ -7,6 +7,7 @@ namespace Game
     /// </summary>
     public interface IBehaviour
     {
+        void Idle();
         void Forward();
         void Back();
         void Left();

@@ -1,6 +1,7 @@
 using Manager;
 using Manager.Parent;
 using UnityEngine;
+using Util;
 
 namespace Game
 {
@@ -41,11 +42,21 @@ namespace Game
         public void LoadPlayer()
         {
             var player = LoadAndInstaniate(Path.PLAYER_PREFAB, _parentManager.GetParnetTrans(ParentName.PlayerRoot));
-            PlayerView view = player.AddComponent<PlayerView>();
+            IView view = player.AddComponent<PlayerView>();
             IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform,ModelManager.Single.PlayerData);
-
+            IPlayerAni ani = null;
+            Animator animator = player.GetComponent<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError("玩家预制上为发现动画组件");
+            }
+            else
+            {
+                ani = new PlayerAni(animator);
+            }
             var entity = Contexts.sharedInstance.game.CreateEntity();
-            entity.AddGamePlayer(view, behaviour);
+            entity.AddGamePlayer(view, behaviour, ani);
+            entity.AddGamePlayerAniState(PlayerAniIndex.IDLE);
             view.Init(Contexts.sharedInstance, entity);
         }
     }
