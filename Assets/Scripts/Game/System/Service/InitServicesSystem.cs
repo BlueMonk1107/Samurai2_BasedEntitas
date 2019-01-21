@@ -1,4 +1,5 @@
 using Entitas;
+using Game.Service;
 using UnityEngine;
 
 namespace Game
@@ -9,9 +10,9 @@ namespace Game
     public class InitServicesSystem : IInitializeSystem
     {
         private Contexts _contexts;
-        private Services _services;
+        private ServiceManager _services;
 
-        public InitServicesSystem(Contexts contexts,Services services)
+        public InitServicesSystem(Contexts contexts,ServiceManager services)
         {
             _contexts = contexts;
             _services = services;
@@ -24,10 +25,10 @@ namespace Game
             InitServices(_contexts, _services);
         }
 
-        private void InitServices(Contexts contexts, Services service)
+        private void InitServices(Contexts contexts, ServiceManager service)
         {
-            service.EntitasInputService.Init(contexts);
-            service.UnityInputService.Init(contexts);
+            //service.EntitasInputService.Init(contexts);
+            //service.UnityInputService.Init(contexts);
         }
 
         /// <summary>
@@ -35,12 +36,12 @@ namespace Game
         /// </summary>
         /// <param name="contexts"></param>
         /// <param name="services"></param>
-        private void InitUniqueComponents(Contexts contexts, Services services)
+        private void InitUniqueComponents(Contexts contexts, ServiceManager services)
         {
-            contexts.game.SetGameFindObjectService(services.FindObjectService);
-            contexts.game.SetGameEntitasInputService(services.EntitasInputService);
-            contexts.game.SetGameLogService(services.LogService);
-            contexts.game.SetGameLoadService(services.LoadService);
+            
+           
+            
+            
         }
     }
 }

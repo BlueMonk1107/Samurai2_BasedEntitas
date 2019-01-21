@@ -1,4 +1,5 @@
 using Entitas;
+using Game.Service;
 using Manager;
 using Manager.Parent;
 using Model;
@@ -10,44 +11,42 @@ namespace Game
     public class GameController : MonoBehaviour
     {
         private Systems _systems;
-        private GameParentManager _parentManager;
         private Contexts _contexts;
+        private IServiceManager _serviceManager;
 
         public void Start()
         {
             _contexts = Contexts.sharedInstance;
             InitManager();
-            var services = new Services(
-                new FindObjectService(),
-                new EntitasInputService(),
-                new UnityInputService(),
-                new LogService(),
-                new LoadService(_parentManager),
-                new TimerService(_contexts));
 
-            _systems = new InitFeature(Contexts.sharedInstance, services);
+            _systems = new InitFeature(Contexts.sharedInstance);
 
             _systems.Initialize();
            
             _contexts.game.SetGameGameState(GameState.START);
+
+            _serviceManager.Init(_contexts);
         }
 
         private void InitManager()
         {
-            _parentManager = transform.GetOrAddComponent<GameParentManager>();
-            _parentManager.Init();
+            var parentManager = transform.GetOrAddComponent<GameParentManager>();
+            parentManager.Init();
 
-            var cameraContrller = _parentManager.GetParnetTrans(ParentName.CameraController);
+            var cameraContrller = parentManager.GetParnetTrans(ParentName.CameraController);
             CameraController cameraController = cameraContrller.gameObject.AddComponent<CameraController>();
             var entity = _contexts.game.CreateEntity();
             entity.AddGameCameraState(CameraAniName.NULL);
             cameraController.Init(_contexts, entity);
 
             ModelManager.Single.Init();
+
+            _serviceManager = new ServiceManager(parentManager);
         }
 
         private void Update()
         {
+            _serviceManager.Excute();
             _systems.Execute();
             _systems.Cleanup();
         }

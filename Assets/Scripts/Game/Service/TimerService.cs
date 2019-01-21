@@ -1,23 +1,30 @@
 using Entitas;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
-    public interface ITimerService
+    public interface ITimerService : IInitService, IExecuteService
     {
         
     }
 
-    public class TimerService : IExecuteSystem, ITimerService
+    public class TimerService : ITimerService
     {
-        public TimerService(Contexts contexts)
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameTimerService(this);
+        }
+
+        public TimerService()
         {
             
         }
 
-        public void Execute()
+        public void Excute()
         {
             throw new System.NotImplementedException();
         }
+
+        
     }
 }

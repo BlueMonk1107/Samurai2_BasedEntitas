@@ -3,12 +3,12 @@ using Manager.Parent;
 using UnityEngine;
 using Util;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 加载服务接口
     /// </summary>
-    public interface ILoadService : ILoad
+    public interface ILoadService : ILoad,IInitService
     {
         /// <summary>
         /// 加载玩家预制
@@ -19,6 +19,13 @@ namespace Game
     public class LoadService : ILoadService
     {
         private GameParentManager _parentManager;
+
+
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameLoadService(this);
+        }
+
         public LoadService(GameParentManager parentManager)
         {
             _parentManager = parentManager;
@@ -59,5 +66,6 @@ namespace Game
             entity.AddGamePlayerAniState(PlayerAniIndex.IDLE);
             view.Init(Contexts.sharedInstance, entity);
         }
+        
     }
 }

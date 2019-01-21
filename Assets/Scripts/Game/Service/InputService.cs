@@ -1,20 +1,19 @@
 using System;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 输入服务接口
     /// </summary>
     public interface IInputService : IPlayerBehaviour
     {
-        void Init(Contexts contexts);
-        void Update();
+
     }
     /// <summary>
     /// 与Entitas交互的输入服务
     /// </summary>
-    public class EntitasInputService : IInputService
+    public class EntitasInputService : IInputService,IInitService
     {
         private Contexts _contexts;
 
@@ -22,6 +21,7 @@ namespace Game
         {
             _contexts = contexts;
             _contexts.input.SetGameInputButton(InputButton.NULL);
+            _contexts.game.SetGameEntitasInputService(this);
         }
 
         public void Update()
@@ -68,7 +68,7 @@ namespace Game
     /// <summary>
     /// 与Unity交互的输入服务
     /// </summary>
-    public class UnityInputService : IInputService
+    public class UnityInputService : IInputService, IInitService,IExecuteService
     {
         private IInputService _entitaInputService;
         private bool _isPress;
@@ -78,7 +78,7 @@ namespace Game
             _entitaInputService = contexts.game.gameEntitasInputService.EntitasInputService;
         }
 
-        public void Update()
+        public void Excute()
         {
             _isPress = false;
 

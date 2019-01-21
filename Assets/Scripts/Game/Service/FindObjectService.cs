@@ -1,4 +1,5 @@
 using System.Linq;
+using Game.Service;
 using UnityEngine;
 
 namespace Game
@@ -8,6 +9,11 @@ namespace Game
     /// </summary>
     public class FindObjectService : IFindObjectService
     {
+        public void Init(Contexts contexts)
+        {
+            contexts.game.SetGameFindObjectService(this);
+        }
+
         public T[] FindAllType<T>() where T : Object
         {
             T[] temp = Object.FindObjectsOfType<T>();
@@ -26,5 +32,6 @@ namespace Game
         {
             return FindAllType<ViewService>();
         }
+       
     }
 }

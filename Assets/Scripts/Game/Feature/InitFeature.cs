@@ -1,3 +1,4 @@
+using Game.Service;
 using UnityEngine;
 
 namespace Game
@@ -7,11 +8,10 @@ namespace Game
     /// </summary>
     public class InitFeature : Feature     
     {
-        public InitFeature(Contexts contexts, Services services) : base("Init")
+        public InitFeature(Contexts contexts) : base("Init")
         {
             Add(new GameEventSystems(contexts));
-            
-            Add(new ServiceFeature(contexts, services));
+
             Add(new ViewFeature(contexts));
             Add(new SystemFeature(contexts));
             Add(new GameFeature(contexts));

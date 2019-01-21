@@ -12,7 +12,7 @@ public partial class GameContext {
     public Game.FindObjectServiceComponent gameFindObjectService { get { return gameFindObjectServiceEntity.gameFindObjectService; } }
     public bool hasGameFindObjectService { get { return gameFindObjectServiceEntity != null; } }
 
-    public GameEntity SetGameFindObjectService(Game.IFindObjectService newFindObjectService) {
+    public GameEntity SetGameFindObjectService(Game.Service.IFindObjectService newFindObjectService) {
         if (hasGameFindObjectService) {
             throw new Entitas.EntitasException("Could not set GameFindObjectService!\n" + this + " already has an entity with Game.FindObjectServiceComponent!",
                 "You should check if the context already has a gameFindObjectServiceEntity before setting it or use context.ReplaceGameFindObjectService().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceGameFindObjectService(Game.IFindObjectService newFindObjectService) {
+    public void ReplaceGameFindObjectService(Game.Service.IFindObjectService newFindObjectService) {
         var entity = gameFindObjectServiceEntity;
         if (entity == null) {
             entity = SetGameFindObjectService(newFindObjectService);
@@ -49,14 +49,14 @@ public partial class GameEntity {
     public Game.FindObjectServiceComponent gameFindObjectService { get { return (Game.FindObjectServiceComponent)GetComponent(GameComponentsLookup.GameFindObjectService); } }
     public bool hasGameFindObjectService { get { return HasComponent(GameComponentsLookup.GameFindObjectService); } }
 
-    public void AddGameFindObjectService(Game.IFindObjectService newFindObjectService) {
+    public void AddGameFindObjectService(Game.Service.IFindObjectService newFindObjectService) {
         var index = GameComponentsLookup.GameFindObjectService;
         var component = (Game.FindObjectServiceComponent)CreateComponent(index, typeof(Game.FindObjectServiceComponent));
         component.FindObjectService = newFindObjectService;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameFindObjectService(Game.IFindObjectService newFindObjectService) {
+    public void ReplaceGameFindObjectService(Game.Service.IFindObjectService newFindObjectService) {
         var index = GameComponentsLookup.GameFindObjectService;
         var component = (Game.FindObjectServiceComponent)CreateComponent(index, typeof(Game.FindObjectServiceComponent));
         component.FindObjectService = newFindObjectService;

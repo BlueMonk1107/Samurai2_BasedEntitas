@@ -12,7 +12,7 @@ public partial class GameContext {
     public Game.LogServiceComponent gameLogService { get { return gameLogServiceEntity.gameLogService; } }
     public bool hasGameLogService { get { return gameLogServiceEntity != null; } }
 
-    public GameEntity SetGameLogService(Game.ILogService newLogService) {
+    public GameEntity SetGameLogService(Game.Service.ILogService newLogService) {
         if (hasGameLogService) {
             throw new Entitas.EntitasException("Could not set GameLogService!\n" + this + " already has an entity with Game.LogServiceComponent!",
                 "You should check if the context already has a gameLogServiceEntity before setting it or use context.ReplaceGameLogService().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceGameLogService(Game.ILogService newLogService) {
+    public void ReplaceGameLogService(Game.Service.ILogService newLogService) {
         var entity = gameLogServiceEntity;
         if (entity == null) {
             entity = SetGameLogService(newLogService);
@@ -49,14 +49,14 @@ public partial class GameEntity {
     public Game.LogServiceComponent gameLogService { get { return (Game.LogServiceComponent)GetComponent(GameComponentsLookup.GameLogService); } }
     public bool hasGameLogService { get { return HasComponent(GameComponentsLookup.GameLogService); } }
 
-    public void AddGameLogService(Game.ILogService newLogService) {
+    public void AddGameLogService(Game.Service.ILogService newLogService) {
         var index = GameComponentsLookup.GameLogService;
         var component = (Game.LogServiceComponent)CreateComponent(index, typeof(Game.LogServiceComponent));
         component.LogService = newLogService;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameLogService(Game.ILogService newLogService) {
+    public void ReplaceGameLogService(Game.Service.ILogService newLogService) {
         var index = GameComponentsLookup.GameLogService;
         var component = (Game.LogServiceComponent)CreateComponent(index, typeof(Game.LogServiceComponent));
         component.LogService = newLogService;

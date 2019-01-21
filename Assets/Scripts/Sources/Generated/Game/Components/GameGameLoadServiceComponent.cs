@@ -12,7 +12,7 @@ public partial class GameContext {
     public Game.LoadServiceComponent gameLoadService { get { return gameLoadServiceEntity.gameLoadService; } }
     public bool hasGameLoadService { get { return gameLoadServiceEntity != null; } }
 
-    public GameEntity SetGameLoadService(Game.ILoadService newLoadService) {
+    public GameEntity SetGameLoadService(Game.Service.ILoadService newLoadService) {
         if (hasGameLoadService) {
             throw new Entitas.EntitasException("Could not set GameLoadService!\n" + this + " already has an entity with Game.LoadServiceComponent!",
                 "You should check if the context already has a gameLoadServiceEntity before setting it or use context.ReplaceGameLoadService().");
@@ -22,7 +22,7 @@ public partial class GameContext {
         return entity;
     }
 
-    public void ReplaceGameLoadService(Game.ILoadService newLoadService) {
+    public void ReplaceGameLoadService(Game.Service.ILoadService newLoadService) {
         var entity = gameLoadServiceEntity;
         if (entity == null) {
             entity = SetGameLoadService(newLoadService);
@@ -49,14 +49,14 @@ public partial class GameEntity {
     public Game.LoadServiceComponent gameLoadService { get { return (Game.LoadServiceComponent)GetComponent(GameComponentsLookup.GameLoadService); } }
     public bool hasGameLoadService { get { return HasComponent(GameComponentsLookup.GameLoadService); } }
 
-    public void AddGameLoadService(Game.ILoadService newLoadService) {
+    public void AddGameLoadService(Game.Service.ILoadService newLoadService) {
         var index = GameComponentsLookup.GameLoadService;
         var component = (Game.LoadServiceComponent)CreateComponent(index, typeof(Game.LoadServiceComponent));
         component.LoadService = newLoadService;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameLoadService(Game.ILoadService newLoadService) {
+    public void ReplaceGameLoadService(Game.Service.ILoadService newLoadService) {
         var index = GameComponentsLookup.GameLoadService;
         var component = (Game.LoadServiceComponent)CreateComponent(index, typeof(Game.LoadServiceComponent));
         component.LoadService = newLoadService;

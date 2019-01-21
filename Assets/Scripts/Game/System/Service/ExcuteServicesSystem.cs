@@ -1,4 +1,5 @@
 using Entitas;
+using Game.Service;
 using UnityEngine;
 
 namespace Game
@@ -9,9 +10,9 @@ namespace Game
     public class ExcuteServicesSystem : IExecuteSystem     
     {
         private Contexts _contexts;
-        private Services _services;
+        private ServiceManager _services;
 
-        public ExcuteServicesSystem(Contexts contexts, Services services)        
+        public ExcuteServicesSystem(Contexts contexts, ServiceManager services)        
         {
             _contexts = contexts;
             _services = services;
@@ -19,7 +20,7 @@ namespace Game
 
         public void Execute()
         {
-            _services.UnityInputService.Update();
+            //_services.UnityInputService.Update();
         }
     }
 }
