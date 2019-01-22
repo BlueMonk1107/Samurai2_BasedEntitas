@@ -111,6 +111,8 @@ namespace Game.Service
                 InputPress(KeyCode.D, InputButton.RIGHT);
         }
 
+        public bool IsRun { get; set; }
+
         public void AttackO()
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);

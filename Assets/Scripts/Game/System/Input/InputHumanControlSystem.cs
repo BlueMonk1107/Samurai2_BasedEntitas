@@ -25,6 +25,7 @@ namespace Game
                 _contexts.game.gamePlayer.Ani.Idle();
             }
             _contexts.service.gameServiceTimerService.TimerService.GeTimer(TimerId.MOVE_TIMER)?.Stop();
+            _contexts.game.gamePlayer.Ani.IsRun = false;
         }
     }
 
@@ -131,9 +132,12 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.service.gameServiceTimerService.TimerService.CreateTimer(TimerId.MOVE_TIMER,1, false).AddCompleteListener(
-                ()=> _contexts.service.gameServiceLogService.LogService.Log("sssss")
-                );
+            var service = _contexts.service.gameServiceTimerService.TimerService;
+            var timer = service.CreateTimer(TimerId.MOVE_TIMER, 1, false);
+            if (timer != null)
+                timer.AddCompleteListener(()=>
+              _contexts.game.gamePlayer.Ani.IsRun = true
+             );
         }
     }
 

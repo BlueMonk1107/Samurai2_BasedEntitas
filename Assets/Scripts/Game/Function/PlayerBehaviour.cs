@@ -45,6 +45,8 @@ namespace Game
             PlayerOrientation(Vector3.up * 90);
         }
 
+        public bool IsRun { get; set; }
+
         public void AttackO()
         {
             throw new System.NotImplementedException();

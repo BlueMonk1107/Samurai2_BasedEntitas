@@ -20,6 +20,11 @@ namespace Game
     public interface IPlayerBehaviour : IBehaviour
     {
         /// <summary>
+        /// 当前是否在跑标志位
+        /// </summary>
+        bool IsRun { get; set; }
+
+        /// <summary>
         /// 攻击键（按下K）
         /// </summary>
         void AttackO();
