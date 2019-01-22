@@ -18,6 +18,7 @@ namespace Game
             Add(new InputRightButtonSystem(contexts));
             Add(new InputAttackOButtonSystem(contexts));
             Add(new InputAttackXButtonSystem(contexts));
+            Add(new InputMoveButtonSystem(contexts));
         }
     }
 }

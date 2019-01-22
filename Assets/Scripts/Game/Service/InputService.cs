@@ -1,4 +1,5 @@
 using System;
+using UIFrame;
 using UnityEngine;
 
 namespace Game.Service
@@ -6,9 +7,9 @@ namespace Game.Service
     /// <summary>
     /// 输入服务接口
     /// </summary>
-    public interface IInputService : IPlayerBehaviour
+    public interface IInputService
     {
-
+        void Input(InputButton button, InputState state);
     }
     /// <summary>
     /// 与Entitas交互的输入服务
@@ -20,8 +21,13 @@ namespace Game.Service
         public void Init(Contexts contexts)
         {
             _contexts = contexts;
-            _contexts.input.SetGameInputButton(InputButton.NULL);
-            _contexts.game.SetGameEntitasInputService(this);
+            _contexts.input.SetGameInputButton(InputButton.NULL,InputState.NULL);
+            _contexts.service.SetGameServiceEntitasInputService(this);
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
 
         public void Update()
@@ -29,53 +35,30 @@ namespace Game.Service
 
         }
 
-        public void AttackO()
+        public void Input(InputButton button, InputState state)
         {
-            _contexts.input.ReplaceGameInputButton(InputButton.ATTACK_O);
-        }
-
-        public void AttackX()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.ATTACK_X);
-        }
-
-        public void Back()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.DOWN);
-        }
-
-        public void Left()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.LEFT);
-        }
-
-        public void Right()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.RIGHT);
-        }
-
-        public void Idle()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.NULL);
-        }
-
-        public void Forward()
-        {
-            _contexts.input.ReplaceGameInputButton(InputButton.UP);
+            _contexts.input.ReplaceGameInputButton(button, state);
         }
     }
 
     /// <summary>
     /// 与Unity交互的输入服务
     /// </summary>
-    public class UnityInputService : IInputService, IInitService,IExecuteService
+    public class UnityInputService : IInputService, IInitService,IExecuteService,IPlayerBehaviour
     {
         private IInputService _entitaInputService;
         private bool _isPress;
+        private InputButtonComponent _inputButton;
 
         public void Init(Contexts contexts)
         {
-            _entitaInputService = contexts.game.gameEntitasInputService.EntitasInputService;
+            _inputButton = contexts.input.gameInputButton;
+            _entitaInputService = contexts.service.gameServiceEntitasInputService.EntitasInputService;
+        }
+
+        public int GetPriority()
+        {
+            return 1;
         }
 
         public void Excute()
@@ -98,64 +81,88 @@ namespace Game.Service
         }
         public void Idle()
         {
-            if (!_isPress)
+            if (!_isPress && _inputButton.InputButton != InputButton.NULL && _inputButton.InputState != InputState.NULL)
             {
-                _entitaInputService.Idle();
+                _entitaInputService.Input(InputButton.NULL, InputState.NULL);
             }
         }
 
         public void Forward()
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                _entitaInputService.Forward();
-                _isPress = true;
-            }
+            if(!InputDown(KeyCode.W, InputButton.FORWARD))
+                InputPress(KeyCode.W, InputButton.FORWARD);
         }
 
         public void Back()
         {
-            if (Input.GetKey(KeyCode.S))
-            {
-                _entitaInputService.Back();
-                _isPress = true;
-            }
+            if(!InputDown(KeyCode.S, InputButton.BACK))
+                InputPress(KeyCode.S, InputButton.BACK);
         }
 
         public void Left()
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                _entitaInputService.Left();
-                _isPress = true;
-            }
+            if (!InputDown(KeyCode.A, InputButton.LEFT))
+                InputPress(KeyCode.A, InputButton.LEFT);
         }
 
         public void Right()
         {
-            if (Input.GetKey(KeyCode.D))
-            {
-                _entitaInputService.Right();
-                _isPress = true;
-            }
+            if (!InputDown(KeyCode.D, InputButton.RIGHT))
+                InputPress(KeyCode.D, InputButton.RIGHT);
         }
 
         public void AttackO()
         {
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                _entitaInputService.AttackO();
-                _isPress = true;
-            }
+            InputDown(KeyCode.K, InputButton.ATTACK_O);
         }
 
         public void AttackX()
         {
-            if (Input.GetKeyDown(KeyCode.L))
+            InputDown(KeyCode.L, InputButton.ATTACK_X);
+        }
+
+        public bool InputDown(KeyCode code, InputButton button)
+        {
+            if (UnityEngine.Input.GetKeyDown(code))
             {
-                _entitaInputService.AttackX();
+                Input(button, InputState.DOWN);
                 _isPress = true;
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
+        public bool InputPress(KeyCode code, InputButton button)
+        {
+            if (UnityEngine.Input.GetKey(code))
+            {
+                Input(button, InputState.PREE);
+                _isPress = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool InputUp(KeyCode code, InputButton button)
+        {
+            if (UnityEngine.Input.GetKeyUp(code))
+            {
+                Input(button, InputState.UP);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Input(InputButton button, InputState state)
+        {
+            _entitaInputService.Input(button,state);
         }
     }
 }

@@ -13,7 +13,12 @@ namespace Game.Service
     {
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameLogService(this);
+            contexts.service.SetGameServiceLogService(this);
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
 
         public void Log(string message)

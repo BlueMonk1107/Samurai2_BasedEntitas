@@ -1,14 +1,12 @@
 using Entitas;
 using Entitas.CodeGeneration.Attributes;
-using Game.Service;
-using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 查找服务组件
     /// </summary>
-    [Game,Unique]
+    [Service,Unique]
     public class FindObjectServiceComponent : IComponent
     {
         public IFindObjectService FindObjectService;
@@ -17,7 +15,7 @@ namespace Game
     /// <summary>
     /// 输入服务组件
     /// </summary>
-    [Game, Unique]
+    [Service, Unique]
     public class EntitasInputServiceComponent : IComponent
     {
         public IInputService EntitasInputService;
@@ -26,7 +24,7 @@ namespace Game
     /// <summary>
     /// 输入服务组件
     /// </summary>
-    [Game, Unique]
+    [Service, Unique]
     public class LogServiceComponent : IComponent
     {
         public ILogService LogService;
@@ -35,13 +33,13 @@ namespace Game
     /// <summary>
     /// 输入服务组件
     /// </summary>
-    [Game, Unique]
+    [Service, Unique]
     public class LoadServiceComponent : IComponent
     {
         public ILoadService LoadService;
     }
 
-    [Game,Unique]
+    [Service, Unique]
     public class TimerServiceComponent : IComponent
     {
         public ITimerService TimerService;

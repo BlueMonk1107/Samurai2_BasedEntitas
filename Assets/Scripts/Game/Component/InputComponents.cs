@@ -11,5 +11,6 @@ namespace Game
     public class InputButtonComponent : IComponent
     {
         public InputButton InputButton;
+        public InputState InputState;
     }
 }

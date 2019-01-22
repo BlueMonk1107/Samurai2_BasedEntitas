@@ -23,7 +23,12 @@ namespace Game.Service
 
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameLoadService(this);
+            contexts.service.SetGameServiceLoadService(this);
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
 
         public LoadService(GameParentManager parentManager)

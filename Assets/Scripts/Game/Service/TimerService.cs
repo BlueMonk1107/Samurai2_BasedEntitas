@@ -1,30 +1,80 @@
 using Entitas;
+using Module.Timer;
 using UnityEngine;
 
 namespace Game.Service
 {
-    public interface ITimerService : IInitService, IExecuteService
+    /// <summary>
+    /// 计时器服务接口
+    /// </summary>
+    public interface ITimerService : IInitService, IExecuteService, ITimerManager
     {
-        
+        ITimer CreateTimer(TimerId id, float duration, bool loop);
+        ITimer GeTimer(TimerId id);
     }
 
     public class TimerService : ITimerService
     {
-        public void Init(Contexts contexts)
+        private ITimerManager _timerManager;
+
+        public TimerService(ITimerManager manager)
         {
-            contexts.game.SetGameTimerService(this);
+            _timerManager = manager;
         }
 
-        public TimerService()
+        public void Init(Contexts contexts)
         {
-            
+            contexts.service.SetGameServiceTimerService(this);
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
 
         public void Excute()
         {
-            throw new System.NotImplementedException();
+            Update();
         }
 
-        
+        public ITimer CreateTimer(TimerId id,float duration, bool loop)
+        {
+            return CreateTimer(id.ToString(),duration, loop);
+        }
+
+        public ITimer GeTimer(TimerId id)
+        {
+            return GeTimer(id.ToString());
+        }
+
+        public ITimer CreateTimer(string id, float duration, bool loop)
+        {
+            return _timerManager.CreateTimer(id, duration, loop);
+        }
+
+        public ITimer GeTimer(string id)
+        {
+            return _timerManager.GeTimer(id);
+        }
+
+        public void Update()
+        {
+            _timerManager.Update();
+        }
+
+        public void ContinueAll()
+        {
+            _timerManager.ContinueAll();
+        }
+
+        public void PauseAll()
+        {
+            _timerManager.PauseAll();
+        }
+
+        public void StopAll()
+        {
+            _timerManager.StopAll();
+        }
     }
 }

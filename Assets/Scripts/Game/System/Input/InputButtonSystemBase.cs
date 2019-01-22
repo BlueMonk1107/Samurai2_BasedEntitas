@@ -33,5 +33,51 @@ namespace Game
         /// <returns></returns>
         protected abstract bool FilterCondition(InputEntity entity);
     }
-    
+
+    /// <summary>
+    /// 按下响应系统基类
+    /// </summary>
+    public abstract class InputDownButtonSystemBase : InputButtonSystemBase
+    {
+        public InputDownButtonSystemBase(Contexts contexts) : base(contexts)
+        {
+        }
+
+        protected override bool Filter(InputEntity entity)
+        {
+            return base.Filter(entity) && entity.gameInputButton.InputState == InputState.DOWN;
+        }
+    }
+
+    /// <summary>
+    /// 持续按下响应系统基类
+    /// </summary>
+    public abstract class InputPressButtonSystemBase : InputButtonSystemBase
+    {
+        public InputPressButtonSystemBase(Contexts contexts) : base(contexts)
+        {
+        }
+
+        protected override bool Filter(InputEntity entity)
+        {
+            return base.Filter(entity) && entity.gameInputButton.InputState == InputState.PREE;
+        }
+    }
+
+    /// <summary>
+    /// 抬起响应系统基类
+    /// </summary>
+    public abstract class InputUpButtonSystemBase : InputButtonSystemBase
+    {
+        public InputUpButtonSystemBase(Contexts contexts) : base(contexts)
+        {
+        }
+
+        protected override bool Filter(InputEntity entity)
+        {
+            return base.Filter(entity) && entity.gameInputButton.InputState == InputState.UP;
+        }
+    }
+
+
 }

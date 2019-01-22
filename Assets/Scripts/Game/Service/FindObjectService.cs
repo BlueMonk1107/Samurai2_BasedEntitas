@@ -1,8 +1,6 @@
-using System.Linq;
-using Game.Service;
 using UnityEngine;
 
-namespace Game
+namespace Game.Service
 {
     /// <summary>
     /// 查找场景内物体的服务
@@ -11,7 +9,12 @@ namespace Game
     {
         public void Init(Contexts contexts)
         {
-            contexts.game.SetGameFindObjectService(this);
+            contexts.service.SetGameServiceFindObjectService(this);
+        }
+
+        public int GetPriority()
+        {
+            return 0;
         }
 
         public T[] FindAllType<T>() where T : Object

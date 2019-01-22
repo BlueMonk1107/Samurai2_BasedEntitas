@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Module.Timer
 {
@@ -9,6 +10,11 @@ namespace Module.Timer
     /// </summary>
     public interface ITimer
     {
+        /// <summary>
+        /// 计时器唯一标识
+        /// </summary>
+        string ID { get; }
+
         /// <summary>
         /// 当前的时间
         /// </summary>
@@ -34,7 +40,7 @@ namespace Module.Timer
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
-        void ResetData(float duration, bool loop);
+        void ResetData(string id, float duration, bool loop);
         /// <summary>
         /// 帧函数
         /// </summary>
@@ -52,8 +58,8 @@ namespace Module.Timer
         /// </summary>
         void Stop();
 
-        void AddUpdateListener(Action update);
-        void AddCompleteListener(Action complete);
+        ITimer AddUpdateListener(Action update);
+        ITimer AddCompleteListener(Action complete);
     }
 
     public interface ITimerManager
@@ -64,7 +70,13 @@ namespace Module.Timer
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        ITimer CreateTimer(float duration, bool loop);
+        ITimer CreateTimer(string id, float duration, bool loop);
+        /// <summary>
+        /// 通过标识获取计时器
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ITimer GeTimer(string id);
         /// <summary>
         /// 帧函数
         /// </summary>
@@ -94,6 +106,8 @@ namespace Module.Timer
         /// </summary>
         private class Timer : ITimer
         {
+            public string ID { get; private set; }
+
             /// <summary>
             /// 当前的时间
             /// </summary>
@@ -115,10 +129,7 @@ namespace Module.Timer
             /// </summary>
             public float Duration { get { return _duration; } }
             //是否完成
-            public bool IsComplete
-            {
-                get { return _runTimeTotal >= _duration; }
-            }
+            public bool IsComplete { get; private set; }
             //是否循环执行
             public bool IsLoop { get; private set; }
 
@@ -133,23 +144,33 @@ namespace Module.Timer
            
             //持续时间
             private float _duration;
+            //刷新间隔帧数
+            private int _offsetFrame = 20;
+            private int _frameTimes;
 
-            public Timer(float duration, bool loop)
+            public Timer(string id,float duration, bool loop)
             {
-                InitData(duration, loop);
+                InitData(id,duration, loop);
             }
 
 
-            private void InitData(float duration, bool loop)
+            private void InitData(string id,float duration, bool loop)
             {
+                ID = id;
                 _duration = duration;
                 IsLoop = loop;
                 ResetData();
             }
 
-            public void ResetData(float duration, bool loop)
+            /// <summary>
+            /// 重置数据
+            /// </summary>
+            /// <param name="id"></param>
+            /// <param name="duration"></param>
+            /// <param name="loop"></param>
+            public void ResetData(string id, float duration, bool loop)
             {
-                InitData(duration, loop);
+                InitData(id,duration, loop);
             }
 
             private void ResetData()
@@ -161,8 +182,15 @@ namespace Module.Timer
 
             public void Update()
             {
-                if (!IsComplete || !_isTiming)
+                _frameTimes++;
+                if (_frameTimes< _offsetFrame)
                     return;
+                _frameTimes = 0;
+
+                if (IsComplete || !_isTiming)
+                    return;
+
+                IsComplete = JudgeIsComplete();
 
                 if (IsLoop)
                 {
@@ -180,6 +208,7 @@ namespace Module.Timer
             {
                 if (IsComplete)
                 {
+                    IsComplete = false;
                     _onComplete?.Invoke();
                     ResetData();
                 }
@@ -215,14 +244,16 @@ namespace Module.Timer
                 _isTiming = false;
             }
 
-            public void AddUpdateListener(Action update)
+            public ITimer AddUpdateListener(Action update)
             {
                 _onUpdate += update;
+                return this;
             }
 
-            public void AddCompleteListener(Action complete)
+            public ITimer AddCompleteListener(Action complete)
             {
                 _onComplete += complete;
+                return this;
             }
 
             private float GetCurrentTimingTime()
@@ -230,15 +261,26 @@ namespace Module.Timer
                 var time = DateTime.Now - _startTime;
                 return (float)time.TotalSeconds;
             }
+            /// <summary>
+            /// 判断当前是否执行完毕
+            /// </summary>
+            /// <returns></returns>
+            private bool JudgeIsComplete()
+            {
+                return (_runTimeTotal + GetCurrentTimingTime()) >= _duration;
+            }
         }
 
         private HashSet<ITimer> _activeTimers;
         private HashSet<ITimer> _inactiveTimers;
+        private HashSet<ITimer>.Enumerator _activEnum;
+        private Dictionary<string, ITimer> _timersDic;
 
         public TimerManager()
         {
             _activeTimers = new HashSet<ITimer>();
             _inactiveTimers = new HashSet<ITimer>();
+            _timersDic = new Dictionary<string, ITimer>();
         }
 
         /// <summary>
@@ -247,47 +289,75 @@ namespace Module.Timer
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
-        public ITimer CreateTimer(float duration, bool loop)
+        public ITimer CreateTimer(string id, float duration, bool loop)
         {
-            ITimer timer = null;
-            if (_inactiveTimers.Count >= 0)
+            if (_timersDic.ContainsKey(id))
             {
-                timer = _inactiveTimers.First();
-                _inactiveTimers.Remove(timer);
-                timer.ResetData(duration,loop);
-                _activeTimers.Add(timer);
+                Debug.LogError("id:"+id+"已存在");
+                return null;
             }
             else
             {
-                timer = new Timer(duration, loop);
-                _activeTimers.Add(timer);
-            }
+                ITimer timer = null;
+                if (_inactiveTimers.Count > 0)
+                {
+                    timer = _inactiveTimers.First();
 
-            return timer;
+                    _timersDic.Remove(timer.ID);
+
+                    _inactiveTimers.Remove(timer);
+                    timer.ResetData(id,duration, loop);
+                    _activeTimers.Add(timer);
+                }
+                else
+                {
+                    timer = new Timer(id,duration, loop);
+                    _activeTimers.Add(timer);
+                    timer.AddCompleteListener(() => TimerComplete(timer));
+                }
+
+                _timersDic[id] = timer;
+
+                return timer;
+            }
+        }
+
+        public ITimer GeTimer(string id)
+        {
+            if (_timersDic.ContainsKey(id))
+            {
+                return _timersDic[id];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        private void TimerComplete(ITimer timer)
+        {
+            if (!timer.IsLoop)
+            {
+                _activeTimers.Remove(timer);
+                _inactiveTimers.Add(timer);
+            }
         }
 
         public void Update()
         {
-            if (_activeTimers.Count > 0)
-            {
-                foreach (ITimer timer in _activeTimers)
-                {
-                    timer.Update();
-                    SetInactiveTimer(timer);
-                }
-            }
-        }
+            _activEnum = _activeTimers.GetEnumerator();
+            int count = _activeTimers.Count;
 
-        /// <summary>
-        /// 获取执行完毕的计时器，存入缓存
-        /// </summary>
-        /// <param name="timer"></param>
-        private void SetInactiveTimer(ITimer timer)
-        {
-            if (!timer.IsLoop && timer.IsComplete)
+            for (int i = 0; i < count; i++)
             {
-                _activeTimers.Remove(timer);
-                _inactiveTimers.Add(timer);
+                if (!_activEnum.MoveNext())
+                {
+                    continue;
+                }
+                else
+                {
+                    _activEnum.Current.Update();
+                }
             }
         }
 

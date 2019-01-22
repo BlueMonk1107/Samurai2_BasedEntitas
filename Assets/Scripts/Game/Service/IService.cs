@@ -8,6 +8,11 @@ namespace Game.Service
     public interface IInitService
     {
         void Init(Contexts contexts);
+        /// <summary>
+        /// 获取执行优先级
+        /// </summary>
+        /// <returns></returns>
+        int GetPriority();
     }
 
     /// <summary>

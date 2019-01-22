@@ -12,22 +12,22 @@ public partial class InputContext {
     public Game.InputButtonComponent gameInputButton { get { return gameInputButtonEntity.gameInputButton; } }
     public bool hasGameInputButton { get { return gameInputButtonEntity != null; } }
 
-    public InputEntity SetGameInputButton(Game.InputButton newInputButton) {
+    public InputEntity SetGameInputButton(Game.InputButton newInputButton, Game.InputState newInputState) {
         if (hasGameInputButton) {
             throw new Entitas.EntitasException("Could not set GameInputButton!\n" + this + " already has an entity with Game.InputButtonComponent!",
                 "You should check if the context already has a gameInputButtonEntity before setting it or use context.ReplaceGameInputButton().");
         }
         var entity = CreateEntity();
-        entity.AddGameInputButton(newInputButton);
+        entity.AddGameInputButton(newInputButton, newInputState);
         return entity;
     }
 
-    public void ReplaceGameInputButton(Game.InputButton newInputButton) {
+    public void ReplaceGameInputButton(Game.InputButton newInputButton, Game.InputState newInputState) {
         var entity = gameInputButtonEntity;
         if (entity == null) {
-            entity = SetGameInputButton(newInputButton);
+            entity = SetGameInputButton(newInputButton, newInputState);
         } else {
-            entity.ReplaceGameInputButton(newInputButton);
+            entity.ReplaceGameInputButton(newInputButton, newInputState);
         }
     }
 
@@ -49,17 +49,19 @@ public partial class InputEntity {
     public Game.InputButtonComponent gameInputButton { get { return (Game.InputButtonComponent)GetComponent(InputComponentsLookup.GameInputButton); } }
     public bool hasGameInputButton { get { return HasComponent(InputComponentsLookup.GameInputButton); } }
 
-    public void AddGameInputButton(Game.InputButton newInputButton) {
+    public void AddGameInputButton(Game.InputButton newInputButton, Game.InputState newInputState) {
         var index = InputComponentsLookup.GameInputButton;
         var component = (Game.InputButtonComponent)CreateComponent(index, typeof(Game.InputButtonComponent));
         component.InputButton = newInputButton;
+        component.InputState = newInputState;
         AddComponent(index, component);
     }
 
-    public void ReplaceGameInputButton(Game.InputButton newInputButton) {
+    public void ReplaceGameInputButton(Game.InputButton newInputButton, Game.InputState newInputState) {
         var index = InputComponentsLookup.GameInputButton;
         var component = (Game.InputButtonComponent)CreateComponent(index, typeof(Game.InputButtonComponent));
         component.InputButton = newInputButton;
+        component.InputState = newInputState;
         ReplaceComponent(index, component);
     }
 

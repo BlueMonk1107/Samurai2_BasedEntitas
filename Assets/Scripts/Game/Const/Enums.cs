@@ -47,12 +47,23 @@ namespace Game
     public enum InputButton
     {
         NULL,
-        UP,
-        DOWN,
+        FORWARD,
+        BACK,
         LEFT,
         RIGHT,
         ATTACK_O,
         ATTACK_X
+    }
+
+    /// <summary>
+    /// 输入按键的按下状态
+    /// </summary>
+    public enum InputState
+    {
+        NULL,
+        DOWN,
+        PREE,
+        UP  
     }
 
     /// <summary>
@@ -73,5 +84,13 @@ namespace Game
         IDLE,
         RUN,
         WALK
+    }
+
+    /// <summary>
+    /// 计时器标识
+    /// </summary>
+    public enum TimerId
+    {
+        MOVE_TIMER
     }
 }
