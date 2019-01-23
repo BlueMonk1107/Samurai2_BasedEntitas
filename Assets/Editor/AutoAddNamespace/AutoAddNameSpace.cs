@@ -39,10 +39,12 @@ namespace CustomTool
             script.WriteNamespace(name);
 
             script.IndentTimes++;
-            script.WriteClass(className);
+            script.WriteClass(className, "MonoBehaviour");
 
             script.IndentTimes++;
-            script.WriteFun("Start");
+            List<string> keys = new List<string>();
+            keys.Add("void");
+            script.WriteFun(keys, "Start");
             return script.ToString();
         }
 

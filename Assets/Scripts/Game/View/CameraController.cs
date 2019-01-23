@@ -10,17 +10,17 @@ namespace Game
     /// <summary>
     /// 相机控制
     /// </summary>
-    public class CameraController : ViewService, IGameCameraStateListener
+    public class CameraController : ViewBase, IGameCameraStateListener
     {
         private Dictionary<CameraParent, Transform> _parentDic;
         private CameraMove _cameraMove;
 
         public override void Init(Contexts contexts, IEntity entity)
         {
+            base.Init(contexts, entity);
+
             InitParent();
             InitCamera();
-
-            gameObject.Link(entity, contexts.game);
 
             GameEntity gameEntity = (GameEntity) entity;
             gameEntity.AddGameCameraStateListener(this);

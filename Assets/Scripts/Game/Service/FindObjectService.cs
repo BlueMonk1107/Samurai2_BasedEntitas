@@ -33,7 +33,7 @@ namespace Game.Service
         /// <returns></returns>
         public IView[] FindAllView()
         {
-            return FindAllType<ViewService>();
+            return FindAllType<ViewBase>();
         }
        
     }
