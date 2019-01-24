@@ -33,7 +33,7 @@ namespace CustomTool
             currentIndex = 0;
         }
 
-        private void Write(string context, bool needIndent = false)
+        private void Write(string context, bool needIndent = true)
         {
             if (needIndent)
             {
@@ -75,7 +75,7 @@ namespace CustomTool
         {
             var start = _lineBrake+GetIndent() + "{" + _lineBrake;
             var end = GetIndent() + "}" + _lineBrake;
-            Write(start + end, true);
+            Write(start + end);
             return end.Length;
         }
 
@@ -108,7 +108,7 @@ namespace CustomTool
                 }
             }
 
-            Write("public class "+ name+" : "+ temp+ " ",true);
+            Write("public class "+ name+" : "+ temp+ " ");
             WriteCurlyBrackets();
             BackToInsertContent();
         }
@@ -166,7 +166,7 @@ namespace CustomTool
             temp.Append(" ");
             temp.Append(othes);
 
-            Write(temp.ToString(), true);
+            Write(temp.ToString());
             WriteCurlyBrackets();
         }
 

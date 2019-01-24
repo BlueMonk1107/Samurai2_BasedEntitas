@@ -42,8 +42,8 @@ namespace CustomTool
         private static Dictionary<string, bool> _systemSelectedState;
         private static int _lineSpace;
 
-        private GUIStyle _mainTitle;
-        private GUIStyle _itemTitle;
+        private static GUIStyle _mainTitle;
+        private static GUIStyle _itemTitle;
 
         [MenuItem("Tools/GenerateEntitasCode")]
         public static void OpenWindow()
@@ -62,6 +62,21 @@ namespace CustomTool
             InitContextSelectedState();
             _selectedContextName = _contextNames[0];
             InitSystemSelectedState();
+            InitGuiStyle();
+        }
+
+        private static void InitGuiStyle()
+        {
+            _mainTitle = new GUIStyle();
+            _mainTitle.alignment = TextAnchor.MiddleCenter;
+            _mainTitle.normal.textColor = Color.white;
+            _mainTitle.fontSize = 30;
+            _mainTitle.fontStyle = FontStyle.Bold;
+
+            _itemTitle = new GUIStyle();
+            _itemTitle.normal.textColor = Color.gray;
+            _itemTitle.fontSize = 15;
+            _itemTitle.fontStyle = FontStyle.Bold;
         }
 
         private static void InitContextSelectedState()
@@ -90,7 +105,8 @@ namespace CustomTool
 
         private void OnGUI()
         {
-            GUILayout.Label("生成Entitas框架代码工具");
+            GUILayout.Space(_lineSpace);
+            GUILayout.Label("生成Entitas框架代码工具", _mainTitle);
            
             Path();
 
@@ -106,7 +122,9 @@ namespace CustomTool
         private void Path()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("脚本路径");
+            GUILayout.Label("脚本路径", _itemTitle);
+            GUILayout.Space(_lineSpace);
+
             PathItem("View层路径", ref _viewPath);
             PathItem("Service层路径", ref _servicePath);
             PathItem("System层路径", ref _systemPath);
@@ -117,23 +135,37 @@ namespace CustomTool
         private void View()
         {
             GUILayout.Space(_lineSpace);
-            InputName("View层代码生成", ref _viewName);
+            GUILayout.Label("View层代码生成", _itemTitle);
+            GUILayout.Space(_lineSpace);
+            InputName("请输入脚本名称", ref _viewName);
 
-            CreateButton("生成View脚本", ()=> {});
+            CreateButton("生成脚本", () =>
+            {
+                CreateScript(_viewPath, _viewName + _viewPostfix, GetViewCode());
+            });
         }
 
         private void Service()
         {
             GUILayout.Space(_lineSpace);
-            InputName("Service层代码生成", ref _serviceName);
+            GUILayout.Label("Service层代码生成", _itemTitle);
+            GUILayout.Space(_lineSpace);
 
-            CreateButton("生成Service脚本", () => { });
+            InputName("请输入脚本名称", ref _serviceName);
+
+            CreateButton("生成脚本", () =>
+            {
+                CreateScript(_servicePath, _serviceName + _servicePostfix, GetServiceCode());
+            });
         }
 
         private void ReactiveSystem()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("选择要生成系统的上下文");
+            GUILayout.Label("选择要生成系统的上下文", _itemTitle);
+            GUILayout.Space(_lineSpace);
+
+            GUILayout.BeginHorizontal();
             foreach (KeyValuePair<string, bool> pair in _contextSelectedState)
             {
                 if (GUILayout.Toggle(pair.Value, pair.Key) && pair.Value == false)
@@ -141,26 +173,34 @@ namespace CustomTool
                     _selectedContextName = pair.Key;
                 }
             }
-
+            GUILayout.EndHorizontal();
             ToggleGroup(_selectedContextName);
 
-            InputName("ReactiveSystem代码生成", ref _systemName);
+            InputName("请输入脚本名称", ref _systemName);
 
-            CreateButton("生成ReactiveSystem脚本", () => { });
+            CreateButton("生成脚本", () =>
+            {
+                CreateScript(_systemPath, _systemName + _systemPostfix, GetReactiveSystemCode());
+            });
         }
 
         private void OtherSystems()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("选择要生成的系统");
+            GUILayout.Label("选择要生成的系统", _itemTitle);
+            GUILayout.Space(_lineSpace);
+
             foreach (string systemName in _systemInterfaceName)
             {
                 _systemSelectedState[systemName] = GUILayout.Toggle(_systemSelectedState[systemName], systemName);
             }
 
-            InputName("系统代码生成", ref _otherSystemName);
+            InputName("请输入脚本名称", ref _otherSystemName);
 
-            CreateButton("生成系统脚本", () => { });
+            CreateButton("生成脚本", () =>
+            {
+                CreateScript(_systemPath, _otherSystemName + _systemPostfix, GetReactiveSystemCode());
+            });
         }
 
         //输入要生成脚本的主名称
@@ -402,6 +442,18 @@ namespace CustomTool
             }
 
             return temp;
+        }
+
+        private static void CreateScript(string path,string className,string scriptContent)
+        {
+            if (Directory.Exists(path))
+            {
+                File.WriteAllText(path+className+".cs", scriptContent);
+            }
+            else
+            {
+                Debug.LogError("目录:"+path+"不存在");
+            }
         }
     }
 }
