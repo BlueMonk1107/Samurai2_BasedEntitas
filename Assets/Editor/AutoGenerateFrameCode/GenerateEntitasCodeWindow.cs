@@ -32,6 +32,10 @@ namespace CustomTool
         private static Dictionary<string, bool> _contextSelectedState;
         private static string _selectedContextName;
 
+        private static string _viewFeaturePath;
+        private static string _inputFeaturePath;
+        private static string _gameFeaturePath;
+
         private static string _otherSystemName;
         private static string[] _systemInterfaceName =
         {
@@ -58,7 +62,7 @@ namespace CustomTool
             Init();
         }
 
-        private void Close()
+        private static void Close()
         {
             AssetDatabase.Refresh();
             _window.Close();
@@ -128,14 +132,11 @@ namespace CustomTool
 
             Service();
 
+            SelectContext();
+
             ReactiveSystem();
 
             OtherSystems();
-
-            //CreateButton("生成脚本", () =>
-            //{
-            //    InitServices(_serviceManagerPath);
-            //});
         }
 
         private void Path()
@@ -150,6 +151,9 @@ namespace CustomTool
 
             GUILayout.Space(_lineSpace);
             PathItem("ServiceManager路径", ref _serviceManagerPath);
+            PathItem("ViewFeature路径", ref _viewFeaturePath);
+            PathItem("InputFeature路径", ref _inputFeaturePath);
+            PathItem("GameFeature路径", ref _gameFeaturePath);
 
             CreateButton("保存路径", SaveDataToLocal);
         }
@@ -158,7 +162,6 @@ namespace CustomTool
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("View层代码生成", _itemTitle);
-            GUILayout.Space(_lineSpace);
             InputName("请输入脚本名称", ref _viewName);
 
             CreateButton("生成脚本", () =>
@@ -171,7 +174,6 @@ namespace CustomTool
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("Service层代码生成", _itemTitle);
-            GUILayout.Space(_lineSpace);
 
             InputName("请输入脚本名称", ref _serviceName);
 
@@ -182,11 +184,10 @@ namespace CustomTool
             });
         }
 
-        private void ReactiveSystem()
+        private void SelectContext()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("生成响应系统", _itemTitle);
-            GUILayout.Space(_lineSpace);
+            GUILayout.Label("选择生成系统的上下文", _itemTitle);
 
             GUILayout.BeginHorizontal();
             foreach (KeyValuePair<string, bool> pair in _contextSelectedState)
@@ -198,21 +199,29 @@ namespace CustomTool
             }
             GUILayout.EndHorizontal();
             ToggleGroup(_selectedContextName);
+        }
+
+        private void ReactiveSystem()
+        {
             GUILayout.Space(_lineSpace);
+            GUILayout.Label("响应系统部分", _itemTitle);
 
             InputName("请输入脚本名称", ref _systemName);
 
             CreateButton("生成脚本", () =>
             {
                 CreateScript(_systemPath, _systemName + _systemPostfix, GetReactiveSystemCode());
+                InitSystem(_selectedContextName,
+                    _selectedContextName + _systemName + _systemPostfix,
+                    "ReactiveSystem");
             });
         }
 
         private void OtherSystems()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("选择要生成的系统", _itemTitle);
-            GUILayout.Space(_lineSpace);
+            GUILayout.Label("其他系统部分", _itemTitle);
+            GUILayout.Label("选择要生成的系统", _contentTitle);
 
             foreach (string systemName in _systemInterfaceName)
             {
@@ -225,6 +234,11 @@ namespace CustomTool
             CreateButton("生成脚本", () =>
             {
                 CreateScript(_systemPath, _otherSystemName + _systemPostfix, GetOthersSystemCode());
+                List<string> selectedSystem = GetSelectedSysytem();
+                List<string> funName = GetFunName(selectedSystem);
+                InitSystem(_selectedContextName,
+                    _selectedContextName + _otherSystemName + _systemPostfix,
+                    funName.ToArray());
             });
         }
 
@@ -314,6 +328,9 @@ namespace CustomTool
             data.ServicePath = _servicePath;
             data.SystemPath = _systemPath;
             data.ServiceManagerPath = _serviceManagerPath;
+            data.GameFeaturePath = _gameFeaturePath;
+            data.InputFeaturePath = _inputFeaturePath;
+            data.ViewFeaturePath = _viewFeaturePath;
             AssetDatabase.CreateAsset(data, _dataPah + _dataFileName);
         }
 
@@ -327,6 +344,9 @@ namespace CustomTool
                 _servicePath = data.ServicePath;
                 _systemPath = data.SystemPath;
                 _serviceManagerPath = data.ServiceManagerPath;
+                _gameFeaturePath = data.GameFeaturePath;
+                _inputFeaturePath = data.InputFeaturePath;
+                _viewFeaturePath = data.ViewFeaturePath;
             }
         }
 
@@ -461,7 +481,7 @@ namespace CustomTool
 
         public static string GetOthersSystemCode()
         {
-            string className = _otherSystemName + _systemPostfix;
+            string className = _selectedContextName + _otherSystemName + _systemPostfix;
             List<string> selectedSystem = GetSelectedSysytem();
 
             var build = new ScriptBuildHelp();
@@ -490,6 +510,46 @@ namespace CustomTool
                 build.WriteFun(key, fun);
             }
             return build.ToString();
+        }
+
+        private static void InitSystem(string contextName,string className,params string[] systemName)
+        {
+            string path = "";
+            switch (contextName)
+            {
+                case "Game":
+                    path = _gameFeaturePath;
+                    break;
+                case "Input":
+                    path = _inputFeaturePath;
+                    break;
+            }
+
+            if (string.IsNullOrEmpty(path))
+                return;
+
+            foreach (string s in systemName)
+            {
+                SetSystem(path, s, className);
+            }
+
+            Close();
+        }
+
+        private static void SetSystem(string path,string systemName,string className)
+        {
+            
+            string content = File.ReadAllText(path);
+            int index = content.IndexOf("void " + systemName + "Fun(Contexts contexts)");
+            if (index < 0)
+            {
+                Debug.LogError("未找到对应方法，系统名："+ systemName);
+                return;
+            }
+
+            int startIndex = content.IndexOf("{",index);
+            content = content.Insert(startIndex + 1, "\r            Add(new " + className + "(contexts));");
+            File.WriteAllText(path,content,Encoding.UTF8);
         }
 
         private static List<string> GetSelectedSysytem()

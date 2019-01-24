@@ -6,10 +6,30 @@ namespace Game
     {
         public InputFeature(Contexts contexts) : base("System")
         {
-            AddInputSystem(contexts);
+            InitializeFun(contexts);
+            ExecuteFun(contexts);
+            CleanupFun(contexts);
+            TearDownFun(contexts);
+            ReactiveSystemFun(contexts);
         }
 
-        private void AddInputSystem(Contexts contexts)
+        private void InitializeFun(Contexts contexts)
+        {
+        }
+
+        private void ExecuteFun(Contexts contexts)
+        {
+        }
+
+        private void CleanupFun(Contexts contexts)
+        {
+        }
+
+        private void TearDownFun(Contexts contexts)
+        {
+        }
+
+        private void ReactiveSystemFun(Contexts contexts)
         {
             Add(new InputNullSysytem(contexts));
             Add(new InputForwardButtonSystem(contexts));

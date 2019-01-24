@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -6,22 +6,30 @@ namespace Game
     {
         public GameFeature(Contexts contexts)
         {
-            Init();
-            Excute();
-            ReactiveSystem(contexts);
+            InitializeFun(contexts);
+            ExecuteFun(contexts);
+            CleanupFun(contexts);
+            TearDownFun(contexts);
+            ReactiveSystemFun(contexts);
         }
 
-        private void Init()
+        private void InitializeFun(Contexts contexts)
         {
-            
         }
 
-        private void Excute()
+        private void ExecuteFun(Contexts contexts)
         {
-            
         }
 
-        private void ReactiveSystem(Contexts contexts)
+        private void CleanupFun(Contexts contexts)
+        {
+        }
+
+        private void TearDownFun(Contexts contexts)
+        {
+        }
+
+        private void ReactiveSystemFun(Contexts contexts)
         {
             Add(new GameStartSystem(contexts));
             Add(new GamePauseSystem(contexts));

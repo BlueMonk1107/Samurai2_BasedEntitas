@@ -21,5 +21,17 @@ namespace CustomTool
         /// ServiceManager路径
         /// </summary>
         public string ServiceManagerPath;
+        /// <summary>
+        /// ViewFeature脚本路径
+        /// </summary>
+        public string ViewFeaturePath;
+        /// <summary>
+        /// InputFeature脚本路径
+        /// </summary>
+        public string InputFeaturePath;
+        /// <summary>
+        /// GameFeature脚本路径
+        /// </summary>
+        public string GameFeaturePath;
     }
 }
