@@ -1,4 +1,4 @@
-
+ï»¿
 
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Game.Service
 {
     /// <summary>
-    /// ·şÎñ¹ÜÀíÀà»ù´¡½Ó¿Ú
+    /// æœåŠ¡ç®¡ç†ç±»åŸºç¡€æ¥å£
     /// </summary>
     public interface IServiceManager : IInitService, IExecuteService
     {
@@ -36,7 +36,7 @@ namespace Game.Service
         }
 
         /// <summary>
-        /// ³õÊ¼»¯·şÎñ¶ÔÏóÊı×é·½·¨
+        /// åˆå§‹åŒ–æœåŠ¡å¯¹è±¡æ•°ç»„æ–¹æ³•
         /// </summary>
         /// <param name="parentManager"></param>
         /// <returns></returns>
@@ -100,14 +100,14 @@ namespace Game.Service
         }
 
         /// <summary>
-        /// Ìí¼Ó³õÊ¼»¯·şÎñ¶ÔÏó µÚÒ»¸ö²ÎÊıÎªÓÅÏÈ¼¶£º0¿ªÊ¼
+        /// æ·»åŠ åˆå§‹åŒ–æœåŠ¡å¯¹è±¡ ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºä¼˜å…ˆçº§ï¼š0å¼€å§‹
         /// </summary>
         /// <param name="service"></param>
         private void AddInitService(int priority, IInitService service)
         {
             if (priority < 0)
             {
-                Debug.LogError("ÓÅÏÈ¼¶´Ó0¿ªÊ¼£¬²»ÄÜÎª¸º");
+                Debug.LogError("ä¼˜å…ˆçº§ä»0å¼€å§‹ï¼Œä¸èƒ½ä¸ºè´Ÿ");
                 return;
             }
             if (!_initServices.ContainsKey(priority))
@@ -119,7 +119,7 @@ namespace Game.Service
         }
 
         /// <summary>
-        /// Ìí¼ÓÖ¡º¯Êı·şÎñ¶ÔÏó
+        /// æ·»åŠ å¸§å‡½æ•°æœåŠ¡å¯¹è±¡
         /// </summary>
         /// <param name="service"></param>
         private void AddExecuteService(IExecuteService service)
