@@ -13,7 +13,7 @@ namespace Game
             Add(new GameEventSystems(contexts));
 
             Add(new ViewFeature(contexts));
-            Add(new SystemFeature(contexts));
+            Add(new InputFeature(contexts));
             Add(new GameFeature(contexts));
         }
     }

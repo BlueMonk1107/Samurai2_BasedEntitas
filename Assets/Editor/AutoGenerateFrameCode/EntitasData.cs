@@ -17,5 +17,9 @@ namespace CustomTool
         /// System²ãÂ·¾¶
         /// </summary>
         public string SystemPath;
+        /// <summary>
+        /// ServiceManagerÂ·¾¶
+        /// </summary>
+        public string ServiceManagerPath;
     }
 }

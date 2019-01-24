@@ -17,6 +17,7 @@ namespace CustomTool
     {
         private static string _viewPath;
         private static string _servicePath;
+        private static string _serviceManagerPath;
         private static string _systemPath;
         private static string _dataPah = "Assets/Editor/AutoGenerateFrameCode/Data/";
         private static string _dataFileName = "Data.asset";
@@ -44,14 +45,23 @@ namespace CustomTool
 
         private static GUIStyle _mainTitle;
         private static GUIStyle _itemTitle;
+        private static GUIStyle _contentTitle;
+
+        private static EditorWindow _window;
 
         [MenuItem("Tools/GenerateEntitasCode")]
         public static void OpenWindow()
         {
-            var window = GetWindow(typeof(GenerateEntitasCode));
-            window.minSize = new Vector2(500, 800);
-            window.Show();
+            _window = GetWindow(typeof(GenerateEntitasCode));
+            _window.minSize = new Vector2(500, 800);
+            _window.Show();
             Init();
+        }
+
+        private void Close()
+        {
+            AssetDatabase.Refresh();
+            _window.Close();
         }
 
         private static void Init()
@@ -69,14 +79,18 @@ namespace CustomTool
         {
             _mainTitle = new GUIStyle();
             _mainTitle.alignment = TextAnchor.MiddleCenter;
-            _mainTitle.normal.textColor = Color.white;
+            _mainTitle.normal.textColor = Color.green;
             _mainTitle.fontSize = 30;
             _mainTitle.fontStyle = FontStyle.Bold;
 
             _itemTitle = new GUIStyle();
-            _itemTitle.normal.textColor = Color.gray;
+            _itemTitle.normal.textColor = Color.yellow;
             _itemTitle.fontSize = 15;
             _itemTitle.fontStyle = FontStyle.Bold;
+
+            _contentTitle = new GUIStyle();
+            _contentTitle.normal.textColor = Color.white;
+            _contentTitle.fontSize = 10;
         }
 
         private static void InitContextSelectedState()
@@ -117,6 +131,11 @@ namespace CustomTool
             ReactiveSystem();
 
             OtherSystems();
+
+            //CreateButton("生成脚本", () =>
+            //{
+            //    InitServices(_serviceManagerPath);
+            //});
         }
 
         private void Path()
@@ -128,6 +147,9 @@ namespace CustomTool
             PathItem("View层路径", ref _viewPath);
             PathItem("Service层路径", ref _servicePath);
             PathItem("System层路径", ref _systemPath);
+
+            GUILayout.Space(_lineSpace);
+            PathItem("ServiceManager路径", ref _serviceManagerPath);
 
             CreateButton("保存路径", SaveDataToLocal);
         }
@@ -156,13 +178,14 @@ namespace CustomTool
             CreateButton("生成脚本", () =>
             {
                 CreateScript(_servicePath, _serviceName + _servicePostfix, GetServiceCode());
+                InitServices(_serviceManagerPath);
             });
         }
 
         private void ReactiveSystem()
         {
             GUILayout.Space(_lineSpace);
-            GUILayout.Label("选择要生成系统的上下文", _itemTitle);
+            GUILayout.Label("生成响应系统", _itemTitle);
             GUILayout.Space(_lineSpace);
 
             GUILayout.BeginHorizontal();
@@ -175,6 +198,7 @@ namespace CustomTool
             }
             GUILayout.EndHorizontal();
             ToggleGroup(_selectedContextName);
+            GUILayout.Space(_lineSpace);
 
             InputName("请输入脚本名称", ref _systemName);
 
@@ -194,19 +218,38 @@ namespace CustomTool
             {
                 _systemSelectedState[systemName] = GUILayout.Toggle(_systemSelectedState[systemName], systemName);
             }
+            GUILayout.Space(_lineSpace);
 
             InputName("请输入脚本名称", ref _otherSystemName);
 
             CreateButton("生成脚本", () =>
             {
-                CreateScript(_systemPath, _otherSystemName + _systemPostfix, GetReactiveSystemCode());
+                CreateScript(_systemPath, _otherSystemName + _systemPostfix, GetOthersSystemCode());
             });
+        }
+
+        private void InitServices(string path)
+        {
+            if (File.Exists(path))
+            {
+                string content = File.ReadAllText(path);
+                int index = content.IndexOf("IInitService[] services =");
+                int newIndex = content.IndexOf("new", index);
+                content = content.Insert(newIndex, "new "+ _serviceName + _servicePostfix + "(),\r                ");
+                File.WriteAllText(path, content,Encoding.UTF8);
+
+                Close();
+            }
+            else
+            {
+                Debug.LogError("Service脚本不存在");
+            }
         }
 
         //输入要生成脚本的主名称
         private void InputName(string titleName,ref string name)
         {
-            GUILayout.Label(titleName);
+            GUILayout.Label(titleName, _contentTitle);
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
             name = EditorGUI.TextField(rect, name);
         }
@@ -216,8 +259,17 @@ namespace CustomTool
         {
             if (GUILayout.Button(btnName, GUILayout.Width(100)))
             {
-                callBack?.Invoke();
+                if (!string.IsNullOrEmpty(btnName))
+                {
+                    Close();
+                    callBack?.Invoke();
+                }
+                else
+                {
+                    Debug.LogError("名称不能为空");
+                }
             }
+            
         }
 
         private static void ToggleGroup(string name)
@@ -261,6 +313,7 @@ namespace CustomTool
             data.ViewPath = _viewPath;
             data.ServicePath = _servicePath;
             data.SystemPath = _systemPath;
+            data.ServiceManagerPath = _serviceManagerPath;
             AssetDatabase.CreateAsset(data, _dataPah + _dataFileName);
         }
 
@@ -273,6 +326,7 @@ namespace CustomTool
                 _viewPath = data.ViewPath;
                 _servicePath = data.ServicePath;
                 _systemPath = data.SystemPath;
+                _serviceManagerPath = data.ServiceManagerPath;
             }
         }
 
@@ -292,17 +346,24 @@ namespace CustomTool
             var build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
             build.WriteUsing("Entitas.Unity");
-            build.WriteNamespace(_namespaceBase + "." + _viewPostfix);
             build.WriteEmptyLine();
+
+            build.WriteNamespace(_namespaceBase + "." + _viewPostfix);
+
+            build.IndentTimes++;
             build.WriteClass(_viewName + _viewPostfix, "ViewBase");
 
+            build.IndentTimes++;
             List<string> keyName = new List<string>();
             keyName.Add("override");
             keyName.Add("void");
-            build.WriteFun(keyName, "Init", "Contexts contexts", "IEntity entity");
+            build.WriteFun(keyName, "Init","","Contexts contexts", "IEntity entity");
+
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine(" base.Init(contexts, entity);", true);
             build.ToContentEnd();
+
             return build.ToString();
         }
 
@@ -312,19 +373,30 @@ namespace CustomTool
 
             var build = new ScriptBuildHelp();
             build.WriteNamespace(_namespaceBase + "." + _servicePostfix);
+            //interface
+            build.IndentTimes++;
             build.WriteInterface("I" + className, "IInitService");
             build.ToContentEnd();
+            //class
             build.WriteClass(className, "I" + className);
-
-            build.WriteFun(new List<string>(), "Init", "Contexts contexts");
+            //init函数
+            build.IndentTimes++;
+            List<string> initKey = new List<string>();
+            initKey.Add("void");
+            build.WriteFun(initKey, "Init","", "Contexts contexts");
+            //init 内容
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine("//contexts.service.SetGameService" + className + "(this);", true);
+            build.IndentTimes--;
             build.ToContentEnd();
-
+            //GetPriority函数
             var key = new List<string>();
-            key.Add("void");
+            key.Add("int");
             build.WriteFun(key, "GetPriority");
+
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine("return 0;", true);
             build.ToContentEnd();
 
@@ -338,14 +410,21 @@ namespace CustomTool
 
             var build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
+            build.WriteUsing("System.Collections.Generic");
             build.WriteNamespace(_namespaceBase);
+
+            build.IndentTimes++;
             build.WriteClass(className, "ReactiveSystem<" + entityName + ">");
+
+            build.IndentTimes++;
             build.WriteLine(" protected Contexts _contexts;", true);
             build.WriteEmptyLine();
             //构造
             build.WriteFun(new List<string>(), className, " : base(context.game)", "Contexts context");
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine(" _contexts = context;", true);
+            build.IndentTimes--;
             build.ToContentEnd();
             //GetTrigger
             List<string> triggerkeys = new List<string>();
@@ -353,7 +432,9 @@ namespace CustomTool
             triggerkeys.Add("ICollector<" + entityName + ">");
             build.WriteFun("GetTrigger", ScriptBuildHelp.Protected, triggerkeys, "", "IContext<" + entityName + "> context");
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine("return context.CreateCollector(" + _selectedContextName + "Matcher.Game" + _selectedContextName + _systemName + ");", true);
+            build.IndentTimes--;
             build.ToContentEnd();
 
 
@@ -363,7 +444,9 @@ namespace CustomTool
             filerkeys.Add("bool");
             build.WriteFun("Filter", ScriptBuildHelp.Protected, filerkeys, "", entityName + " entity");
             build.BackToInsertContent();
+            build.IndentTimes++;
             build.WriteLine("return entity.hasGame" + _selectedContextName + _systemName + ";", true);
+            build.IndentTimes--;
             build.ToContentEnd();
 
 
@@ -384,13 +467,19 @@ namespace CustomTool
             var build = new ScriptBuildHelp();
             build.WriteUsing("Entitas");
             build.WriteNamespace(_namespaceBase);
+
+            build.IndentTimes++;
             build.WriteClass(className, GetSelectedSystem(selectedSystem));
-            build.WriteLine(" protected Contexts _contexts;", true);
+
+            build.IndentTimes++;
+            build.WriteLine("protected Contexts _contexts;", true);
             build.WriteEmptyLine();
             //构造
             build.WriteFun(new List<string>(), className, "", "Contexts context");
             build.BackToInsertContent();
-            build.WriteLine(" _contexts = context;", true);
+            build.IndentTimes++;
+            build.WriteLine("_contexts = context;", true);
+            build.IndentTimes--;
             build.ToContentEnd();
             //实现方法
             List<string> funName = GetFunName(selectedSystem);
@@ -427,7 +516,7 @@ namespace CustomTool
                 temp.Append(" , ");
             }
 
-            temp.Remove(temp.Length - 4, 3);
+            temp.Remove(temp.Length - 2, 2);
 
             return temp.ToString();
         }
@@ -448,7 +537,7 @@ namespace CustomTool
         {
             if (Directory.Exists(path))
             {
-                File.WriteAllText(path+className+".cs", scriptContent);
+                File.WriteAllText(path+"/"+className+".cs", scriptContent, Encoding.UTF8);
             }
             else
             {

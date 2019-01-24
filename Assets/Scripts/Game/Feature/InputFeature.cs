@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class SystemFeature : Feature
+    public class InputFeature : Feature
     {
-        public SystemFeature(Contexts contexts) : base("System")
+        public InputFeature(Contexts contexts) : base("System")
         {
             AddInputSystem(contexts);
         }

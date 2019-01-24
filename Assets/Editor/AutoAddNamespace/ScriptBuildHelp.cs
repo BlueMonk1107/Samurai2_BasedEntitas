@@ -15,15 +15,18 @@ namespace CustomTool
         private string _lineBrake = "\r\n";
         private int currentIndex = 0;
         public int IndentTimes { get; set; }
+
         /// <summary>
         /// 回到大括号中间，需要缩进的值
         /// </summary>
-        private int _backNum;
+        private int _backNum
+        {
+            get { return (GetIndent() + "}" + _lineBrake).Length; }
+        }
 
         public ScriptBuildHelp()
         {
             _stringBuilder = new StringBuilder();
-            _backNum = WriteCurlyBrackets();
             ResetData();
         }
 
