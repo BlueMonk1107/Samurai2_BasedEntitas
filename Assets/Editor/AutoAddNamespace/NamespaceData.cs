@@ -7,5 +7,7 @@ namespace CustomTool
     {
         [SerializeField]
         public string name;
+        [SerializeField]
+        public bool IsOn;
     }
 }
