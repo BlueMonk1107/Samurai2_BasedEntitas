@@ -10,9 +10,9 @@ using UnityEngine;
 
 namespace CustomTool
 {
-    /// <summary>
-    /// 生成Entitas框架代码工具
-    /// </summary>
+
+    // 生成Entitas框架代码工具
+
     public class GenerateEntitasCode : EditorWindow
     {
 
@@ -32,26 +32,23 @@ namespace CustomTool
             _window.Show();
             Init();
         }
-        /// <summary>
-        /// 关闭插件窗口
-        /// </summary>
+
+        // 关闭插件窗口
         private static void Close()
         {
             AssetDatabase.Refresh();
             _window.Close();
         }
-        /// <summary>
-        /// 初始化插件
-        /// </summary>
+
+        // 初始化插件
         private static void Init()
         {
             _lineSpace = 15;
             ToolData.Init();
             InitGuiStyle();
         }
-        /// <summary>
-        /// 初始化UIstyle
-        /// </summary>
+
+        // 初始化UIstyle
         private static void InitGuiStyle()
         {
             _mainTitle = new GUIStyle();
@@ -69,14 +66,13 @@ namespace CustomTool
             _contentTitle.normal.textColor = Color.white;
             _contentTitle.fontSize = 10;
         }
-        /// <summary>
-        /// 绘制ui系统函数
-        /// </summary>
+
+        // 绘制ui系统函数
         private void OnGUI()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("生成Entitas框架代码工具", _mainTitle);
-           
+
             Path();
 
             View();
@@ -89,9 +85,8 @@ namespace CustomTool
 
             OtherSystems();
         }
-        /// <summary>
-        /// 路径部分UI
-        /// </summary>
+
+        // 路径部分UI
         private void Path()
         {
             GUILayout.Space(_lineSpace);
@@ -110,9 +105,8 @@ namespace CustomTool
 
             CreateButton("保存路径", ToolData.SaveDataToLocal);
         }
-        /// <summary>
-        /// View部分UI
-        /// </summary>
+
+        // View部分UI
         private void View()
         {
             GUILayout.Space(_lineSpace);
@@ -124,9 +118,8 @@ namespace CustomTool
                 GenerateCode.CreateScript(ToolData.ViewPath, ToolData.ViewName + ToolData.ViewPostfix, CodeTemplate.GetViewCode());
             });
         }
-        /// <summary>
-        /// Service部分UI
-        /// </summary>
+
+        // Service部分UI
         private void Service()
         {
             GUILayout.Space(_lineSpace);
@@ -141,9 +134,8 @@ namespace CustomTool
                 Close();
             });
         }
-        /// <summary>
-        /// 选择上下文部分UI
-        /// </summary>
+
+        // 选择上下文部分UI
         private void SelectContext()
         {
             GUILayout.Space(_lineSpace);
@@ -160,9 +152,8 @@ namespace CustomTool
             GUILayout.EndHorizontal();
             ToggleGroup(ToolData.SelectedContextName);
         }
-        /// <summary>
-        /// 响应系统部分UI
-        /// </summary>
+
+        // 响应系统部分UI
         private void ReactiveSystem()
         {
             GUILayout.Space(_lineSpace);
@@ -179,9 +170,8 @@ namespace CustomTool
                 Close();
             });
         }
-        /// <summary>
-        /// 其他系统部分UI
-        /// </summary>
+
+        // 其他系统部分UI
         private void OtherSystems()
         {
             GUILayout.Space(_lineSpace);
@@ -207,9 +197,9 @@ namespace CustomTool
                 Close();
             });
         }
-     
+
         //输入要生成脚本的主名称
-        private void InputName(string titleName,ref string name)
+        private void InputName(string titleName, ref string name)
         {
             GUILayout.Label(titleName, _contentTitle);
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Width(150));
@@ -217,7 +207,7 @@ namespace CustomTool
         }
 
         //生成button
-        private void CreateButton(string btnName,Action callBack)
+        private void CreateButton(string btnName, Action callBack)
         {
             if (GUILayout.Button(btnName, GUILayout.Width(100)))
             {
@@ -231,7 +221,7 @@ namespace CustomTool
                     Debug.LogError("名称不能为空");
                 }
             }
-            
+
         }
         //单选toggle组
         private static void ToggleGroup(string name)
