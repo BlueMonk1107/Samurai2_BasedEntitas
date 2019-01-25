@@ -10,11 +10,14 @@ namespace CustomTool
 
     public class AutoAddNameSpace : UnityEditor.AssetModificationProcessor
     {
+        private static string _path = "Assets/Editor/AutoAddNamespace/Cache/";
+        private static string _dataName = "Data.asset";
+
         private static void OnWillCreateAsset(string path)
         {
-            if(!AddNamespaceWindow._isOn)
+            if (!IsOn())
                 return;
-
+            
             path = path.Replace(".meta", "");
             if (path.EndsWith(".cs"))
             {
@@ -29,6 +32,22 @@ namespace CustomTool
                 File.WriteAllText(path, newText);
             }
             AssetDatabase.Refresh();
+        }
+
+        public static NamespaceData GetData()
+        {
+            return AssetDatabase.LoadAssetAtPath<NamespaceData>(_path + _dataName);
+        }
+
+        private static bool IsOn()
+        {
+            NamespaceData data = GetData();
+            if (data != null)
+            {
+                return data.IsOn;
+            }
+
+            return false;
         }
 
         //获取新的脚本内容

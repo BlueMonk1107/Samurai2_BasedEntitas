@@ -15,36 +15,7 @@ namespace CustomTool
     /// </summary>
     public class GenerateEntitasCode : EditorWindow
     {
-        private static string _viewPath;
-        private static string _servicePath;
-        private static string _serviceManagerPath;
-        private static string _systemPath;
-        private static string _dataPah = "Assets/Editor/AutoGenerateFrameCode/Data/";
-        private static string _dataFileName = "Data.asset";
-        private static string _viewPostfix = "View";
-        private static string _viewName;
-        private static string _servicePostfix = "Service";
-        private static string _serviceName;
-        private static string _systemPostfix = "System";
-        private static string _systemName;
-        private static string _namespaceBase = "Game";
-        private static string[] _contextNames;
-        private static Dictionary<string, bool> _contextSelectedState;
-        private static string _selectedContextName;
 
-        private static string _viewFeaturePath;
-        private static string _inputFeaturePath;
-        private static string _gameFeaturePath;
-
-        private static string _otherSystemName;
-        private static string[] _systemInterfaceName =
-        {
-            "IInitializeSystem",
-            "IExecuteSystem",
-            "ICleanupSystem",
-            "ITearDownSystem"
-        };
-        private static Dictionary<string, bool> _systemSelectedState;
         private static int _lineSpace;
 
         private static GUIStyle _mainTitle;
@@ -61,24 +32,26 @@ namespace CustomTool
             _window.Show();
             Init();
         }
-
+        /// <summary>
+        /// 关闭插件窗口
+        /// </summary>
         private static void Close()
         {
             AssetDatabase.Refresh();
             _window.Close();
         }
-
+        /// <summary>
+        /// 初始化插件
+        /// </summary>
         private static void Init()
         {
             _lineSpace = 15;
-            ReadDataFromLocal();
-            GetContextName();
-            InitContextSelectedState();
-            _selectedContextName = _contextNames[0];
-            InitSystemSelectedState();
+            ToolData.Init();
             InitGuiStyle();
         }
-
+        /// <summary>
+        /// 初始化UIstyle
+        /// </summary>
         private static void InitGuiStyle()
         {
             _mainTitle = new GUIStyle();
@@ -96,31 +69,9 @@ namespace CustomTool
             _contentTitle.normal.textColor = Color.white;
             _contentTitle.fontSize = 10;
         }
-
-        private static void InitContextSelectedState()
-        {
-            _contextSelectedState = new Dictionary<string, bool>();
-
-            ResetContextSelectedState();
-        }
-
-        private static void InitSystemSelectedState()
-        {
-            _systemSelectedState = new Dictionary<string, bool>();
-            foreach (string system in _systemInterfaceName)
-            {
-                _systemSelectedState[system] = false;
-            }
-        }
-
-        private static void ResetContextSelectedState()
-        {
-            foreach (string contextName in _contextNames)
-            {
-                _contextSelectedState[contextName] = false;
-            }
-        }
-
+        /// <summary>
+        /// 绘制ui系统函数
+        /// </summary>
         private void OnGUI()
         {
             GUILayout.Space(_lineSpace);
@@ -138,128 +89,125 @@ namespace CustomTool
 
             OtherSystems();
         }
-
+        /// <summary>
+        /// 路径部分UI
+        /// </summary>
         private void Path()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("脚本路径", _itemTitle);
             GUILayout.Space(_lineSpace);
 
-            PathItem("View层路径", ref _viewPath);
-            PathItem("Service层路径", ref _servicePath);
-            PathItem("System层路径", ref _systemPath);
+            PathItem("View层路径", ref ToolData.ViewPath);
+            PathItem("Service层路径", ref ToolData.ServicePath);
+            PathItem("System层路径", ref ToolData.SystemPath);
 
             GUILayout.Space(_lineSpace);
-            PathItem("ServiceManager路径", ref _serviceManagerPath);
-            PathItem("ViewFeature路径", ref _viewFeaturePath);
-            PathItem("InputFeature路径", ref _inputFeaturePath);
-            PathItem("GameFeature路径", ref _gameFeaturePath);
+            PathItem("ServiceManager路径", ref ToolData.ServiceManagerPath);
+            PathItem("ViewFeature路径", ref ToolData.ViewFeaturePath);
+            PathItem("InputFeature路径", ref ToolData.InputFeaturePath);
+            PathItem("GameFeature路径", ref ToolData.GameFeaturePath);
 
-            CreateButton("保存路径", SaveDataToLocal);
+            CreateButton("保存路径", ToolData.SaveDataToLocal);
         }
-
+        /// <summary>
+        /// View部分UI
+        /// </summary>
         private void View()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("View层代码生成", _itemTitle);
-            InputName("请输入脚本名称", ref _viewName);
+            InputName("请输入脚本名称", ref ToolData.ViewName);
 
             CreateButton("生成脚本", () =>
             {
-                CreateScript(_viewPath, _viewName + _viewPostfix, GetViewCode());
+                GenerateCode.CreateScript(ToolData.ViewPath, ToolData.ViewName + ToolData.ViewPostfix, CodeTemplate.GetViewCode());
             });
         }
-
+        /// <summary>
+        /// Service部分UI
+        /// </summary>
         private void Service()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("Service层代码生成", _itemTitle);
 
-            InputName("请输入脚本名称", ref _serviceName);
+            InputName("请输入脚本名称", ref ToolData.ServiceName);
 
             CreateButton("生成脚本", () =>
             {
-                CreateScript(_servicePath, _serviceName + _servicePostfix, GetServiceCode());
-                InitServices(_serviceManagerPath);
+                GenerateCode.CreateScript(ToolData.ServicePath, ToolData.ServiceName + ToolData.ServicePostfix, CodeTemplate.GetServiceCode());
+                GenerateCode.InitServices(ToolData.ServiceManagerPath);
+                Close();
             });
         }
-
+        /// <summary>
+        /// 选择上下文部分UI
+        /// </summary>
         private void SelectContext()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("选择生成系统的上下文", _itemTitle);
 
             GUILayout.BeginHorizontal();
-            foreach (KeyValuePair<string, bool> pair in _contextSelectedState)
+            foreach (KeyValuePair<string, bool> pair in ToolData.ContextSelectedState)
             {
                 if (GUILayout.Toggle(pair.Value, pair.Key) && pair.Value == false)
                 {
-                    _selectedContextName = pair.Key;
+                    ToolData.SelectedContextName = pair.Key;
                 }
             }
             GUILayout.EndHorizontal();
-            ToggleGroup(_selectedContextName);
+            ToggleGroup(ToolData.SelectedContextName);
         }
-
+        /// <summary>
+        /// 响应系统部分UI
+        /// </summary>
         private void ReactiveSystem()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("响应系统部分", _itemTitle);
 
-            InputName("请输入脚本名称", ref _systemName);
+            InputName("请输入脚本名称", ref ToolData.ReactiveSystemName);
 
             CreateButton("生成脚本", () =>
             {
-                CreateScript(_systemPath, _systemName + _systemPostfix, GetReactiveSystemCode());
-                InitSystem(_selectedContextName,
-                    _selectedContextName + _systemName + _systemPostfix,
+                GenerateCode.CreateScript(ToolData.SystemPath, ToolData.ReactiveSystemName + ToolData.SystemPostfix, CodeTemplate.GetReactiveSystemCode());
+                GenerateCode.InitSystem(ToolData.SelectedContextName,
+                    ToolData.SelectedContextName + ToolData.ReactiveSystemName + ToolData.SystemPostfix,
                     "ReactiveSystem");
+                Close();
             });
         }
-
+        /// <summary>
+        /// 其他系统部分UI
+        /// </summary>
         private void OtherSystems()
         {
             GUILayout.Space(_lineSpace);
             GUILayout.Label("其他系统部分", _itemTitle);
             GUILayout.Label("选择要生成的系统", _contentTitle);
 
-            foreach (string systemName in _systemInterfaceName)
+            foreach (string systemName in ToolData.SystemInterfaceName)
             {
-                _systemSelectedState[systemName] = GUILayout.Toggle(_systemSelectedState[systemName], systemName);
+                ToolData.SystemSelectedState[systemName] = GUILayout.Toggle(ToolData.SystemSelectedState[systemName], systemName);
             }
             GUILayout.Space(_lineSpace);
 
-            InputName("请输入脚本名称", ref _otherSystemName);
+            InputName("请输入脚本名称", ref ToolData.OtherSystemName);
 
             CreateButton("生成脚本", () =>
             {
-                CreateScript(_systemPath, _otherSystemName + _systemPostfix, GetOthersSystemCode());
-                List<string> selectedSystem = GetSelectedSysytem();
-                List<string> funName = GetFunName(selectedSystem);
-                InitSystem(_selectedContextName,
-                    _selectedContextName + _otherSystemName + _systemPostfix,
+                GenerateCode.CreateScript(ToolData.SystemPath, ToolData.OtherSystemName + ToolData.SystemPostfix, CodeTemplate.GetOthersSystemCode());
+                List<string> selectedSystem = CodeTemplate.GetSelectedSysytem();
+                List<string> funName = CodeTemplate.GetFunName(selectedSystem);
+                GenerateCode.InitSystem(ToolData.SelectedContextName,
+                    ToolData.SelectedContextName + ToolData.OtherSystemName + ToolData.SystemPostfix,
                     funName.ToArray());
+                Close();
             });
         }
-
-        private void InitServices(string path)
-        {
-            if (File.Exists(path))
-            {
-                string content = File.ReadAllText(path);
-                int index = content.IndexOf("IInitService[] services =");
-                int newIndex = content.IndexOf("new", index);
-                content = content.Insert(newIndex, "new "+ _serviceName + _servicePostfix + "(),\r                ");
-                File.WriteAllText(path, content,Encoding.UTF8);
-
-                Close();
-            }
-            else
-            {
-                Debug.LogError("Service脚本不存在");
-            }
-        }
-
+     
         //输入要生成脚本的主名称
         private void InputName(string titleName,ref string name)
         {
@@ -275,8 +223,8 @@ namespace CustomTool
             {
                 if (!string.IsNullOrEmpty(btnName))
                 {
-                    Close();
                     callBack?.Invoke();
+                    Close();
                 }
                 else
                 {
@@ -285,13 +233,13 @@ namespace CustomTool
             }
             
         }
-
+        //单选toggle组
         private static void ToggleGroup(string name)
         {
-            if (_contextSelectedState.ContainsKey(name))
+            if (ToolData.ContextSelectedState.ContainsKey(name))
             {
-                ResetContextSelectedState();
-                _contextSelectedState[name] = true;
+                ToolData.ResetContextSelectedState();
+                ToolData.ContextSelectedState[name] = true;
             }
         }
 
@@ -319,290 +267,5 @@ namespace CustomTool
             }
         }
 
-        //保存数据到本地
-        private void SaveDataToLocal()
-        {
-            Directory.CreateDirectory(_dataPah);
-            EntitasData data = new EntitasData();
-            data.ViewPath = _viewPath;
-            data.ServicePath = _servicePath;
-            data.SystemPath = _systemPath;
-            data.ServiceManagerPath = _serviceManagerPath;
-            data.GameFeaturePath = _gameFeaturePath;
-            data.InputFeaturePath = _inputFeaturePath;
-            data.ViewFeaturePath = _viewFeaturePath;
-            AssetDatabase.CreateAsset(data, _dataPah + _dataFileName);
-        }
-
-        //从本地读取数据
-        private static void ReadDataFromLocal()
-        {
-            EntitasData data = AssetDatabase.LoadAssetAtPath<EntitasData>(_dataPah + _dataFileName);
-            if (data != null)
-            {
-                _viewPath = data.ViewPath;
-                _servicePath = data.ServicePath;
-                _systemPath = data.SystemPath;
-                _serviceManagerPath = data.ServiceManagerPath;
-                _gameFeaturePath = data.GameFeaturePath;
-                _inputFeaturePath = data.InputFeaturePath;
-                _viewFeaturePath = data.ViewFeaturePath;
-            }
-        }
-
-        /// <summary>
-        /// 获取所有上下文名称
-        /// </summary>
-        private static void GetContextName()
-        {
-            var provider = new ContextDataProvider();
-            provider.Configure(Preferences.sharedInstance);
-            var data = (ContextData[])provider.GetData();
-            _contextNames = data.Select(u => u.GetContextName()).ToArray();
-        }
-
-        private static string GetViewCode()
-        {
-            var build = new ScriptBuildHelp();
-            build.WriteUsing("Entitas");
-            build.WriteUsing("Entitas.Unity");
-            build.WriteEmptyLine();
-
-            build.WriteNamespace(_namespaceBase + "." + _viewPostfix);
-
-            build.IndentTimes++;
-            build.WriteClass(_viewName + _viewPostfix, "ViewBase");
-
-            build.IndentTimes++;
-            List<string> keyName = new List<string>();
-            keyName.Add("override");
-            keyName.Add("void");
-            build.WriteFun(keyName, "Init","","Contexts contexts", "IEntity entity");
-
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine(" base.Init(contexts, entity);", true);
-            build.ToContentEnd();
-
-            return build.ToString();
-        }
-
-        private static string GetServiceCode()
-        {
-            string className = _serviceName + _servicePostfix;
-
-            var build = new ScriptBuildHelp();
-            build.WriteNamespace(_namespaceBase + "." + _servicePostfix);
-            //interface
-            build.IndentTimes++;
-            build.WriteInterface("I" + className, "IInitService");
-            build.ToContentEnd();
-            //class
-            build.WriteClass(className, "I" + className);
-            //init函数
-            build.IndentTimes++;
-            List<string> initKey = new List<string>();
-            initKey.Add("void");
-            build.WriteFun(initKey, "Init","", "Contexts contexts");
-            //init 内容
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine("//contexts.service.SetGameService" + className + "(this);", true);
-            build.IndentTimes--;
-            build.ToContentEnd();
-            //GetPriority函数
-            var key = new List<string>();
-            key.Add("int");
-            build.WriteFun(key, "GetPriority");
-
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine("return 0;", true);
-            build.ToContentEnd();
-
-            return build.ToString();
-        }
-
-        private static string GetReactiveSystemCode()
-        {
-            string className = _selectedContextName + _systemName + _systemPostfix;
-            string entityName = _selectedContextName + "Entity";
-
-            var build = new ScriptBuildHelp();
-            build.WriteUsing("Entitas");
-            build.WriteUsing("System.Collections.Generic");
-            build.WriteNamespace(_namespaceBase);
-
-            build.IndentTimes++;
-            build.WriteClass(className, "ReactiveSystem<" + entityName + ">");
-
-            build.IndentTimes++;
-            build.WriteLine(" protected Contexts _contexts;", true);
-            build.WriteEmptyLine();
-            //构造
-            build.WriteFun(new List<string>(), className, " : base(context.game)", "Contexts context");
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine(" _contexts = context;", true);
-            build.IndentTimes--;
-            build.ToContentEnd();
-            //GetTrigger
-            List<string> triggerkeys = new List<string>();
-            triggerkeys.Add("override");
-            triggerkeys.Add("ICollector<" + entityName + ">");
-            build.WriteFun("GetTrigger", ScriptBuildHelp.Protected, triggerkeys, "", "IContext<" + entityName + "> context");
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine("return context.CreateCollector(" + _selectedContextName + "Matcher.Game" + _selectedContextName + _systemName + ");", true);
-            build.IndentTimes--;
-            build.ToContentEnd();
-
-
-            //Filter
-            List<string> filerkeys = new List<string>();
-            filerkeys.Add("override");
-            filerkeys.Add("bool");
-            build.WriteFun("Filter", ScriptBuildHelp.Protected, filerkeys, "", entityName + " entity");
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine("return entity.hasGame" + _selectedContextName + _systemName + ";", true);
-            build.IndentTimes--;
-            build.ToContentEnd();
-
-
-            //Execute
-            List<string> executeKeys = new List<string>();
-            executeKeys.Add("override");
-            executeKeys.Add("void");
-            build.WriteFun("Execute", ScriptBuildHelp.Protected, executeKeys, "", "List<" + entityName + "> entities");
-
-            return build.ToString();
-        }
-
-        public static string GetOthersSystemCode()
-        {
-            string className = _selectedContextName + _otherSystemName + _systemPostfix;
-            List<string> selectedSystem = GetSelectedSysytem();
-
-            var build = new ScriptBuildHelp();
-            build.WriteUsing("Entitas");
-            build.WriteNamespace(_namespaceBase);
-
-            build.IndentTimes++;
-            build.WriteClass(className, GetSelectedSystem(selectedSystem));
-
-            build.IndentTimes++;
-            build.WriteLine("protected Contexts _contexts;", true);
-            build.WriteEmptyLine();
-            //构造
-            build.WriteFun(new List<string>(), className, "", "Contexts context");
-            build.BackToInsertContent();
-            build.IndentTimes++;
-            build.WriteLine("_contexts = context;", true);
-            build.IndentTimes--;
-            build.ToContentEnd();
-            //实现方法
-            List<string> funName = GetFunName(selectedSystem);
-            List<string> key = new List<string>();
-            key.Add("void");
-            foreach (string fun in funName)
-            {
-                build.WriteFun(key, fun);
-            }
-            return build.ToString();
-        }
-
-        private static void InitSystem(string contextName,string className,params string[] systemName)
-        {
-            string path = "";
-            switch (contextName)
-            {
-                case "Game":
-                    path = _gameFeaturePath;
-                    break;
-                case "Input":
-                    path = _inputFeaturePath;
-                    break;
-            }
-
-            if (string.IsNullOrEmpty(path))
-                return;
-
-            foreach (string s in systemName)
-            {
-                SetSystem(path, s, className);
-            }
-
-            Close();
-        }
-
-        private static void SetSystem(string path,string systemName,string className)
-        {
-            
-            string content = File.ReadAllText(path);
-            int index = content.IndexOf("void " + systemName + "Fun(Contexts contexts)");
-            if (index < 0)
-            {
-                Debug.LogError("未找到对应方法，系统名："+ systemName);
-                return;
-            }
-
-            int startIndex = content.IndexOf("{",index);
-            content = content.Insert(startIndex + 1, "\r            Add(new " + className + "(contexts));");
-            File.WriteAllText(path,content,Encoding.UTF8);
-        }
-
-        private static List<string> GetSelectedSysytem()
-        {
-            List<string> temp = new List<string>();
-            foreach (KeyValuePair<string, bool> pair in _systemSelectedState)
-            {
-                if (pair.Value)
-                {
-                    temp.Add(pair.Key);
-                }
-            }
-
-            return temp;
-        }
-
-        private static string GetSelectedSystem(List<string> selected)
-        {
-            StringBuilder temp = new StringBuilder();
-
-            foreach (string name in selected)
-            {
-                temp.Append(name);
-                temp.Append(" , ");
-            }
-
-            temp.Remove(temp.Length - 2, 2);
-
-            return temp.ToString();
-        }
-
-        private static List<string> GetFunName(List<string> selected)
-        {
-            List<string> temp = new List<string>();
-
-            foreach (string interfaceName in selected)
-            {
-                temp.Add(interfaceName.Substring(1, interfaceName.Length - 7));
-            }
-
-            return temp;
-        }
-
-        private static void CreateScript(string path,string className,string scriptContent)
-        {
-            if (Directory.Exists(path))
-            {
-                File.WriteAllText(path+"/"+className+".cs", scriptContent, Encoding.UTF8);
-            }
-            else
-            {
-                Debug.LogError("目录:"+path+"不存在");
-            }
-        }
     }
 }
