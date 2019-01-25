@@ -10,12 +10,11 @@ using UnityEngine;
 
 namespace CustomTool
 {
-
-    // 生成Entitas框架代码工具
-
+    /// <summary>
+    /// 生成Entitas框架代码工具
+    /// </summary>
     public class GenerateEntitasCode : EditorWindow
     {
-
         private static int _lineSpace;
 
         private static GUIStyle _mainTitle;
@@ -24,7 +23,7 @@ namespace CustomTool
 
         private static EditorWindow _window;
 
-        [MenuItem("Tools/GenerateEntitasCode")]
+        [MenuItem("Tools/GenerateEntitasCode %,")]
         public static void OpenWindow()
         {
             _window = GetWindow(typeof(GenerateEntitasCode));
