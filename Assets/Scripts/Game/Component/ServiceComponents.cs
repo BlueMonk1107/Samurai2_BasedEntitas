@@ -44,4 +44,10 @@ namespace Game.Service
     {
         public ITimerService TimerService;
     }
+
+    [Service, Unique]
+    public class SkillCodeServiceComponent : IComponent
+    {
+        public ISkillCodeService SkillCodeService;
+    }
 }

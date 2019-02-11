@@ -10,6 +10,7 @@ namespace Game.Service
     public interface ITimerService : IInitService, IExecuteService, ITimerManager
     {
         ITimer CreateTimer(TimerId id, float duration, bool loop);
+        ITimer ResetTimerData(TimerId id, float duration, bool loop);
         ITimer GeTimer(TimerId id);
     }
 
@@ -50,6 +51,16 @@ namespace Game.Service
         public ITimer CreateTimer(string id, float duration, bool loop)
         {
             return _timerManager.CreateTimer(id, duration, loop);
+        }
+
+        public ITimer ResetTimerData(TimerId id, float duration, bool loop)
+        {
+            return ResetTimerData(id.ToString(), duration, loop);
+        }
+
+        public ITimer ResetTimerData(string id, float duration, bool loop)
+        {
+            return _timerManager.ResetTimerData(id,duration,loop);
         }
 
         public ITimer GeTimer(string id)

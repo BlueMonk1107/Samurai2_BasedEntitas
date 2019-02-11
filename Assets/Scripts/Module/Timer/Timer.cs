@@ -75,6 +75,8 @@ namespace Module.Timer
         /// <param name="loop"></param>
         /// <returns></returns>
         ITimer CreateTimer(string id, float duration, bool loop);
+
+        ITimer ResetTimerData(string id, float duration, bool loop);
         /// <summary>
         /// 通过标识获取计时器
         /// </summary>
@@ -141,25 +143,25 @@ namespace Module.Timer
 
             private Action _onUpdate;
             private Action _onComplete;
-           
+
             //计时开始时间
             private DateTime _startTime;
             //总运行时间
             private float _runTimeTotal;
-           
+
             //持续时间
             private float _duration;
             //刷新间隔帧数
             private int _offsetFrame = 10;
             private int _frameTimes;
 
-            public Timer(string id,float duration, bool loop)
+            public Timer(string id, float duration, bool loop)
             {
-                InitData(id,duration, loop);
+                InitData(id, duration, loop);
             }
 
 
-            private void InitData(string id,float duration, bool loop)
+            private void InitData(string id, float duration, bool loop)
             {
                 ID = id;
                 _duration = duration;
@@ -175,7 +177,7 @@ namespace Module.Timer
             /// <param name="loop"></param>
             public void ResetData(string id, float duration, bool loop)
             {
-                InitData(id,duration, loop);
+                InitData(id, duration, loop);
             }
 
             private void ResetData()
@@ -184,12 +186,14 @@ namespace Module.Timer
                 IsTiming = true;
                 _startTime = DateTime.Now;
                 _runTimeTotal = 0;
+                _onUpdate = null;
+                _onComplete = null;
             }
 
             public void Update()
             {
                 _frameTimes++;
-                if (_frameTimes< _offsetFrame)
+                if (_frameTimes < _offsetFrame)
                     return;
                 _frameTimes = 0;
 
@@ -323,12 +327,12 @@ namespace Module.Timer
                     _timersDic.Remove(timer.ID);
 
                     _inactiveTimers.Remove(timer);
-                    timer.ResetData(id,duration, loop);
+                    timer.ResetData(id, duration, loop);
                     _activeTimers.Add(timer);
                 }
                 else
                 {
-                    timer = new Timer(id,duration, loop);
+                    timer = new Timer(id, duration, loop);
                     _activeTimers.Add(timer);
                 }
                 _timersDic[id] = timer;
@@ -336,6 +340,22 @@ namespace Module.Timer
 
             timer.AddCompleteListener(() => TimerComplete(timer));
             return timer;
+        }
+
+        public ITimer ResetTimerData(string id, float duration, bool loop)
+        {
+            if (_timersDic.ContainsKey(id))
+            {
+                var timer = _timersDic[id];
+                if (timer.IsTiming)
+                {
+                    timer.ResetData(id, duration, loop);
+                }
+
+                return timer;
+            }
+
+            return null;
         }
 
         public ITimer GeTimer(string id)
