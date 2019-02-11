@@ -100,7 +100,7 @@ namespace CustomTool
             build.WriteLine(" protected Contexts _contexts;", true);
             build.WriteEmptyLine();
             //ππ‘Ï
-            build.WriteFun(new List<string>(), className, " : base(context.game)", "Contexts context");
+            build.WriteFun(new List<string>(), className, " : base(context."+ ToolData.SelectedContextName.ToLower() + ")", "Contexts context");
             build.BackToInsertContent();
             build.IndentTimes++;
             build.WriteLine(" _contexts = context;", true);

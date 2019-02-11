@@ -162,7 +162,7 @@ namespace CustomTool
 
             CreateButton("生成脚本", () =>
             {
-                GenerateCode.CreateScript(ToolData.SystemPath, ToolData.ReactiveSystemName + ToolData.SystemPostfix, CodeTemplate.GetReactiveSystemCode());
+                GenerateCode.CreateScript(ToolData.SystemPath + "/" + ToolData.SelectedContextName, ToolData.ReactiveSystemName + ToolData.SystemPostfix, CodeTemplate.GetReactiveSystemCode());
                 GenerateCode.InitSystem(ToolData.SelectedContextName,
                     ToolData.SelectedContextName + ToolData.ReactiveSystemName + ToolData.SystemPostfix,
                     "ReactiveSystem");
@@ -187,7 +187,7 @@ namespace CustomTool
 
             CreateButton("生成脚本", () =>
             {
-                GenerateCode.CreateScript(ToolData.SystemPath, ToolData.OtherSystemName + ToolData.SystemPostfix, CodeTemplate.GetOthersSystemCode());
+                GenerateCode.CreateScript(ToolData.SystemPath+"/"+ToolData.SelectedContextName, ToolData.OtherSystemName + ToolData.SystemPostfix, CodeTemplate.GetOthersSystemCode());
                 List<string> selectedSystem = CodeTemplate.GetSelectedSysytem();
                 List<string> funName = CodeTemplate.GetFunName(selectedSystem);
                 GenerateCode.InitSystem(ToolData.SelectedContextName,
