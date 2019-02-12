@@ -13,6 +13,7 @@ namespace Game.Service
         public void Init(Contexts contexts)         
         {
             contexts.service.SetGameServiceSkillCodeService(this);
+            skillCode = new SkillCodeModule();
 
         }
         public int GetPriority()         
@@ -24,11 +25,11 @@ namespace Game.Service
         {
             if (button == InputButton.ATTACK_O)
             {
-                return skillCode.GetCurrentSkillCode(SkillButton.ATTACK_O, currentCode);
+                return skillCode.GetCurrentSkillCode(SkillButton.O, currentCode);
             }
             else if(button == InputButton.ATTACK_X)
             {
-                return skillCode.GetCurrentSkillCode(SkillButton.ATTACK_X, currentCode);
+                return skillCode.GetCurrentSkillCode(SkillButton.X, currentCode);
             }
             else
             {

@@ -9,6 +9,7 @@ namespace Game
     public class PlayerAni : IPlayerAni
     {
         public bool IsRun { get; set; }
+        
         private Animator _ani;
         public PlayerAni(Animator animator)
         {
@@ -50,14 +51,9 @@ namespace Game
             Move();
         }
 
-        public void AttackO()
+        public void Attack(int skillCode)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void AttackX()
-        {
-            throw new System.NotImplementedException();
+            _ani.SetInteger(ConstValue.SKILL_PARA_NAME, skillCode);
         }
 
         private void Move()

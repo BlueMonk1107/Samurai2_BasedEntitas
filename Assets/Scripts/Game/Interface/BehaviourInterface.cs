@@ -25,12 +25,8 @@ namespace Game
         bool IsRun { get; set; }
 
         /// <summary>
-        /// ¹¥»÷¼ü£¨°´ÏÂK£©
+        /// ¹¥»÷¼ü
         /// </summary>
-        void AttackO();
-        /// <summary>
-        /// ¹¥»÷¼ü £¨°´ÏÂL£©
-        /// </summary>
-        void AttackX();
+        void Attack(int skillCode);
     }
 }

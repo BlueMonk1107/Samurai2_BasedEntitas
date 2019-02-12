@@ -22,5 +22,9 @@ namespace Const
         /// 玩家动画参数名称
         /// </summary>
         public const string PLAYER_PARA_NAME = "AniIndex";
+        /// <summary>
+        /// 玩家技能动画参数名称
+        /// </summary>
+        public const string SKILL_PARA_NAME = "Skill";
     }
 }

@@ -7,13 +7,18 @@ namespace Game
     /// <summary>
     /// 判断技能按钮输入的是否有效
     /// </summary>
-    public class InputJudgeHumanSkillSystem : ReactiveSystem<InputEntity>
+    public class InputJudgeHumanSkillSystem : ReactiveSystem<InputEntity>,IInitializeSystem
     {
         protected Contexts _contexts;
 
         public InputJudgeHumanSkillSystem(Contexts context) : base(context.input)
         {
             _contexts = context;
+        }
+
+        public void Initialize()
+        {
+            _contexts.input.ReplaceGameInputValidHumanSkill(false, 0);
         }
 
         protected override ICollector<InputEntity> GetTrigger(IContext<InputEntity> context)
@@ -33,11 +38,15 @@ namespace Game
             {
                 ITimerService timerService = _contexts.service.gameServiceTimerService.TimerService;
                 var timer = timerService.CreateTimer(TimerId.JUDGE_SKILL_TIMER, 0.2f, false);
-                timer.AddCompleteListener(() => SetValid(entity,true));
+                
                 if (timer == null)
                 {
                     timer = timerService.ResetTimerData(TimerId.JUDGE_SKILL_TIMER, 0.2f, false);
                     timer.AddCompleteListener(() => SetValid(entity,true));
+                }
+                else
+                {
+                    timer.AddCompleteListener(() => SetValid(entity, true));
                 }
 
                 SetValid(entity, false);
@@ -58,9 +67,14 @@ namespace Game
             {
                 code = skill.SkillCode;
             }
-            code =
-             _contexts.service.gameServiceSkillCodeService.SkillCodeService.GetCurrentSkillCode(
-                 entity.gameInputButton.InputButton, code);
+
+            if (!isValid)
+            {
+                code = _contexts.service
+                    .gameServiceSkillCodeService.SkillCodeService
+                    .GetCurrentSkillCode(entity.gameInputButton.InputButton, code);
+            }
+            
             _contexts.input.ReplaceGameInputValidHumanSkill(isValid, code);
         }
     }

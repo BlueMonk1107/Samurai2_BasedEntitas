@@ -140,47 +140,4 @@ namespace Game
              );
         }
     }
-
-    /// <summary>
-    /// O攻击按键响应系统
-    /// </summary>
-    public class InputAttackOButtonSystem : InputDownButtonSystemBase
-    {
-        public InputAttackOButtonSystem(Contexts contexts) : base(contexts)
-        {
-        }
-
-        protected override bool FilterCondition(InputEntity entity)
-        {
-            return entity.gameInputButton.InputButton == InputButton.ATTACK_O;
-        }
-
-        protected override void Execute(List<InputEntity> entities)
-        {
-            _contexts.game.gamePlayer.Behaviour.AttackO();
-            _contexts.game.gamePlayer.Ani.AttackO();
-        }
-    }
-
-    /// <summary>
-    /// X攻击按键响应系统
-    /// </summary>
-    public class InputAttackXButtonSystem : InputDownButtonSystemBase
-    {
-        public InputAttackXButtonSystem(Contexts contexts) : base(contexts)
-        {
-        }
-
-        protected override bool FilterCondition(InputEntity entity)
-        {
-            return entity.gameInputButton.InputButton == InputButton.ATTACK_X;
-        }
-
-        protected override void Execute(List<InputEntity> entities)
-        {
-            _contexts.game.gamePlayer.Behaviour.AttackX();
-            _contexts.game.gamePlayer.Ani.AttackX();
-        }
-    }
-
 }

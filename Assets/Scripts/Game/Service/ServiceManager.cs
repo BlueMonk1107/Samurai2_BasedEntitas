@@ -44,7 +44,8 @@ namespace Game.Service
         {
             IInitService[] services =
             {
-                new SkillCodeService(),                new FindObjectService(),
+                new SkillCodeService(),
+                new FindObjectService(),
                 new EntitasInputService(),
                 new LogService(),
                 new LoadService(parentManager),

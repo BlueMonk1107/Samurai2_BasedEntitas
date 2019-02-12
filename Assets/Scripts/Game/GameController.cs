@@ -27,6 +27,7 @@ namespace Game
             _contexts.game.SetGameGameState(GameState.START);
 
             _serviceManager.Init(_contexts);
+            
         }
 
         private void InitManager()

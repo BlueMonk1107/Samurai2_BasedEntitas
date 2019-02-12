@@ -25,11 +25,11 @@ namespace Game
         protected override void Execute(List<InputEntity> entities)         
         {
             //发出信号，当前播放技能，动画，声音，特效
-            //
             
             foreach (InputEntity entity in entities)
             {
-                _contexts.service.gameServiceLogService.LogService.Log(entity.gameInputValidHumanSkill.SkillCode.ToString());
+                var code = entity.gameInputValidHumanSkill.SkillCode;
+                _contexts.game.gamePlayer.Ani.Attack(code);
                 entity.ReplaceGameInputValidHumanSkill(false,0);
             }
         }

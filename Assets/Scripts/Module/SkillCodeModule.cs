@@ -21,22 +21,82 @@ namespace Module
             }
             else
             {
-                currentCode = (int)(code*Mathf.Pow(10, GetCodeLength(currentCode))) + currentCode;
+                currentCode = currentCode * 10 + code;
             }
 
             return currentCode;
         }
 
-        //获取当前编码是几位数
-        private int GetCodeLength(int currentCode)
+        public int GetSkillCode(string skillName,string prefix,string posfix)
         {
-            return currentCode.ToString().Length;
+            string codeString = "";
+            if (!string.IsNullOrEmpty(prefix))
+            {
+                codeString = skillName.Remove(0, prefix.Length);
+            }
+
+            if (!string.IsNullOrEmpty(posfix))
+            {
+                codeString = skillName.Remove(skillName.Length - posfix.Length, posfix.Length);
+            }
+
+            return ConvertStringToInt(codeString);
+        }
+
+        //转换string编码到int
+        private int ConvertStringToInt(string codeString)
+        {
+            int[] codes = new int[codeString.Length];
+            char[] chars = codeString.ToCharArray();
+
+            for (int i = 0; i < chars.Length; i++)
+            {
+                if (chars[i] == SkillButton.O.ToString()[0])
+                {
+                    codes[i] = (int) SkillButton.O;
+                }
+                else if (chars[i] == SkillButton.X.ToString()[0])
+                {
+                    codes[i] = (int)SkillButton.X;
+                }
+            }
+
+            int code = 0;
+
+            for (int i = 0; i < codes.Length; i++)
+            {
+                code += (int) (codes[i]*Mathf.Pow(10, codes.Length - 1 - i));
+            }
+
+            return code;
+        }
+        //转换int编码到string
+        private string ConvertIntToString(int code)
+        {
+            string codeString = code.ToString();
+            string[] codeStrings = new string[codeString.Length];
+
+            for (int i = 0; i < codeStrings.Length; i++)
+            {
+                if (int.Parse(codeString[i].ToString()) == (int) SkillButton.O)
+                {
+                    codeStrings[i] = SkillButton.O.ToString();
+                }
+                else if(int.Parse(codeString[i].ToString()) == (int)SkillButton.X)
+                {
+                    codeStrings[i] = SkillButton.X.ToString();
+                }
+            }
+
+            codeString = string.Join("", codeStrings);
+
+            return codeString;
         }
     }
 
     public enum SkillButton
     {
-        ATTACK_X = 1,
-        ATTACK_O = 2
+        X = 1,
+        O = 2
     }
 }

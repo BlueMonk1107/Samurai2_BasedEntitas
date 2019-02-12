@@ -47,14 +47,9 @@ namespace Game
 
         public bool IsRun { get; set; }
 
-        public void AttackO()
+        public void Attack(int skillCode)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void AttackX()
-        {
-            throw new System.NotImplementedException();
+           
         }
 
         private void Move(Vector3 direction)

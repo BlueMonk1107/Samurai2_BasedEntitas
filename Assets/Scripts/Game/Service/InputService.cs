@@ -73,9 +73,7 @@ namespace Game.Service
 
             Right();
 
-            AttackO();
-
-            AttackX();
+            Attack(0);
 
             Idle();
         }
@@ -113,13 +111,9 @@ namespace Game.Service
 
         public bool IsRun { get; set; }
 
-        public void AttackO()
+        public void Attack(int skillCode)
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
-        }
-
-        public void AttackX()
-        {
             InputDown(KeyCode.L, InputButton.ATTACK_X);
         }
 
