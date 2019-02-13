@@ -54,6 +54,7 @@ namespace Game
         public void Attack(int skillCode)
         {
             _ani.SetInteger(ConstValue.SKILL_PARA_NAME, skillCode);
+            _ani.SetBool(ConstValue.IDLE_SWORD_PARA_NAME,true);
         }
 
         private void Move()

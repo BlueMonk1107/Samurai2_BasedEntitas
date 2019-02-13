@@ -25,7 +25,7 @@ namespace Game
                 _contexts.game.gamePlayer.Ani.Idle();
                 _contexts.game.gamePlayer.Ani.IsRun = false;
             }
-            _contexts.service.gameServiceTimerService.TimerService.GeTimer(TimerId.MOVE_TIMER)?.Stop();
+            _contexts.service.gameServiceTimerService.TimerService.GeTimer(TimerId.MOVE_TIMER)?.Stop(true);
         }
     }
 

@@ -68,6 +68,11 @@ namespace Game.Service
             return _timerManager.GeTimer(id);
         }
 
+        public void StopTimer(ITimer timer, bool isComplete)
+        {
+            _timerManager.StopTimer(timer,isComplete);
+        }
+
         public void Update()
         {
             _timerManager.Update();

@@ -60,7 +60,7 @@ namespace Module.Timer
         /// <summary>
         /// Í£Ö¹¼ÆÊ±
         /// </summary>
-        void Stop();
+        void Stop(bool isComplete);
 
         ITimer AddUpdateListener(Action update);
         ITimer AddCompleteListener(Action complete);
@@ -83,6 +83,9 @@ namespace Module.Timer
         /// <param name="id"></param>
         /// <returns></returns>
         ITimer GeTimer(string id);
+
+        void StopTimer(ITimer timer, bool isComplete);
+
         /// <summary>
         /// Ö¡º¯Êý
         /// </summary>
@@ -245,9 +248,9 @@ namespace Module.Timer
                 _runTimeTotal += GetCurrentTimingTime();
             }
 
-            public void Stop()
+            public void Stop(bool isComplete)
             {
-                if (IsComplete)
+                if (IsComplete && isComplete)
                 {
                     _onComplete?.Invoke();
                 }
@@ -365,6 +368,12 @@ namespace Module.Timer
             timer.ResetData(id, duration, loop);
         }
 
+        public void StopTimer(ITimer timer,bool isComplete)
+        {
+            timer.Stop(isComplete);
+            SetInactiveTimer(timer);
+        }
+
         public ITimer GeTimer(string id)
         {
             if (_timersDic.ContainsKey(id))
@@ -380,6 +389,14 @@ namespace Module.Timer
         private void TimerComplete(ITimer timer)
         {
             if (!timer.IsLoop)
+            {
+                SetInactiveTimer(timer);
+            }
+        }
+
+        private void SetInactiveTimer(ITimer timer)
+        {
+            if (_activeTimers.Contains(timer))
             {
                 _activeTimers.Remove(timer);
                 _inactiveTimers.Add(timer);
@@ -433,7 +450,7 @@ namespace Module.Timer
         {
             foreach (ITimer timer in _activeTimers)
             {
-                timer.Stop();
+                StopTimer(timer, false);
             }
         }
 

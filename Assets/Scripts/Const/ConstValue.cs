@@ -26,5 +26,9 @@ namespace Const
         /// 玩家技能动画参数名称
         /// </summary>
         public const string SKILL_PARA_NAME = "Skill";
+        /// <summary>
+        /// 是否是在攻击状态的Idle标志
+        /// </summary>
+        public const string IDLE_SWORD_PARA_NAME = "IsIdleSword";
     }
 }

@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Const;
+using Module;
 using UnityEngine;
 
-public class SkillAniState : StateMachineBehaviour {
+public class SkillAniState : StateMachineBehaviour
+{
+
+    private SkillCodeModule _codeModule;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-       
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if (_codeModule == null)
+        {
+            _codeModule = new SkillCodeModule();
+        }
+    }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -16,7 +24,11 @@ public class SkillAniState : StateMachineBehaviour {
         var clips = animator.GetCurrentAnimatorClipInfo(layerIndex);
         if (clips.Length > 0)
         {
-            Debug.Log(clips[0].clip.name);
+            int code = _codeModule.GetSkillCode(clips[0].clip.name, "attack", "");
+            if (animator.GetInteger(ConstValue.SKILL_PARA_NAME) == code)
+            {
+                animator.SetInteger(ConstValue.SKILL_PARA_NAME, 0);
+            } 
         }
     }
 
