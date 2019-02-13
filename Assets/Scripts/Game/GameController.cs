@@ -1,5 +1,6 @@
 using Entitas;
 using Game.Service;
+using Game.View;
 using Manager;
 using Manager.Parent;
 using Model;
@@ -44,6 +45,10 @@ namespace Game
             ModelManager.Single.Init();
 
             _serviceManager = new ServiceManager(parentManager);
+
+            var uiParnet = parentManager.GetParnetTrans(ParentName.UIController);
+            UIController uiCopntroller = uiParnet.gameObject.AddComponent<UIController>();
+            uiCopntroller.Init();
         }
 
         private void Update()

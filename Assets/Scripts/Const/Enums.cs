@@ -71,4 +71,12 @@ namespace Const
         CurrentComics,
         RightComics
     }
+
+    /// <summary>
+    /// ÓÎÏ·ÄÚUIÃû³Æ
+    /// </summary>
+    public enum GameUIName
+    {
+        HumanSkill
+    }
 }

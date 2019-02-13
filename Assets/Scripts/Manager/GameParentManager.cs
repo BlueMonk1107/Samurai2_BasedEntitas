@@ -46,6 +46,7 @@ namespace Manager.Parent
     public enum ParentName
     {
         PlayerRoot,
-        CameraController
+        CameraController,
+        UIController
     }
 }
