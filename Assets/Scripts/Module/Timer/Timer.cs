@@ -69,14 +69,30 @@ namespace Module.Timer
     public interface ITimerManager
     {
         /// <summary>
-        /// 创建计时器
+        /// 创建计时器，如当前指定名称计时器正在计时，返回null
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         /// <returns></returns>
         ITimer CreateTimer(string id, float duration, bool loop);
 
+        /// <summary>
+        /// 重置指定ID的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
         ITimer ResetTimerData(string id, float duration, bool loop);
+        /// <summary>
+        /// 指定ID的timer为空，创建timer，不为空，重新启动timer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
+        ITimer CreatOrRestartTimer(string id, float duration, bool loop);
         /// <summary>
         /// 通过标识获取计时器
         /// </summary>
@@ -357,6 +373,18 @@ namespace Module.Timer
             return null;
         }
 
+        public ITimer CreatOrRestartTimer(string id, float duration, bool loop)
+        {
+            var timer = CreateTimer(id, duration, loop);
+
+            if (timer == null)
+            {
+                timer = ResetTimerData(id, duration, loop);
+            }
+
+            return timer;
+        }
+
         private void ResetTimer(ITimer timer, string id, float duration, bool loop)
         {
             if (_inactiveTimers.Contains(timer))
@@ -408,17 +436,25 @@ namespace Module.Timer
             _activEnum = _activeTimers.GetEnumerator();
             int count = _activeTimers.Count;
 
-            for (int i = 0; i < count; i++)
+            try
             {
-                if (!_activEnum.MoveNext())
+                for (int i = 0; i < count; i++)
                 {
-                    continue;
-                }
-                else
-                {
-                    _activEnum.Current.Update();
+                    if (!_activEnum.MoveNext())
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        _activEnum.Current.Update();
+                    }
                 }
             }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         /// <summary>

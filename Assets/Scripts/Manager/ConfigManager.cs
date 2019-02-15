@@ -15,12 +15,12 @@ namespace Manager
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T LoadJson<T>()
+        public T LoadJson<T>(string path)
         {
             string json = "";
-            if (File.Exists(ConfigPath.PLAYER_CONFIG))
+            if (File.Exists(path))
             {
-                json = File.ReadAllText(ConfigPath.PLAYER_CONFIG);
+                json = File.ReadAllText(path);
             }
             return JsonUtility.FromJson<T>(json);
         }

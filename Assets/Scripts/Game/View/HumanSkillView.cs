@@ -1,19 +1,69 @@
 ﻿using System.Collections.Generic;
 using Entitas;
 using Entitas.Unity;
+using Game.Effect;
+using Game.Service;
 using Manager;
+using Module;
+using Module.Timer;
 using UnityEngine;
 
 namespace Game.View
 {
-    public class HumanSkillView : ViewBase
+    public class HumanSkillView : ViewBase, IGameValidHumanSkillListener
     {
-        private List<HumanSkillItem> _itemList; 
+        private List<HumanSkillItem> _itemList;
+        private SkillCodeModule _codeModule;
+        private float _effectDuration;
+        private ITimerService _timerService;
+        private string _timerID;
+        private ITimer _timer;
 
-        public override void Init(Contexts contexts,IEntity entity)         
+        public override void Init(Contexts contexts, IEntity entity)
         {
-             base.Init(contexts, entity);
+            base.Init(contexts, entity);
+            
+            _entity.AddGameValidHumanSkillListener(this);
             _itemList = new List<HumanSkillItem>();
+            _codeModule =  new SkillCodeModule();
+            _effectDuration = 0.5f;
+            _timerID = "HumanSkillView";
+            HideImage();
+        }
+
+        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
+        {
+            var codeString = _codeModule.GetCodeString(SkillCode);
+            ShowItem(codeString);
+            gameObject.ShowAllImageEffect(_effectDuration);
+
+            StartTimer();
+        }
+
+        private void InitTimerService()
+        {
+            if (_timerService == null)
+            {
+                _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
+            }
+        }
+
+        private void StartTimer()
+        {
+            InitTimerService();
+
+            _timer = _timerService.CreatOrRestartTimer(_timerID, 1, false);
+            _timer.AddCompleteListener(HideImage);
+        }
+
+        private void HideImage()
+        {
+            gameObject.HideAllImageEffect(_effectDuration);
+        }
+
+        private void SetActive(bool isActive)
+        {
+            gameObject.SetActive(isActive);
         }
 
         /// <summary>
@@ -49,7 +99,7 @@ namespace Game.View
         {
             for (int i = 0; i < _itemList.Count; i++)
             {
-                if (_itemList.Count <= codeString.Length)
+                if (i < codeString.Length)
                 {
                     _itemList[i].ChangeSprite(codeString[i]);
                 }
@@ -59,5 +109,7 @@ namespace Game.View
                 }
             }
         }
+
+
     }
 }

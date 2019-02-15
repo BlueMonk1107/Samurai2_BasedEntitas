@@ -22,6 +22,7 @@ namespace Game
         {
             if (_contexts.game.hasGamePlayer)
             {
+                _contexts.game.gamePlayer.Behaviour.Idle();
                 _contexts.game.gamePlayer.Ani.Idle();
                 _contexts.game.gamePlayer.Ani.IsRun = false;
             }

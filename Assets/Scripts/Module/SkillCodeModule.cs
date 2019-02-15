@@ -27,9 +27,16 @@ namespace Module
             return currentCode;
         }
 
+        /// <summary>
+        /// 获取int类型的技能编码
+        /// </summary>
+        /// <param name="skillName"></param>
+        /// <param name="prefix"></param>
+        /// <param name="posfix"></param>
+        /// <returns></returns>
         public int GetSkillCode(string skillName,string prefix,string posfix)
         {
-            string codeString = "";
+            string codeString = skillName;
             if (!string.IsNullOrEmpty(prefix))
             {
                 codeString = skillName.Remove(0, prefix.Length);
@@ -43,7 +50,16 @@ namespace Module
             return ConvertStringToInt(codeString);
         }
 
-        //转换string编码到int
+        /// <summary>
+        /// 获取XXOO类型的技能编码
+        /// </summary>
+        /// <returns></returns>
+        public string GetCodeString(int code)
+        {
+            return ConvertIntToString(code);
+        }
+
+        //转换string编码到int 从xxoo类型转换成int类型编码
         private int ConvertStringToInt(string codeString)
         {
             int[] codes = new int[codeString.Length];
@@ -70,7 +86,7 @@ namespace Module
 
             return code;
         }
-        //转换int编码到string
+        //转换int编码到string 转换成xxoo类型的编码
         private string ConvertIntToString(int code)
         {
             string codeString = code.ToString();

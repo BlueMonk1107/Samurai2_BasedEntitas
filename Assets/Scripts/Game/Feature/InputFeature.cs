@@ -31,7 +31,7 @@ namespace Game
 
         private void ReactiveSystemFun(Contexts contexts)
         {
-            Add(new InputInputValidHumanSkillSystem(contexts));
+            Add(new InputHumanSkillStateSystem(contexts));
             Add(new InputJudgeHumanSkillSystem(contexts));
             Add(new InputNullSysytem(contexts));
             Add(new InputForwardButtonSystem(contexts));

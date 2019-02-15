@@ -14,14 +14,19 @@ namespace Game
         public InputState InputState;
     }
 
+    /// <summary>
+    /// 输入人物技能部分
+    /// </summary>
     [Input, Unique]
-    public class InputValidHumanSkill : IComponent
+    public class InputHumanSkillState : IComponent
     {
         /// <summary>
-        /// 标记连续按键是否有效
+        /// 标记连续技能输入是否结束
         /// </summary>
-        public bool IsValid;
-
+        public bool IsEnd;
+        /// <summary>
+        /// 技能编码
+        /// </summary>
         public int SkillCode;
     }
 }

@@ -1,0 +1,60 @@
+{
+  "Skills": [
+    {
+      "Code": "X",
+      "Level": 1
+    },
+    {
+      "Code": "O",
+      "Level": 1
+    },
+    {
+      "Code": "XO",
+      "Level": 1
+    },
+    {
+      "Code": "OX",
+      "Level": 1
+    },
+    {
+      "Code": "XX",
+      "Level": 1
+    },
+    {
+      "Code": "OO",
+      "Level": 1
+    },
+    {
+      "Code": "XOO",
+      "Level": 1
+    },
+    {
+      "Code": "XXO",
+      "Level": 1
+    },
+    {
+      "Code": "XXX",
+      "Level": 1
+    },
+    {
+      "Code": "OXO",
+      "Level": 1
+    },
+    {
+      "Code": "OOX",
+      "Level": 1
+    },
+    {
+      "Code": "OOO",
+      "Level": 1
+    },
+    {
+      "Code": "OOXO",
+      "Level": 2
+    },
+    {
+      "Code": "OOOX",
+      "Level": 2
+    }
+  ]
+}

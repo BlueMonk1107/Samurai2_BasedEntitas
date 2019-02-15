@@ -113,7 +113,7 @@ namespace CustomTool
             build.WriteFun("GetTrigger", ScriptBuildHelp.Protected, triggerkeys, "", "IContext<" + entityName + "> context");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return context.CreateCollector(" + ToolData.SelectedContextName + "Matcher.Game" + ToolData.SelectedContextName + ToolData.ReactiveSystemName + ");", true);
+            build.WriteLine("return context.CreateCollector(" + ToolData.SelectedContextName + "Matcher." + ToolData.SelectedContextName + ToolData.ReactiveSystemName + ");", true);
             build.IndentTimes--;
             build.ToContentEnd();
 

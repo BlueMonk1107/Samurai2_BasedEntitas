@@ -9,8 +9,30 @@ namespace Game.Service
     /// </summary>
     public interface ITimerService : IInitService, IExecuteService, ITimerManager
     {
+        /// <summary>
+        /// 创建计时器，如当前指定名称计时器正在计时，返回null
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
         ITimer CreateTimer(TimerId id, float duration, bool loop);
+        /// <summary>
+        /// 重置指定ID的Timer数据
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
         ITimer ResetTimerData(TimerId id, float duration, bool loop);
+        /// <summary>
+        /// 指定ID的timer为空，创建timer，不为空，重新启动timer
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="duration"></param>
+        /// <param name="loop"></param>
+        /// <returns></returns>
+        ITimer CreatOrRestartTimer(TimerId id, float duration, bool loop);
         ITimer GeTimer(TimerId id);
     }
 
@@ -61,6 +83,15 @@ namespace Game.Service
         public ITimer ResetTimerData(string id, float duration, bool loop)
         {
             return _timerManager.ResetTimerData(id,duration,loop);
+        }
+        public ITimer CreatOrRestartTimer(TimerId id, float duration, bool loop)
+        {
+            return CreatOrRestartTimer(id.ToString(), duration, loop);
+        }
+
+        public ITimer CreatOrRestartTimer(string id, float duration, bool loop)
+        {
+            return _timerManager.CreatOrRestartTimer(id, duration, loop);
         }
 
         public ITimer GeTimer(string id)

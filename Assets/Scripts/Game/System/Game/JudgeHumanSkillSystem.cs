@@ -1,5 +1,7 @@
 ﻿using Entitas;
 using System.Collections.Generic;
+using System.Linq;
+using Game.Model;
 using Game.Service;
 
 namespace Game
@@ -7,7 +9,7 @@ namespace Game
     /// <summary>
     /// 判断技能按钮输入的是否有效
     /// </summary>
-    public class InputJudgeHumanSkillSystem : ReactiveSystem<InputEntity>,IInitializeSystem
+    public class InputJudgeHumanSkillSystem : ReactiveSystem<InputEntity>
     {
         protected Contexts _contexts;
 
@@ -16,66 +18,59 @@ namespace Game
             _contexts = context;
         }
 
-        public void Initialize()
-        {
-            _contexts.input.ReplaceGameInputValidHumanSkill(false, 0);
-        }
-
         protected override ICollector<InputEntity> GetTrigger(IContext<InputEntity> context)
         {
-            return context.CreateCollector(InputMatcher.GameInputButton);
+            return context.CreateCollector(InputMatcher.GameInputHumanSkillState);
         }
 
         protected override bool Filter(InputEntity entity)
         {
-            return entity.gameInputButton.InputButton == InputButton.ATTACK_X
-                || entity.gameInputButton.InputButton == InputButton.ATTACK_O;
+            return entity.hasGameInputHumanSkillState
+                && entity.gameInputHumanSkillState.IsEnd;
         }
 
         protected override void Execute(List<InputEntity> entities)
         {
             foreach (InputEntity entity in entities)
             {
-                ITimerService timerService = _contexts.service.gameServiceTimerService.TimerService;
-                var timer = timerService.CreateTimer(TimerId.JUDGE_SKILL_TIMER, 0.2f, false);
-                
-                if (timer == null)
-                {
-                    timer = timerService.ResetTimerData(TimerId.JUDGE_SKILL_TIMER, 0.2f, false);
-                    timer.AddCompleteListener(() => SetValid(entity,true));
-                }
-                else
-                {
-                    timer.AddCompleteListener(() => SetValid(entity, true));
-                }
-
-                SetValid(entity, false);
+                int code = entity.gameInputHumanSkillState.SkillCode;
+                code = GetValidCode(code);
+                entity.ReplaceGameInputHumanSkillState(false, 0);
+                _contexts.game.ReplaceGameValidHumanSkill(code);
             }
-           
         }
 
-        private void SetValid(InputEntity entity,bool isValid)
+        private int GetValidCode(int code)
         {
-            var skillComponent = _contexts.input.gameInputValidHumanSkill;
-            ReplaceValidHumanSkill(entity, isValid, skillComponent);
+            if (JudgeIsVaildCode(code))
+            {
+                return code;
+            }
+            else
+            {
+                return GetLongValidCode(code);
+            }
         }
 
-        private void ReplaceValidHumanSkill(InputEntity entity, bool isValid,InputValidHumanSkill skill)
+        //获取错误编码中最长的有效编码
+        private int GetLongValidCode(int code)
         {
-            int code = 0;
-            if (skill != null)
-            {
-                code = skill.SkillCode;
-            }
-
-            if (!isValid)
-            {
-                code = _contexts.service
-                    .gameServiceSkillCodeService.SkillCodeService
-                    .GetCurrentSkillCode(entity.gameInputButton.InputButton, code);
-            }
+            //xxoo
+            string codeString = code.ToString();
+            codeString = codeString.Remove(codeString.Length - 1, 1);
             
-            _contexts.input.ReplaceGameInputValidHumanSkill(isValid, code);
+            return GetValidCode(int.Parse(codeString));
         }
+
+        private bool JudgeIsVaildCode(int code)
+        {
+            return GetValidData().Any(u => u.Code == code);
+        }
+
+        private List<ValidHumanSkill> GetValidData()
+        {
+            return _contexts.game.gameModelHumanSkillConfig.ValidHumanSkills;
+        }
+
     }
 }
