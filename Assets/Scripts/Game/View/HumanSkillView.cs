@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Game.View
 {
-    public class HumanSkillView : ViewBase, IGameValidHumanSkillListener
+    public class HumanSkillView : ViewBase, IGamePlayHumanSkillListener
     {
         private List<HumanSkillItem> _itemList;
         private SkillCodeModule _codeModule;
@@ -23,21 +23,12 @@ namespace Game.View
         {
             base.Init(contexts, entity);
             
-            _entity.AddGameValidHumanSkillListener(this);
+            _entity.AddGamePlayHumanSkillListener(this);
             _itemList = new List<HumanSkillItem>();
             _codeModule =  new SkillCodeModule();
             _effectDuration = 0.5f;
             _timerID = "HumanSkillView";
             HideImage();
-        }
-
-        public void OnGameValidHumanSkill(GameEntity entity, int SkillCode)
-        {
-            var codeString = _codeModule.GetCodeString(SkillCode);
-            ShowItem(codeString);
-            gameObject.ShowAllImageEffect(_effectDuration);
-
-            StartTimer();
         }
 
         private void InitTimerService()
@@ -111,5 +102,13 @@ namespace Game.View
         }
 
 
+        public void OnGamePlayHumanSkill(GameEntity entity, int SkillCode)
+        {
+            var codeString = _codeModule.GetCodeString(SkillCode);
+            ShowItem(codeString);
+            gameObject.ShowAllImageEffect(_effectDuration);
+
+            StartTimer();
+        }
     }
 }

@@ -171,7 +171,7 @@ namespace Module.Timer
             //持续时间
             private float _duration;
             //刷新间隔帧数
-            private int _offsetFrame = 10;
+            private int _offsetFrame = 5;
             private int _frameTimes;
 
             public Timer(string id, float duration, bool loop)

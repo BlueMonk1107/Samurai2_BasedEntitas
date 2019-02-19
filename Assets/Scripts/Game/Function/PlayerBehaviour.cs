@@ -10,7 +10,6 @@ namespace Game
     {
         private readonly Transform _playerTrans;
         private readonly PlayerDataModel _model;
-        private bool _isAttack;
         private Vector3 _faceDirection;
         private bool _isFaceDirectionChange;
 
@@ -18,19 +17,19 @@ namespace Game
         {
             _playerTrans = player;
             _model = model;
-            _isAttack = false;
+            IsAttack = false;
             _faceDirection = Vector3.zero;
             _isFaceDirectionChange = false;
         }
 
         public void Idle()
         {
-            _isAttack = false;
+            IsAttack = false;
         }
 
         public void TurnForward()
         {
-            if (_isAttack)
+            if (IsAttack)
                 return;
             _faceDirection = Vector3.zero;
             _isFaceDirectionChange = true;
@@ -38,7 +37,7 @@ namespace Game
 
         public void TurnBack()
         {
-            if(_isAttack)
+            if(IsAttack)
                 return;
             _faceDirection = Vector3.up * 180;
             _isFaceDirectionChange = true;
@@ -46,7 +45,7 @@ namespace Game
 
         public void TurnLeft()
         {
-            if (_isAttack)
+            if (IsAttack)
                 return;
             _faceDirection = Vector3.up * -90;
             _isFaceDirectionChange = true;
@@ -55,7 +54,7 @@ namespace Game
         public void TurnRight()
         {
 
-            if (_isAttack)
+            if (IsAttack)
                 return;
             _faceDirection = Vector3.up * 90;
             _isFaceDirectionChange = true;
@@ -72,10 +71,11 @@ namespace Game
         }
 
         public bool IsRun { get; set; }
+        public bool IsAttack { get; private set; }
 
         public void Attack(int skillCode)
         {
-            _isAttack = true;
+            IsAttack = true;
         }
 
         private void PlayerOrientation(Vector3 direction)

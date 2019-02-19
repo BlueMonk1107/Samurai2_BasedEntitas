@@ -53,10 +53,46 @@ namespace Game
         public int SkillCode;
     }
 
+    /// <summary>
+    /// 播放人物技能部分
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Any)]
+    public class PlayHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
+    }
+
     [Game, Unique]
     public class HumanBehaviourStateComponent : IComponent
     {
         public PlayerBehaviourIndex Behaviour;
         public BehaviorState State;
+    }
+
+    /// <summary>
+    /// 人物技能开始事件
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Any)]
+    public class StartHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
+    }
+
+    /// <summary>
+    /// 人物技能结束事件
+    /// </summary>
+    [Game, Unique, Event(EventTarget.Any)]
+    public class EndHumanSkillComponent : IComponent
+    {
+        /// <summary>
+        /// 技能编码
+        /// </summary>
+        public int SkillCode;
     }
 }

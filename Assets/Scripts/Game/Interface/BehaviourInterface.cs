@@ -40,6 +40,8 @@ namespace Game
         /// </summary>
         bool IsRun { get; set; }
 
+        bool IsAttack { get;}
+
         /// <summary>
         /// ¹¥»÷¼ü
         /// </summary>

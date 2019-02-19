@@ -14,7 +14,7 @@ namespace Game
         }
 
         private void InitializeFun(Contexts contexts)
-        {
+        {            Add(new GameSkillManagerSystem(contexts));
             Add(new GameInitGameSystem(contexts));
             Add(new GameHumanAniEventSystem(contexts));
         }
@@ -33,7 +33,7 @@ namespace Game
 
         private void ReactiveSystemFun(Contexts contexts)
         {
-            Add(new GameValidHumanSkillSystem(contexts));
+            Add(new GamePlayHumanSkillSystem(contexts));
             Add(new GameStartSystem(contexts));
             Add(new GamePauseSystem(contexts));
             Add(new GameEndSystem(contexts));

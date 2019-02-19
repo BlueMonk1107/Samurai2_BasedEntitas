@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Module;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace Game
             _animator = animator;
             _statesDic = new Dictionary<PlayerAniStateName, AnimatorState>();
             _eventDic = new Dictionary<PlayerAniStateName, CustomAniEvent>();
+            new InitSkillAni(animator);
             InitAnimatorStateData(animator);
             AddCustomAniEventScripts();
             InitCustomAniEventScripts();
@@ -92,6 +94,46 @@ namespace Game
                 aniEvent.OnStateExitAction = OnStateExitAction;
             }
         }
+    }
+    /// <summary>
+    /// 技能脚本名称初始化
+    /// </summary>
+    public class InitSkillAni
+    {
+        public InitSkillAni(Animator animator)
+        {
+            SetStateName(animator);
+        }
+
+        private void SetStateName(Animator animator)
+        {
+            SkillCodeModule _codeModule = new SkillCodeModule();
+
+            AnimatorController aniController = animator.runtimeAnimatorController as AnimatorController;
+            AnimatorStateMachine aniMachine = aniController.layers[0].stateMachine;
+
+            SkillAniState temp = null;
+
+            foreach (ChildAnimatorState state in aniMachine.stateMachines[0].stateMachine.states)
+            {
+                foreach (StateMachineBehaviour behaviour in state.state.behaviours)
+                {
+                    temp = null;
+                    if (behaviour is SkillAniState)
+                    {
+                        temp = behaviour as SkillAniState;
+                        break;
+                    }
+                }
+
+                if (temp != null)
+                {
+                    int code = _codeModule.GetSkillCode(state.state.name, "attack", "");
+                    temp.name = code.ToString();
+                }
+            }
+            
+        } 
     }
 
     /// <summary>

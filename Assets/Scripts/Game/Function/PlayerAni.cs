@@ -51,6 +51,8 @@ namespace Game
         {
         }
 
+        public bool IsAttack { get; }
+
         public void Attack(int skillCode)
         {
             _ani.SetInteger(ConstValue.SKILL_PARA_NAME, skillCode);

@@ -1,3 +1,4 @@
+using Game.View;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
@@ -70,6 +71,16 @@ namespace Game.Service
             entity.AddGamePlayer(view, behaviour, ani);
             entity.AddGamePlayerAniState(PlayerAniIndex.IDLE);
             view.Init(Contexts.sharedInstance, entity);
+
+            LoadTrails(player.transform);
+        }
+
+        private void LoadTrails(Transform player)
+        {
+            var trails = LoadAndInstaniate(Path.TRAILS_COMBO_PREFAB, player);
+            var manager = trails.transform.GetOrAddComponent<TrailComboManager>();
+            var entity = Contexts.sharedInstance.game.CreateEntity();
+            manager.Init(Contexts.sharedInstance, entity);
         }
         
     }

@@ -116,6 +116,8 @@ namespace Game.Service
 
         public bool IsRun { get; set; }
 
+        public bool IsAttack { get; }
+
         public void Attack(int skillCode)
         {
             InputDown(KeyCode.K, InputButton.ATTACK_O);
