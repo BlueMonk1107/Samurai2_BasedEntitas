@@ -55,7 +55,6 @@ namespace Game
         //获取错误编码中最长的有效编码
         private int GetLongValidCode(int code)
         {
-            //xxoo
             string codeString = code.ToString();
             codeString = codeString.Remove(codeString.Length - 1, 1);
             

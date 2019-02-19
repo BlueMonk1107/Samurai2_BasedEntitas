@@ -125,7 +125,7 @@ namespace CustomTool
             build.WriteFun("Filter", ScriptBuildHelp.Protected, filerkeys, "", entityName + " entity");
             build.BackToInsertContent();
             build.IndentTimes++;
-            build.WriteLine("return entity.hasGame" + ToolData.SelectedContextName + ToolData.ReactiveSystemName + ";", true);
+            build.WriteLine("return entity.has" + ToolData.SelectedContextName + ToolData.ReactiveSystemName + ";", true);
             build.IndentTimes--;
             build.ToContentEnd();
 

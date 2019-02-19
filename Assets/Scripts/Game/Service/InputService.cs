@@ -65,13 +65,13 @@ namespace Game.Service
         {
             _isPress = false;
 
-            Forward();
+            TurnForward();
 
-            Back();
+            TurnBack();
 
-            Left();
+            TurnLeft();
 
-            Right();
+            TurnRight();
 
             Attack(0);
 
@@ -85,28 +85,33 @@ namespace Game.Service
             }
         }
 
-        public void Forward()
+        public void TurnForward()
         {
             if(!InputDown(KeyCode.W, InputButton.FORWARD))
                 InputPress(KeyCode.W, InputButton.FORWARD);
         }
 
-        public void Back()
+        public void TurnBack()
         {
             if(!InputDown(KeyCode.S, InputButton.BACK))
                 InputPress(KeyCode.S, InputButton.BACK);
         }
 
-        public void Left()
+        public void TurnLeft()
         {
             if (!InputDown(KeyCode.A, InputButton.LEFT))
                 InputPress(KeyCode.A, InputButton.LEFT);
         }
 
-        public void Right()
+        public void TurnRight()
         {
             if (!InputDown(KeyCode.D, InputButton.RIGHT))
                 InputPress(KeyCode.D, InputButton.RIGHT);
+        }
+
+        public void Move()
+        {
+
         }
 
         public bool IsRun { get; set; }

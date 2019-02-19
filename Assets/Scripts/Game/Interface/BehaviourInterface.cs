@@ -8,10 +8,26 @@ namespace Game
     public interface IBehaviour
     {
         void Idle();
-        void Forward();
-        void Back();
-        void Left();
-        void Right();
+        /// <summary>
+        /// 转向前方
+        /// </summary>
+        void TurnForward();
+        /// <summary>
+        /// 转向后方
+        /// </summary>
+        void TurnBack();
+        /// <summary>
+        /// 转向左侧
+        /// </summary>
+        void TurnLeft();
+        /// <summary>
+        /// 转向右侧
+        /// </summary>
+        void TurnRight();
+        /// <summary>
+        /// 移动
+        /// </summary>
+        void Move();
     }
 
     /// <summary>

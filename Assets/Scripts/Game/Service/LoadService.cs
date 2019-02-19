@@ -64,7 +64,7 @@ namespace Game.Service
             }
             else
             {
-                ani = new PlayerAni(animator);
+                ani = new PlayerAni(animator, new CustomAniEventManager(animator));
             }
             var entity = Contexts.sharedInstance.game.CreateEntity();
             entity.AddGamePlayer(view, behaviour, ani);

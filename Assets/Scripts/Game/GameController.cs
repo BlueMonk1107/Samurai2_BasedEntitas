@@ -26,9 +26,6 @@ namespace Game
             _systems.Initialize();
            
             _contexts.game.SetGameGameState(GameState.START);
-
-            _serviceManager.Init(_contexts);
-            
         }
 
         private void InitManager()
@@ -45,6 +42,7 @@ namespace Game
             ModelManager.Single.Init();
 
             _serviceManager = new ServiceManager(parentManager);
+            _serviceManager.Init(_contexts);
 
             var uiParnet = parentManager.GetParnetTrans(ParentName.UIController);
             UIController uiCopntroller = uiParnet.gameObject.AddComponent<UIController>();

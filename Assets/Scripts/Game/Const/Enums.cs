@@ -77,13 +77,34 @@ namespace Game
     }
 
     /// <summary>
-    /// 动画参数对应枚举
+    /// 动画参数AniIndex对应枚举
     /// </summary>
     public enum PlayerAniIndex
     {
         IDLE,
         RUN,
         WALK
+    }
+
+    /// <summary>
+    /// 人物行为
+    /// </summary>
+    public enum PlayerBehaviourIndex
+    {
+        IDLE,
+        RUN,
+        WALK,
+        ATTACK
+    }
+
+    /// <summary>
+    /// 状态机的行为状态
+    /// </summary>
+    public enum BehaviorState
+    {
+        ENTER,
+        UPDATE,
+        EXIT
     }
 
     /// <summary>

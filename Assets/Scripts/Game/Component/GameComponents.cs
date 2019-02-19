@@ -52,4 +52,11 @@ namespace Game
         /// </summary>
         public int SkillCode;
     }
+
+    [Game, Unique]
+    public class HumanBehaviourStateComponent : IComponent
+    {
+        public PlayerBehaviourIndex Behaviour;
+        public BehaviorState State;
+    }
 }

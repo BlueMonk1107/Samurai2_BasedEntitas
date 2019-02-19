@@ -10,18 +10,20 @@ public static class GameComponentsLookup {
 
     public const int GameCameraState = 0;
     public const int GameGameState = 1;
-    public const int GameModelHumanSkillConfig = 2;
-    public const int GamePlayerAniState = 3;
-    public const int GamePlayer = 4;
-    public const int GameValidHumanSkill = 5;
-    public const int GameCameraStateListener = 6;
-    public const int GameValidHumanSkillListener = 7;
+    public const int GameHumanBehaviourState = 2;
+    public const int GameModelHumanSkillConfig = 3;
+    public const int GamePlayerAniState = 4;
+    public const int GamePlayer = 5;
+    public const int GameValidHumanSkill = 6;
+    public const int GameCameraStateListener = 7;
+    public const int GameValidHumanSkillListener = 8;
 
-    public const int TotalComponents = 8;
+    public const int TotalComponents = 9;
 
     public static readonly string[] componentNames = {
         "GameCameraState",
         "GameGameState",
+        "GameHumanBehaviourState",
         "GameModelHumanSkillConfig",
         "GamePlayerAniState",
         "GamePlayer",
@@ -33,6 +35,7 @@ public static class GameComponentsLookup {
     public static readonly System.Type[] componentTypes = {
         typeof(Game.CameraState),
         typeof(Game.GameStateComponent),
+        typeof(Game.HumanBehaviourStateComponent),
         typeof(Game.Model.HumanSkillConfig),
         typeof(Game.PlayerAniState),
         typeof(Game.PlayerComponent),

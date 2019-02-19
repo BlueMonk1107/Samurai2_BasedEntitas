@@ -1,3 +1,4 @@
+using System;
 using Const;
 using UnityEngine;
 
@@ -11,15 +12,18 @@ namespace Game
         public bool IsRun { get; set; }
         
         private Animator _ani;
-        public PlayerAni(Animator animator)
+        public PlayerAni(Animator animator, ICustomAniEventManager aniEventManager)
         {
             _ani = animator;
+            AniEventManager = aniEventManager;
         }
 
         public void Play(int aniIndex)
         {
             _ani.SetInteger(ConstValue.PLAYER_PARA_NAME, aniIndex);
         }
+
+        public ICustomAniEventManager AniEventManager { get; set; }
 
         public void Idle()
         {
@@ -31,24 +35,20 @@ namespace Game
             Play((int) index);
         }
 
-        public void Forward()
+        public void TurnForward()
         {
-            Move();
         }
 
-        public void Back()
+        public void TurnBack()
         {
-            Move();
         }
 
-        public void Left()
+        public void TurnLeft()
         {
-            Move();
         }
 
-        public void Right()
+        public void TurnRight()
         {
-            Move();
         }
 
         public void Attack(int skillCode)
@@ -57,7 +57,7 @@ namespace Game
             _ani.SetBool(ConstValue.IDLE_SWORD_PARA_NAME,true);
         }
 
-        private void Move()
+        public void Move()
         {
             if (IsRun)
             {

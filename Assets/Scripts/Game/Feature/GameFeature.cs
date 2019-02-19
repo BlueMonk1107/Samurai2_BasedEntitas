@@ -15,6 +15,8 @@ namespace Game
 
         private void InitializeFun(Contexts contexts)
         {
+            Add(new GameInitGameSystem(contexts));
+            Add(new GameHumanAniEventSystem(contexts));
         }
 
         private void ExecuteFun(Contexts contexts)
@@ -30,10 +32,22 @@ namespace Game
         }
 
         private void ReactiveSystemFun(Contexts contexts)
-        {            Add(new GameValidHumanSkillSystem(contexts));
+        {
+            Add(new GameValidHumanSkillSystem(contexts));
             Add(new GameStartSystem(contexts));
             Add(new GamePauseSystem(contexts));
             Add(new GameEndSystem(contexts));
+            Behaviour(contexts);
+        }
+
+        private void Behaviour(Contexts contexts)
+        {
+            //enter
+            Add(new GameEnterIdelStateSystem(contexts));
+            Add(new GameEnterWalkStateSystem(contexts));
+            Add(new GameEnterAttackStateSystem(contexts));
+            //update
+            Add(new GameUpdateMoveStateSystem(contexts));
         }
     }
 }

@@ -22,7 +22,6 @@ namespace Game
         {
             if (_contexts.game.hasGamePlayer)
             {
-                _contexts.game.gamePlayer.Behaviour.Idle();
                 _contexts.game.gamePlayer.Ani.Idle();
                 _contexts.game.gamePlayer.Ani.IsRun = false;
             }
@@ -46,8 +45,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gamePlayer.Behaviour.Forward();
-            _contexts.game.gamePlayer.Ani.Forward();
+            _contexts.game.gamePlayer.Behaviour.TurnForward();
+            _contexts.game.gamePlayer.Ani.Move();
         }
     }
 
@@ -67,8 +66,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gamePlayer.Behaviour.Back();
-            _contexts.game.gamePlayer.Ani.Back();
+            _contexts.game.gamePlayer.Behaviour.TurnBack();
+            _contexts.game.gamePlayer.Ani.Move();
         }
     }
 
@@ -88,8 +87,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gamePlayer.Behaviour.Left();
-            _contexts.game.gamePlayer.Ani.Left();
+            _contexts.game.gamePlayer.Behaviour.TurnLeft();
+            _contexts.game.gamePlayer.Ani.Move();
         }
     }
 
@@ -109,8 +108,8 @@ namespace Game
 
         protected override void Execute(List<InputEntity> entities)
         {
-            _contexts.game.gamePlayer.Behaviour.Right();
-            _contexts.game.gamePlayer.Ani.Right();
+            _contexts.game.gamePlayer.Behaviour.TurnRight();
+            _contexts.game.gamePlayer.Ani.Move();
         }
     }
 

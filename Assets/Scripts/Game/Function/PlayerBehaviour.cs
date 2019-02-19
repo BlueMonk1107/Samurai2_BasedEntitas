@@ -11,12 +11,16 @@ namespace Game
         private readonly Transform _playerTrans;
         private readonly PlayerDataModel _model;
         private bool _isAttack;
+        private Vector3 _faceDirection;
+        private bool _isFaceDirectionChange;
 
         public PlayerBehaviour(Transform player, PlayerDataModel model)
         {
             _playerTrans = player;
             _model = model;
             _isAttack = false;
+            _faceDirection = Vector3.zero;
+            _isFaceDirectionChange = false;
         }
 
         public void Idle()
@@ -24,37 +28,47 @@ namespace Game
             _isAttack = false;
         }
 
-        public void Forward()
+        public void TurnForward()
         {
             if (_isAttack)
                 return;
-            Move(Vector3.forward);
-            PlayerOrientation(Vector3.zero);
+            _faceDirection = Vector3.zero;
+            _isFaceDirectionChange = true;
         }
 
-        public void Back()
+        public void TurnBack()
         {
             if(_isAttack)
                 return;
-            Move(Vector3.back);
-            PlayerOrientation(Vector3.up * 180);
+            _faceDirection = Vector3.up * 180;
+            _isFaceDirectionChange = true;
         }
 
-        public void Left()
+        public void TurnLeft()
         {
             if (_isAttack)
                 return;
-            Move(Vector3.left);
-            PlayerOrientation(Vector3.up * -90);
+            _faceDirection = Vector3.up * -90;
+            _isFaceDirectionChange = true;
         }
 
-        public void Right()
+        public void TurnRight()
         {
 
             if (_isAttack)
                 return;
-            Move(Vector3.right);
-            PlayerOrientation(Vector3.up * 90);
+            _faceDirection = Vector3.up * 90;
+            _isFaceDirectionChange = true;
+        }
+
+        public void Move()
+        {
+            if (_isFaceDirectionChange)
+            {
+                _isFaceDirectionChange = false;
+                PlayerOrientation(_faceDirection);
+            }
+            _playerTrans.Translate(Time.deltaTime * _model.Speed * Vector3.forward, Space.Self);
         }
 
         public bool IsRun { get; set; }
@@ -62,11 +76,6 @@ namespace Game
         public void Attack(int skillCode)
         {
             _isAttack = true;
-        }
-
-        private void Move(Vector3 direction)
-        {
-            _playerTrans.Translate(Time.deltaTime * _model.Speed * direction, Space.World);
         }
 
         private void PlayerOrientation(Vector3 direction)
