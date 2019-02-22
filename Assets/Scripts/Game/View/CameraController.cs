@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using Entitas;
 using Entitas.Unity;
 using Manager;
@@ -14,6 +15,7 @@ namespace Game
     {
         private Dictionary<CameraParent, Transform> _parentDic;
         private CameraMove _cameraMove;
+        private Camera _camera;
 
         public override void Init(Contexts contexts, IEntity entity)
         {
@@ -29,15 +31,15 @@ namespace Game
 
         private void InitCamera()
         {
-            var camera = transform.GetComponentInChildren<Camera>();
+            _camera = transform.GetComponentInChildren<Camera>();
 
-            if (camera == null)
+            if (_camera == null)
             {
                 Debug.LogError("无法查找到相机");
             }
             else
             {
-                _cameraMove = camera.transform.gameObject.AddComponent<CameraMove>();
+                _cameraMove = _camera.transform.gameObject.AddComponent<CameraMove>();
             }
 
             if(_cameraMove == null)
@@ -92,6 +94,17 @@ namespace Game
                     parnet = GetCameraParent(CameraParent.IN_GAME);
                     if (parnet != null) _cameraMove.Move(parnet);
                     break;
+                case CameraAniName.SHAKE_ANI:
+                    Shake();
+                    break;
+            }
+        }
+
+        private void Shake()
+        {
+            if (_camera != null)
+            {
+                _camera.DOShakePosition(0.2f,0.5f,20);
             }
         }
     }

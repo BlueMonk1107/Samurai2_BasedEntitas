@@ -11,7 +11,8 @@ namespace Game
         /// <summary>
         /// 开场相机动画
         /// </summary>
-        START_GAME_ANI
+        START_GAME_ANI,
+        SHAKE_ANI
     }
 
     /// <summary>

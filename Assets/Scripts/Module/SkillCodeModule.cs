@@ -36,18 +36,23 @@ namespace Module
         /// <returns></returns>
         public int GetSkillCode(string skillName,string prefix,string posfix)
         {
-            string codeString = skillName;
-            if (!string.IsNullOrEmpty(prefix))
+            if (skillName.Contains("X") || skillName.Contains("O"))
             {
-                codeString = skillName.Remove(0, prefix.Length);
+                string codeString = skillName;
+                if (!string.IsNullOrEmpty(prefix))
+                {
+                    codeString = skillName.Remove(0, prefix.Length);
+                }
+
+                if (!string.IsNullOrEmpty(posfix))
+                {
+                    codeString = skillName.Remove(skillName.Length - posfix.Length, posfix.Length);
+                }
+
+                return ConvertStringToInt(codeString);
             }
 
-            if (!string.IsNullOrEmpty(posfix))
-            {
-                codeString = skillName.Remove(skillName.Length - posfix.Length, posfix.Length);
-            }
-
-            return ConvertStringToInt(codeString);
+            return -1;
         }
 
         /// <summary>

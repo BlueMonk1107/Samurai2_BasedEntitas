@@ -72,15 +72,15 @@ namespace Game.Service
             entity.AddGamePlayerAniState(PlayerAniIndex.IDLE);
             view.Init(Contexts.sharedInstance, entity);
 
-            LoadTrails(player.transform);
+            LoadTrails(player.transform, animator);
         }
 
-        private void LoadTrails(Transform player)
+        private void LoadTrails(Transform player, Animator animator)
         {
             var trails = LoadAndInstaniate(Path.TRAILS_COMBO_PREFAB, player);
             var manager = trails.transform.GetOrAddComponent<TrailComboManager>();
             var entity = Contexts.sharedInstance.game.CreateEntity();
-            manager.Init(Contexts.sharedInstance, entity);
+            manager.Init(Contexts.sharedInstance, entity, animator);
         }
         
     }
