@@ -30,6 +30,7 @@ namespace Game
         public IView Player;
         public IPlayerBehaviour Behaviour;
         public IPlayerAni Ani;
+        public IPlayerAudio Audio;
     }
 
     /// <summary>

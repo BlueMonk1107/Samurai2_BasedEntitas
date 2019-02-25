@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+using Const;
 using UnityEngine;
 
 namespace Game
@@ -5,51 +8,90 @@ namespace Game
     public class PlayerAudio : IPlayerAudio
     {
         private AudioSource _audioSource;
+        private int _times;
+        private bool _isRun;
+
+        public bool IsRun
+        {
+            get { return _isRun; }
+            set
+            {
+                _times = 0;
+                _isRun = value;
+            }
+        }
+        public bool IsAttack { get; }
+
         public PlayerAudio(AudioSource source)
         {
             _audioSource = source;
+            _times = 0;
         }
 
-        public void Play(string name)
+        public void Play(string name,float volume = 1)
         {
-            throw new System.NotImplementedException();
+            _audioSource.PlayOneShot(GetAudioClip(name), volume);
+        }
+
+        private void Play(AudioName name, float volume = 1)
+        {
+            Play(name.ToString(), volume);
+        }
+
+        private AudioClip GetAudioClip(string name)
+        {
+            return LoadAudioManager.Single.PlayerAudio(name);
         }
 
         public void Idle()
         {
-            throw new System.NotImplementedException();
         }
 
         public void TurnForward()
         {
-            throw new System.NotImplementedException();
         }
 
         public void TurnBack()
         {
-            throw new System.NotImplementedException();
         }
 
         public void TurnLeft()
         {
-            throw new System.NotImplementedException();
         }
 
         public void TurnRight()
         {
-            throw new System.NotImplementedException();
         }
 
         public void Move()
         {
-            throw new System.NotImplementedException();
+            if (_times == 0)
+            {
+                Play(AudioName.step, ConstValue.MOVE_STEP_VOLUME);
+            }
+            _times++;
+            if (_times >= GetFrames())
+            {
+                _times = 0;
+            }
         }
 
-        public bool IsRun { get; set; }
-        public bool IsAttack { get; }
-        public void Attack(int skillCode)
+        private int GetFrames()
         {
-            throw new System.NotImplementedException();
+            if (IsRun)
+            {
+                return ConstValue.RUN_STEP_TIME;
+            }
+            else
+            {
+                return ConstValue.WALK_STEP_TIME;
+            }
+        }
+     
+        public async void Attack(int skillCode)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(ConstValue.SKILL_START_TIME));
+            Play(AudioName.attack);
         }
     }
 }

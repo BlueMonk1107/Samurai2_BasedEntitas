@@ -33,6 +33,7 @@ namespace Game
         protected override void Execute(List<GameEntity> entities)
         {
             _contexts.game.gamePlayer.Behaviour.Move();
+            _contexts.game.gamePlayer.Audio.Move();
         }
     }
 }

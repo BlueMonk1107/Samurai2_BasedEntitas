@@ -15,6 +15,7 @@ namespace Const
         public const string AUDIO_PATH = "Audio/";
         public const string UI_AUDIO_PATH = AUDIO_PATH +"UI/";
         public const string BG_AUDIO_PATH = AUDIO_PATH + "BG/";
+        public const string PLAYER_AUDIO_PATH = AUDIO_PATH + "Player/";
 
         public const string COMICS_PATH = "Comics/";
     }

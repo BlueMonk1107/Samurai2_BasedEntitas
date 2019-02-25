@@ -47,6 +47,8 @@ namespace Game
             var uiParnet = parentManager.GetParnetTrans(ParentName.UIController);
             UIController uiCopntroller = uiParnet.gameObject.AddComponent<UIController>();
             uiCopntroller.Init();
+
+            LoadAudioManager.Single.Init();
         }
 
         private void Update()

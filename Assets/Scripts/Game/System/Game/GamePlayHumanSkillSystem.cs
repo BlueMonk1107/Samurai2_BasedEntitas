@@ -1,5 +1,6 @@
 ﻿using Entitas;
 using System.Collections.Generic;
+
 namespace Game
 {
     /// <summary>
@@ -26,14 +27,15 @@ namespace Game
             foreach (GameEntity entity in entities)
             {
                 var code = entity.gamePlayHumanSkill.SkillCode;
+
+                //code为0时，代表状态重置
+                //code为大于0时，才是正确的执行编码
+                _contexts.game.gamePlayer.Ani.Attack(code);
+               
                 if (code > 0)
                 {
-                    _contexts.game.gamePlayer.Ani.Attack(code);
+                    _contexts.game.gamePlayer.Audio.Attack(code);
                     _contexts.game.gamePlayer.Behaviour.Attack(code);
-                }
-                else
-                {
-                    _contexts.game.gamePlayer.Ani.Attack(code);
                 }
             }
         }

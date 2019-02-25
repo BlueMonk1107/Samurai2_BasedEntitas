@@ -120,5 +120,14 @@ namespace Game
         JUDGE_SKILL_TIMER
     }
 
-
+    /// <summary>
+    /// 音效部分统一名称
+    /// </summary>
+    public enum AudioName
+    {
+        attack,
+        injory,
+        kotoul,
+        step
+    }
 }

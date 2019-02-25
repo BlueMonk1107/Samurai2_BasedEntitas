@@ -12,22 +12,22 @@ public partial class GameContext {
     public Game.PlayerComponent gamePlayer { get { return gamePlayerEntity.gamePlayer; } }
     public bool hasGamePlayer { get { return gamePlayerEntity != null; } }
 
-    public GameEntity SetGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni) {
+    public GameEntity SetGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni, Game.IPlayerAudio newAudio) {
         if (hasGamePlayer) {
             throw new Entitas.EntitasException("Could not set GamePlayer!\n" + this + " already has an entity with Game.PlayerComponent!",
                 "You should check if the context already has a gamePlayerEntity before setting it or use context.ReplaceGamePlayer().");
         }
         var entity = CreateEntity();
-        entity.AddGamePlayer(newPlayer, newBehaviour, newAni);
+        entity.AddGamePlayer(newPlayer, newBehaviour, newAni, newAudio);
         return entity;
     }
 
-    public void ReplaceGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni) {
+    public void ReplaceGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni, Game.IPlayerAudio newAudio) {
         var entity = gamePlayerEntity;
         if (entity == null) {
-            entity = SetGamePlayer(newPlayer, newBehaviour, newAni);
+            entity = SetGamePlayer(newPlayer, newBehaviour, newAni, newAudio);
         } else {
-            entity.ReplaceGamePlayer(newPlayer, newBehaviour, newAni);
+            entity.ReplaceGamePlayer(newPlayer, newBehaviour, newAni, newAudio);
         }
     }
 
@@ -49,21 +49,23 @@ public partial class GameEntity {
     public Game.PlayerComponent gamePlayer { get { return (Game.PlayerComponent)GetComponent(GameComponentsLookup.GamePlayer); } }
     public bool hasGamePlayer { get { return HasComponent(GameComponentsLookup.GamePlayer); } }
 
-    public void AddGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni) {
+    public void AddGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni, Game.IPlayerAudio newAudio) {
         var index = GameComponentsLookup.GamePlayer;
         var component = (Game.PlayerComponent)CreateComponent(index, typeof(Game.PlayerComponent));
         component.Player = newPlayer;
         component.Behaviour = newBehaviour;
         component.Ani = newAni;
+        component.Audio = newAudio;
         AddComponent(index, component);
     }
 
-    public void ReplaceGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni) {
+    public void ReplaceGamePlayer(Game.IView newPlayer, Game.IPlayerBehaviour newBehaviour, Game.IPlayerAni newAni, Game.IPlayerAudio newAudio) {
         var index = GameComponentsLookup.GamePlayer;
         var component = (Game.PlayerComponent)CreateComponent(index, typeof(Game.PlayerComponent));
         component.Player = newPlayer;
         component.Behaviour = newBehaviour;
         component.Ani = newAni;
+        component.Audio = newAudio;
         ReplaceComponent(index, component);
     }
 

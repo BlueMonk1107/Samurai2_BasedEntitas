@@ -24,6 +24,7 @@ namespace Game
             {
                 _contexts.game.gamePlayer.Ani.Idle();
                 _contexts.game.gamePlayer.Ani.IsRun = false;
+                _contexts.game.gamePlayer.Audio.IsRun = false;
             }
             _contexts.service.gameServiceTimerService.TimerService.GeTimer(TimerId.MOVE_TIMER)?.Stop(true);
         }
@@ -135,8 +136,11 @@ namespace Game
             var service = _contexts.service.gameServiceTimerService.TimerService;
             var timer = service.CreateTimer(TimerId.MOVE_TIMER, 1, false);
             if (timer != null)
-                timer.AddCompleteListener(()=>
-              _contexts.game.gamePlayer.Ani.IsRun = true
+                timer.AddCompleteListener(() =>
+                {
+                    _contexts.game.gamePlayer.Ani.IsRun = true;
+                    _contexts.game.gamePlayer.Audio.IsRun = true;
+                }
              );
         }
     }

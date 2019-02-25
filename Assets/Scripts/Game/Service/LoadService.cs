@@ -58,6 +58,8 @@ namespace Game.Service
             IView view = player.AddComponent<PlayerView>();
             IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform,ModelManager.Single.PlayerData);
             IPlayerAni ani = null;
+            IPlayerAudio audio = new PlayerAudio(player.GetComponentInChildren<AudioSource>());
+
             Animator animator = player.GetComponent<Animator>();
             if (animator == null)
             {
@@ -68,7 +70,7 @@ namespace Game.Service
                 ani = new PlayerAni(animator, new CustomAniEventManager(animator));
             }
             var entity = Contexts.sharedInstance.game.CreateEntity();
-            entity.AddGamePlayer(view, behaviour, ani);
+            entity.AddGamePlayer(view, behaviour, ani, audio);
             entity.AddGamePlayerAniState(PlayerAniIndex.IDLE);
             view.Init(Contexts.sharedInstance, entity);
 

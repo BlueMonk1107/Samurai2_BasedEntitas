@@ -34,5 +34,23 @@ namespace Const
         /// 技能名称前缀
         /// </summary>
         public const string SKILL_ANI_PREFIX = "attack";
+        /// <summary>
+        /// 技能起手时间
+        /// </summary>
+        public const float SKILL_START_TIME = 0.25f;
+        /// <summary>
+        /// 走一步的帧数
+        /// </summary>
+        public const int WALK_STEP_TIME = 20;
+        /// <summary>
+        /// 跑一步的帧数
+        /// </summary>
+        public const int RUN_STEP_TIME = 12;
+
+        //声音音量
+        /// <summary>
+        /// 跑一步的帧数
+        /// </summary>
+        public const float MOVE_STEP_VOLUME = 0.4f;
     }
 }
