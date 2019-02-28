@@ -25,6 +25,8 @@ namespace Test
             ////transition.AddCondition(, );
             ////AnimatorConditionMode.If----true
             ////AnimatorConditionMode.IfNot----false
+            
+            
         }
     }
 }

@@ -3,24 +3,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Animations;
+using UnityEditorInternal;
 using UnityEngine;
+using AnimatorController = UnityEditor.Animations.AnimatorController;
 
 namespace CustomTool
 {
     public class AnimatorToolWindow : EditorWindow
     {
-        private static EditorWindow _window;
+        private static AnimatorToolWindow _window;
         private static string _cachePath = "Assets/Editor/AnimatorTool/Cache/";
         private static string _cacheName = "AnimatorToolCache.asset";
         private static string _aniControllerPath;
         private static string _newAniName;
         [SerializeField]
-        private List<GameObject> _animationObjects = new List<GameObject>();
+        public List<GameObject> _animationObjects = new List<GameObject>();
+        [SerializeField]
+        public List<SubAnimatorMachineItem> _subMachineItems = new List<SubAnimatorMachineItem>(); 
 
         private static SerializedObject _serializedObject;
         private static SerializedProperty _animations;
+        private static SerializedProperty _machineItems;
         private GenerateController _generater;
+        private CustomReorderableList _customReorderableList;
+
+        private bool _isAddDefaultAnis;
 
         [MenuItem("Tools/AnimatorTool %m")]
         public static void ShowWindowInMenu()
@@ -29,18 +36,17 @@ namespace CustomTool
         }
 
         //在工程视图界面下右键菜单
-        [MenuItem("Assets/AnimatorTool")]
+        [MenuItem("Assets/AnimatorTool/Add")]
         public static void ShowWindowInProject()
         {
-            OpenWindow();
+            AutoAddAniObjects();
         }
 
         //在工程视图界面下的检测函数
-        [MenuItem("Assets/AnimatorTool", true)]
+        [MenuItem("Assets/AnimatorTool/Add", true)]
         public static bool ShowWindowInProjectValidate()
         {
-            return Selection.activeObject.GetType() == typeof(AnimatorController)
-                || Selection.activeObject.GetType() == typeof(GameObject);
+            return Selection.activeObject.GetType() == typeof(GameObject);
         }
 
         //在检视面板在右键菜单
@@ -50,9 +56,33 @@ namespace CustomTool
             OpenWindow();
         }
 
+        private static void AutoAddAniObjects()
+        {
+            AddAniObjects(_window._animationObjects, Selection.gameObjects.ToList());
+
+            foreach (SubAnimatorMachineItem item in _window._subMachineItems)
+            {
+                if (item.IsAutoAdd)
+                {
+                    AddAniObjects(item.AnimationObjects, Selection.gameObjects.ToList());
+                }
+            }
+        }
+
+        private static void AddAniObjects(List<GameObject> data,List<GameObject> selection)
+        {
+            foreach (GameObject gameObject in selection)
+            {
+                if (!data.Contains(gameObject))
+                {
+                    data.Add(gameObject);
+                }
+            }
+        }
+
         private static void OpenWindow()
         {
-            _window = GetWindow(typeof(AnimatorToolWindow));
+            _window = (AnimatorToolWindow)GetWindow(typeof(AnimatorToolWindow));
             _window.minSize = new Vector2(500, 800);
             _window.Show();
             Init();
@@ -70,9 +100,12 @@ namespace CustomTool
 
         private void OnEnable()
         {
+            _isAddDefaultAnis = true;
             _generater = new GenerateController();
             _serializedObject = new SerializedObject(this);
             _animations = _serializedObject.FindProperty("_animationObjects");
+            _machineItems = _serializedObject.FindProperty("_subMachineItems");
+            _customReorderableList = new CustomReorderableList(_serializedObject, _machineItems);
             InitAnimationList();
         }
 
@@ -93,66 +126,52 @@ namespace CustomTool
             CreateButton("保存", SaveDataToLocal);
             GUILayout.Space(10);
             InputName("新建AnimatorController名称", ref _newAniName);
-            GetAnimationObject();
+
+            UpdateSerializedObject();
+
             CreateButton("创建", CreateNewController);
+            AddAniToggles();
         }
 
-       
-        private void GetAnimationObject()
+        private void AddAniToggles()
+        {
+            GUILayout.Space(10);
+            GUILayout.Label("选择右键快速导入动画片段的状态机");
+            GUILayout.Space(5);
+            _isAddDefaultAnis = GUILayout.Toggle(_isAddDefaultAnis, new GUIContent("默认状态机"));
+
+            foreach (SubAnimatorMachineItem item in _subMachineItems)
+            {
+                item.IsAutoAdd = GUILayout.Toggle(item.IsAutoAdd, new GUIContent(item.SubMachineName));
+            }
+        }
+
+        private void UpdateSerializedObject()
         {
             _serializedObject.Update();
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PropertyField(_animations, true);
+            GetAnimationObject();
+            _customReorderableList.OnGUI();
 
             if (EditorGUI.EndChangeCheck())
             {
                 _serializedObject.ApplyModifiedProperties();
             }
         }
+       
+        private void GetAnimationObject()
+        {
+            EditorGUILayout.PropertyField(_animations,new GUIContent("默认层级动画片段父物体数组"), true);
+        }
 
         private void CreateNewController()
         {
-            List<AnimationClip> clips = GetAnimationClip();
-            if (clips != null && clips.Count > 0)
-            {
-                _generater.Create(_aniControllerPath,_newAniName, clips);
-            }
-            else
+            bool success = _generater.Create(_aniControllerPath, _newAniName, _animationObjects, _subMachineItems);
+            if (!success)
             {
                 Debug.LogError("获取动画片段失败，无法创建AnimatorController");
             }
-        }
-
-
-        /// <summary>
-        /// 获取动画片段文件
-        /// </summary>
-        private List<AnimationClip> GetAnimationClip()
-        {
-            if (_animationObjects.Count == 0)
-                return null;
-
-            List<AnimationClip> clips = new List<AnimationClip>();
-
-            foreach (GameObject gameObject in _animationObjects)
-            {
-                string path = AssetDatabase.GetAssetPath(gameObject);
-                var assets = AssetDatabase.LoadAllAssetsAtPath(path);
-                foreach (UnityEngine.Object asset in assets)
-                {
-                    if (asset is AnimationClip)
-                    {
-                        AnimationClip clip = asset as AnimationClip;
-                        if (!clip.name.Contains("Take"))
-                        {
-                            clips.Add(clip);
-                        }
-                    }
-                }
-            }
-
-            return clips;
         }
 
         //拖动文件夹获取路径
