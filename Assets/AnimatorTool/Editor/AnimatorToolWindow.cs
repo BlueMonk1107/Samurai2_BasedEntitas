@@ -12,14 +12,25 @@ namespace CustomTool
     public class AnimatorToolWindow : EditorWindow
     {
         private static AnimatorToolWindow _window;
-        private static string _cachePath = "Assets/Editor/AnimatorTool/Cache/";
+        private static string _cachePath = "Assets/AnimatorTool/Editor/Cache/";
         private static string _cacheName = "AnimatorToolCache.asset";
         private static string _aniControllerPath;
         private static string _newAniName;
         [SerializeField]
         public List<GameObject> _animationObjects = new List<GameObject>();
         [SerializeField]
-        public List<SubAnimatorMachineItem> _subMachineItems = new List<SubAnimatorMachineItem>(); 
+        public List<SubAnimatorMachineItem> _subMachineItems = new List<SubAnimatorMachineItem>();
+
+        private static List<AnimatorController> _helpControllers;
+
+        public static List<AnimatorController> HelpControllers
+        {
+            get
+            {
+                ReadDataFromLocal();
+                return _helpControllers;
+            }
+        }
 
         private static SerializedObject _serializedObject;
         private static SerializedProperty _animations;
@@ -49,6 +60,26 @@ namespace CustomTool
             return Selection.activeObject.GetType() == typeof(GameObject);
         }
 
+        //在工程视图界面下右键菜单
+        [MenuItem("Assets/AnimatorTool/AddAnimatorHelp")]
+        public static void AddAnimatorHelpInProject()
+        {
+            var controller = AnimatorHelpManager.Instance.Add();
+
+            if (controller != null && !HelpControllers.Contains(controller))
+            {
+                HelpControllers.Add(controller);
+                SaveDataToLocal();
+            }
+        }
+
+        //在工程视图界面下的检测函数
+        [MenuItem("Assets/AnimatorTool/AddAnimatorHelp", true)]
+        public static bool AddAnimatorHelpInProjectValidate()
+        {
+            return Selection.activeObject.GetType() == typeof(AnimatorController);
+        }
+
         //在检视面板在右键菜单
         [MenuItem("GameObject/AnimatorTool", priority = 0)]
         public static void ShowWindowInHierarchy()
@@ -69,7 +100,7 @@ namespace CustomTool
             }
         }
 
-        private static void AddAniObjects(List<GameObject> data,List<GameObject> selection)
+        private static void AddAniObjects(List<GameObject> data, List<GameObject> selection)
         {
             foreach (GameObject gameObject in selection)
             {
@@ -159,10 +190,10 @@ namespace CustomTool
                 _serializedObject.ApplyModifiedProperties();
             }
         }
-       
+
         private void GetAnimationObject()
         {
-            EditorGUILayout.PropertyField(_animations,new GUIContent("默认层级动画片段父物体数组"), true);
+            EditorGUILayout.PropertyField(_animations, new GUIContent("默认层级动画片段父物体数组"), true);
         }
 
         private void CreateNewController()
@@ -219,7 +250,15 @@ namespace CustomTool
         {
             Directory.CreateDirectory(_cachePath);
             AnimatorToolData data = new AnimatorToolData();
-            data.AnimatorControllerPath = _aniControllerPath;
+            if (!string.IsNullOrEmpty(_aniControllerPath))
+            {
+                data.AnimatorControllerPath = _aniControllerPath;
+            }
+            if (_helpControllers.Contains(null))
+            {
+                _helpControllers.RemoveAll(u => u == null);
+            }
+            data.HelpControllers = _helpControllers;
             AssetDatabase.CreateAsset(data, _cachePath + _cacheName);
         }
 
@@ -230,6 +269,7 @@ namespace CustomTool
             if (data != null)
             {
                 _aniControllerPath = data.AnimatorControllerPath;
+                _helpControllers = data.HelpControllers;
             }
         }
     }
