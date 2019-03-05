@@ -65,7 +65,7 @@ namespace Manager
             }
             else if(JudeCurrentScene(ConstValue.COMICS_SCENE))
             {
-                return ConstValue.LEVEL_SCENE+"_" + LevelIndex.ToString("00");
+                return ConstValue.LEVEL_SCENE+"_" + ((int)LevelIndex).ToString("00");
             }
             else
             {

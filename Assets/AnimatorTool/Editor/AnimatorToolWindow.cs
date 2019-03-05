@@ -38,7 +38,7 @@ namespace CustomTool
         private GenerateController _generater;
         private CustomReorderableList _customReorderableList;
 
-        private bool _isAddDefaultAnis;
+        private static bool _isAddDefaultAnis;
 
         [MenuItem("Tools/AnimatorTool %m")]
         public static void ShowWindowInMenu()
@@ -89,7 +89,10 @@ namespace CustomTool
 
         private static void AutoAddAniObjects()
         {
-            AddAniObjects(_window._animationObjects, Selection.gameObjects.ToList());
+            if (_isAddDefaultAnis)
+            {
+                AddAniObjects(_window._animationObjects, Selection.gameObjects.ToList());
+            }
 
             foreach (SubAnimatorMachineItem item in _window._subMachineItems)
             {

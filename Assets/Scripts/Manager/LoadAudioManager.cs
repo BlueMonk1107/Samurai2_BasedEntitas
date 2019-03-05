@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Manager;
 using UIFrame;
 using UnityEngine;
@@ -7,7 +7,7 @@ namespace Game
 {
     public class LoadAudioManager : SingletonBase<LoadAudioManager>
     {
-        //Íæ¼ÒÒôĞ§»º´æ
+        //ç©å®¶éŸ³æ•ˆç¼“å­˜
         private Dictionary<string, AudioClip> _playerClipsDic;
 
         public void Init()
@@ -33,7 +33,7 @@ namespace Game
             }
             else
             {
-                Debug.LogError("ÈËÎïÒôĞ§ÖĞÎ´·¢ÏÖÃûÎª"+name+"µÄÒôĞ§Æ¬¶Î");
+                Debug.LogError("äººç‰©éŸ³æ•ˆä¸­æœªå‘ç°åä¸º"+name+"çš„éŸ³æ•ˆç‰‡æ®µ");
                 return null;
             }
         }

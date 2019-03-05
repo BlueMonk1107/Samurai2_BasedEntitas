@@ -167,7 +167,10 @@ namespace CustomTool
         {
             foreach (var transition in _help.TransitionsList)
             {
-                _help.TransitionsDic[transition] = GUILayout.Toggle(_help.TransitionsDic[transition], "To  " + transition.destinationState.name);
+                if (transition.destinationState != null)
+                {
+                    _help.TransitionsDic[transition] = GUILayout.Toggle(_help.TransitionsDic[transition], "To  " + transition.destinationState.name);
+                }
 
                 if (!_help.TransitionsDic[transition])
                 {
