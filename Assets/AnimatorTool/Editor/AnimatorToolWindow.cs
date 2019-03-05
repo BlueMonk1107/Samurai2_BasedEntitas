@@ -250,10 +250,12 @@ namespace CustomTool
         {
             Directory.CreateDirectory(_cachePath);
             AnimatorToolData data = new AnimatorToolData();
+
             if (!string.IsNullOrEmpty(_aniControllerPath))
             {
                 data.AnimatorControllerPath = _aniControllerPath;
             }
+
             if (_helpControllers.Contains(null))
             {
                 _helpControllers.RemoveAll(u => u == null);

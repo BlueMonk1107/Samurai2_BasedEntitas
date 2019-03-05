@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game
 {
-    public class GameFeature : Feature     
+    public class GameFeature : Feature, IFeature 
     {
         public GameFeature(Contexts contexts)
         {
@@ -13,25 +14,26 @@ namespace Game
             ReactiveSystemFun(contexts);
         }
 
-        private void InitializeFun(Contexts contexts)
-        {            Add(new GameSkillManagerSystem(contexts));
+        public void InitializeFun(Contexts contexts)
+        {
+            Add(new GameSkillManagerSystem(contexts));
             Add(new GameInitGameSystem(contexts));
             Add(new GameHumanAniEventSystem(contexts));
         }
 
-        private void ExecuteFun(Contexts contexts)
+        public void ExecuteFun(Contexts contexts)
         {
         }
 
-        private void CleanupFun(Contexts contexts)
+        public void CleanupFun(Contexts contexts)
         {
         }
 
-        private void TearDownFun(Contexts contexts)
+        public void TearDownFun(Contexts contexts)
         {
         }
 
-        private void ReactiveSystemFun(Contexts contexts)
+        public void ReactiveSystemFun(Contexts contexts)
         {
             Add(new GamePlayHumanSkillSystem(contexts));
             Add(new GameStartSystem(contexts));

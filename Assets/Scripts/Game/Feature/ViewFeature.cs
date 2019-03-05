@@ -5,7 +5,7 @@ namespace Game
     /// <summary>
     /// VIew层系统部分
     /// </summary>
-    public class ViewFeature : Feature
+    public class ViewFeature : Feature, IFeature
     {
         public ViewFeature(Contexts contexts) : base("View")
         {
@@ -16,24 +16,24 @@ namespace Game
             ReactiveSystemFun(contexts);
         }
 
-        private void InitializeFun(Contexts contexts)
+        public void InitializeFun(Contexts contexts)
         {
             Add(new InitViewSystem(contexts));
         }
 
-        private void ExecuteFun(Contexts contexts)
+        public void ExecuteFun(Contexts contexts)
         {
         }
 
-        private void CleanupFun(Contexts contexts)
+        public void CleanupFun(Contexts contexts)
         {
         }
 
-        private void TearDownFun(Contexts contexts)
+        public void TearDownFun(Contexts contexts)
         {
         }
 
-        private void ReactiveSystemFun(Contexts contexts)
+        public void ReactiveSystemFun(Contexts contexts)
         {
 
         }

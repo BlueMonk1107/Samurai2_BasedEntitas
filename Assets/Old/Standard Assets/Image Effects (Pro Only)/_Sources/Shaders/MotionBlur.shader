@@ -24,7 +24,7 @@ Properties {
 	
 			#include "UnityCG.cginc"
 	
-			struct appdata_t {
+			struct appdata_help.T {
 				float4 vertex : POSITION;
 				float2 texcoord : TEXCOORD;
 			};
@@ -37,7 +37,7 @@ Properties {
 			float4 _MainTex_ST;
 			float _AccumOrig;
 			
-			v2f vert (appdata_t v)
+			v2f vert (appdata_help.T v)
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
@@ -70,7 +70,7 @@ Properties {
 	
 			#include "UnityCG.cginc"
 	
-			struct appdata_t {
+			struct appdata_help.T {
 				float4 vertex : POSITION;
 				float2 texcoord : TEXCOORD;
 			};
@@ -82,7 +82,7 @@ Properties {
 			
 			float4 _MainTex_ST;
 			
-			v2f vert (appdata_t v)
+			v2f vert (appdata_help.T v)
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);

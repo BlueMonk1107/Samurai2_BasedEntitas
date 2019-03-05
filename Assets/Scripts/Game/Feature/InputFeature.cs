@@ -2,7 +2,7 @@
 
 namespace Game
 {
-    public class InputFeature : Feature
+    public class InputFeature : Feature,IFeature
     {
         public InputFeature(Contexts contexts) : base("System")
         {
@@ -13,23 +13,23 @@ namespace Game
             ReactiveSystemFun(contexts);
         }
 
-        private void InitializeFun(Contexts contexts)
+        public void InitializeFun(Contexts contexts)
         {
         }
 
-        private void ExecuteFun(Contexts contexts)
+        public void ExecuteFun(Contexts contexts)
         {
         }
 
-        private void CleanupFun(Contexts contexts)
+        public void CleanupFun(Contexts contexts)
         {
         }
 
-        private void TearDownFun(Contexts contexts)
+        public void TearDownFun(Contexts contexts)
         {
         }
 
-        private void ReactiveSystemFun(Contexts contexts)
+        public void ReactiveSystemFun(Contexts contexts)
         {
             Add(new InputHumanSkillStateSystem(contexts));
             Add(new InputJudgeHumanSkillSystem(contexts));
