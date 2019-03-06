@@ -30,37 +30,37 @@ namespace CustomTool
     {
         public void OnPreprocessTexture()
         {
-            TextureImporter importer = (TextureImporter) assetImporter;
-            Texture2D texture = GetTexture();
-            int maxSide = GetLongSide(texture);
-            int maxSize = 0;
+            //TextureImporter importer = (TextureImporter) assetImporter;
+            //Texture2D texture = GetTexture();
+            //int maxSide = GetLongSide(texture);
+            //int maxSize = 0;
 
-            if (maxSide < 50)
-            {
-                maxSize = 32;
-            }
-            else if (maxSide < 100)
-            {
-                maxSize = 64;
-            }
-            else if (maxSide < 150)
-            {
-                maxSize = 128;
-            }
-            else if (maxSide < 300)
-            {
-                maxSize = 256;
-            }
-            else if (maxSide < 600)
-            {
-                maxSize = 512;
-            }
-            else
-            {
-                maxSize = 1024;
-            }
-            importer.maxTextureSize = maxSize;
-            Debug.Log("图片资源参数设置完成");
+            //if (maxSide < 50)
+            //{
+            //    maxSize = 32;
+            //}
+            //else if (maxSide < 100)
+            //{
+            //    maxSize = 64;
+            //}
+            //else if (maxSide < 150)
+            //{
+            //    maxSize = 128;
+            //}
+            //else if (maxSide < 300)
+            //{
+            //    maxSize = 256;
+            //}
+            //else if (maxSide < 600)
+            //{
+            //    maxSize = 512;
+            //}
+            //else
+            //{
+            //    maxSize = 1024;
+            //}
+            //importer.maxTextureSize = maxSize;
+            //Debug.Log("图片资源参数设置完成");
         }
 
         private Texture2D GetTexture()
