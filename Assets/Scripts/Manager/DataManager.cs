@@ -33,8 +33,27 @@ namespace Manager
         /// </summary>
         public LevelID LevelIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX,(int)value);}
+            set
+            {
+                if (value <= 0)
+                    return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_INDEX,(int)value);
+            }
             get { return (LevelID)PlayerPrefs.GetInt(ConstValue.LEVEL_INDEX, 1); }
+        }
+
+        /// <summary>
+        /// 关卡的第几部分的标记 默认是1
+        /// </summary>
+        public LevelGamePartID LevelGamePartIndex
+        {
+            set
+            {
+                if (value <= 0)
+                    return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_GAME_PART_INDEX, (int)value);
+            }
+            get { return (LevelGamePartID)PlayerPrefs.GetInt(ConstValue.LEVEL_GAME_PART_INDEX, 1); }
         }
 
         /// <summary>
@@ -42,13 +61,19 @@ namespace Manager
         /// </summary>
         public LevelPartID LevelPartIndex
         {
-            set { PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value); }
+            set
+            {
+                if (value <= 0)
+                    return;
+                PlayerPrefs.SetInt(ConstValue.LEVEL_PART_INDEX, (int)value);
+            }
             get { return (LevelPartID)PlayerPrefs.GetInt(ConstValue.LEVEL_PART_INDEX, 1); }
         }
 
         public void ResetData()
         {
             LevelIndex = LevelID.ONE;
+            LevelGamePartIndex = LevelGamePartID.ONE;
             LevelPartIndex = LevelPartID.ONE;
         }
 

@@ -115,6 +115,7 @@ namespace Game.Service
         }
 
         public bool IsRun { get; set; }
+        public bool IsCollideWall { get; set; }
 
         public bool IsAttack { get; }
 

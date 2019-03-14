@@ -1,4 +1,4 @@
-using System.IO;
+ï»¿using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
@@ -6,12 +6,12 @@ using UnityEngine;
 namespace CustomTool
 {
     /// <summary>
-    /// Éú³É´úÂë²¿·Ö
+    /// ç”Ÿæˆä»£ç éƒ¨åˆ†
     /// </summary>
     public class GenerateCode     
     {
         /// <summary>
-        /// ÔÚServiceManagerÖĞ²åÈë´´½¨µÄservice½øĞĞ·şÎñ³õÊ¼»¯
+        /// åœ¨ServiceManagerä¸­æ’å…¥åˆ›å»ºçš„serviceè¿›è¡ŒæœåŠ¡åˆå§‹åŒ–
         /// </summary>
         public static void InitServices(string path)
         {
@@ -25,12 +25,12 @@ namespace CustomTool
             }
             else
             {
-                Debug.LogError("Service½Å±¾²»´æÔÚ");
+                Debug.LogError("Serviceè„šæœ¬ä¸å­˜åœ¨");
             }
         }
 
         /// <summary>
-        /// °Ñ´´½¨µÄÏµÍ³Ìí¼Óµ½¶ÔÓ¦FeatureÖĞ½øĞĞ³õÊ¼»¯
+        /// æŠŠåˆ›å»ºçš„ç³»ç»Ÿæ·»åŠ åˆ°å¯¹åº”Featureä¸­è¿›è¡Œåˆå§‹åŒ–
         /// </summary>
         /// <param name="contextName"></param>
         /// <param name="className"></param>
@@ -58,7 +58,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// °Ñ³õÊ¼»¯ÄÚÈİ²åÈëµ½¶ÔÓ¦Feature
+        /// æŠŠåˆå§‹åŒ–å†…å®¹æ’å…¥åˆ°å¯¹åº”Feature
         /// </summary>
         /// <param name="contextName"></param>
         /// <param name="className"></param>
@@ -70,7 +70,7 @@ namespace CustomTool
             int index = content.IndexOf("void " + systemName + "Fun(Contexts contexts)");
             if (index < 0)
             {
-                Debug.LogError("Î´ÕÒµ½¶ÔÓ¦·½·¨£¬ÏµÍ³Ãû£º" + systemName);
+                Debug.LogError("æœªæ‰¾åˆ°å¯¹åº”æ–¹æ³•ï¼Œç³»ç»Ÿåï¼š" + systemName);
                 return;
             }
 
@@ -80,23 +80,39 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// ´´½¨½Å±¾
+        /// åˆ›å»ºè„šæœ¬
         /// </summary>
         /// <param name="path"></param>
         /// <param name="className"></param>
         /// <param name="scriptContent"></param>
         public static void CreateScript(string path, string className, string scriptContent)
         {
+            string filePath = path + "/" + className + ".cs";
             if (Directory.Exists(path))
             {
-                File.WriteAllText(path + "/" + className + ".cs", scriptContent, Encoding.UTF8);
+                if(!File.Exists(filePath))
+                {
+                    SaveFile(filePath, scriptContent);
+                }
+                else
+                {
+                    if (EditorUtility.DisplayDialog("æ–‡ä»¶å·²å­˜åœ¨", "æ˜¯å¦è¦†ç›–æ–‡ä»¶", "è¦†ç›–", "å–æ¶ˆ"))
+                    {
+                        SaveFile(filePath, scriptContent);
+                    }
+                }
             }
             else
             {
-                Debug.LogError("Ä¿Â¼:" + path + "²»´æÔÚ");
+                Debug.LogError("ç›®å½•:" + path + "ä¸å­˜åœ¨");
             }
 
             AssetDatabase.Refresh();
+        }
+
+        private static void SaveFile(string filePath, string scriptContent)
+        {
+            File.WriteAllText(filePath, scriptContent, Encoding.UTF8);
         }
     }
 }

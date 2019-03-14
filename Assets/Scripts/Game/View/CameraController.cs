@@ -23,6 +23,7 @@ namespace Game
 
             InitParent();
             InitCamera();
+            InitFollowPlayer();
 
             GameEntity gameEntity = (GameEntity) entity;
             gameEntity.AddGameCameraStateListener(this);
@@ -46,7 +47,7 @@ namespace Game
                 return;
 
             Transform parent = null;
-            if (DataManager.Single.LevelPartIndex == LevelPartID.ONE)
+            if (DataManager.Single.LevelGamePartIndex == LevelGamePartID.ONE)
             {
                 parent = GetCameraParent(CameraParent.START);
             }
@@ -78,6 +79,11 @@ namespace Game
             }
         }
 
+        private void InitFollowPlayer()
+        {
+            _parentDic[CameraParent.FOLLOW_PLAYER].gameObject.AddComponent<FollowPlayer>();
+        }
+
         private Transform GetCameraParent(CameraParent parent)
         {
             Transform parnetTrans = null;
@@ -92,12 +98,21 @@ namespace Game
             {
                 case CameraAniName.START_GAME_ANI:
                     parnet = GetCameraParent(CameraParent.IN_GAME);
-                    if (parnet != null) _cameraMove.Move(parnet);
+                    if (parnet != null) _cameraMove.Move(parnet, StartAniCallBack);
                     break;
                 case CameraAniName.SHAKE_ANI:
                     Shake();
                     break;
+                case CameraAniName.FOLLOW_PLAYER:
+                    parnet = GetCameraParent(CameraParent.FOLLOW_PLAYER);
+                    if (parnet != null) _cameraMove.Move(parnet, null);
+                    break;
             }
+        }
+
+        private void StartAniCallBack()
+        {
+            Contexts.sharedInstance.game.ReplaceGameCameraState(CameraAniName.FOLLOW_PLAYER);
         }
 
         private void Shake()

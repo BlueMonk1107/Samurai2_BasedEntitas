@@ -15,6 +15,8 @@ namespace Game.Service
         /// º”‘ÿÕÊº“‘§÷∆
         /// </summary>
         void LoadPlayer();
+
+        void LoadEnemy(string enemyName, Transform parent);
     }
 
     public class LoadService : ILoadService
@@ -55,6 +57,10 @@ namespace Game.Service
         public void LoadPlayer()
         {
             var player = LoadAndInstaniate(Path.PLAYER_PREFAB, _parentManager.GetParnetTrans(ParentName.PlayerRoot));
+
+            player.AddComponent<IgnorForce>();
+            player.AddComponent<PlayerCollider>();
+
             IView view = player.AddComponent<PlayerView>();
             IPlayerBehaviour behaviour = new PlayerBehaviour(player.transform,ModelManager.Single.PlayerData);
             IPlayerAni ani = null;
@@ -83,6 +89,11 @@ namespace Game.Service
             var manager = trails.transform.GetOrAddComponent<TrailComboManager>();
             var entity = Contexts.sharedInstance.game.CreateEntity();
             manager.Init(Contexts.sharedInstance, entity, animator);
+        }
+
+        public void LoadEnemy(string enemyName,Transform parent)
+        {
+            var enemy = LoadAndInstaniate(Path.ENEMY_PATH + enemyName, parent);
         }
         
     }

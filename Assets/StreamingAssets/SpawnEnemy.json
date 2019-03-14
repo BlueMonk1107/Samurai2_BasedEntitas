@@ -1,0 +1,24 @@
+{
+  "Levels": [
+    {
+      "PointList": [
+        {
+          "PointId": "1-1-1",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1-1-2",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1-1-3",
+          "EnemyId": 0
+        },
+        {
+          "PointId": "1-1-4",
+          "EnemyId": 0
+        }
+      ]
+    }
+  ]
+}

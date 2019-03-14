@@ -10,7 +10,8 @@ namespace Game
     public class PlayerAni : IPlayerAni
     {
         public bool IsRun { get; set; }
-        
+        public bool IsCollideWall { get; set; }
+
         private Animator _ani;
         public PlayerAni(Animator animator, ICustomAniEventManager aniEventManager)
         {

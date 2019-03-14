@@ -22,6 +22,10 @@ namespace Manager
             {
                 json = File.ReadAllText(path);
             }
+            else
+            {
+                Debug.LogError("Œﬁ∑®’“µΩ"+ path);
+            }
             return JsonUtility.FromJson<T>(json);
         }
     }

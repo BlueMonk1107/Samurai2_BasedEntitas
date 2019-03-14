@@ -16,7 +16,7 @@ namespace Game
         private Contexts _contexts;
         private IServiceManager _serviceManager;
 
-        public void Start()
+        public void Awake()
         {
             _contexts = Contexts.sharedInstance;
             InitManager();

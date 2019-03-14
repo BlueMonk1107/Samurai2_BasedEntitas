@@ -10,12 +10,15 @@ namespace Const
 
         public const string DIFFICULT_LEVEL = "DifficultLevel";
         public const string LEVEL_INDEX = "LevelIndex";
+        public const string LEVEL_GAME_PART_INDEX = "LevelGamePartIndex";
         public const string LEVEL_PART_INDEX = "LevelPartIndex";
 
         public const string MAIN_SCENE = "Main";
         public const string COMICS_SCENE = "Comics";
         public const string LEVEL_SCENE = "Level";
 
+        public const string GAME_PART_WALL = "Wall";
+        public const string GAME_PART_SPWAN_POINT = "SpawnPoint";
 
         //ani para name
         /// <summary>

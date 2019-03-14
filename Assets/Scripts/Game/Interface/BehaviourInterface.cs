@@ -40,6 +40,11 @@ namespace Game
         /// </summary>
         bool IsRun { get; set; }
 
+        /// <summary>
+        /// µ±Ç°ÊÇ·ñ×²Ç½
+        /// </summary>
+        bool IsCollideWall { get; set; }
+
         bool IsAttack { get;}
 
         /// <summary>

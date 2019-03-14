@@ -20,6 +20,8 @@ namespace Game
                 _isRun = value;
             }
         }
+
+        public bool IsCollideWall { get; set; }
         public bool IsAttack { get; }
 
         public PlayerAudio(AudioSource source)

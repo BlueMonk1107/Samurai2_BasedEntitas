@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DG.Tweening;
 
@@ -23,7 +24,7 @@ namespace Game
         /// 相机缓动动画
         /// </summary>
         /// <param name="targetParent"></param>
-        public void Move(Transform targetParent)
+        public void Move(Transform targetParent,Action callBack)
         {
             SetParent(targetParent);
 
@@ -31,7 +32,7 @@ namespace Game
 
             transform.DOKill();
             transform.DOLocalMove(Vector3.zero, time);
-            transform.DOLocalRotate(Vector3.zero, time);
+            transform.DOLocalRotate(Vector3.zero, time).OnComplete(()=> callBack?.Invoke());
         }
 
         /// <summary>

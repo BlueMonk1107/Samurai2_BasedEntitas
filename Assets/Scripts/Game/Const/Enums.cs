@@ -12,7 +12,11 @@ namespace Game
         /// 开场相机动画
         /// </summary>
         START_GAME_ANI,
-        SHAKE_ANI
+        SHAKE_ANI,
+        /// <summary>
+        /// 相机跟随动画
+        /// </summary>
+        FOLLOW_PLAYER
     }
 
     /// <summary>
@@ -21,7 +25,11 @@ namespace Game
     public enum CameraParent
     {
         START,
-        IN_GAME
+        IN_GAME,
+        /// <summary>
+        /// 相机跟随动画
+        /// </summary>
+        FOLLOW_PLAYER
     }
 
     /// <summary>
@@ -34,7 +42,19 @@ namespace Game
     }
 
     /// <summary>
-    /// 关卡部分ID
+    /// 关卡游戏部分大区域ID
+    /// </summary>
+    public enum LevelGamePartID
+    {
+        ONE = 1,
+        TWO,
+        THREE,
+        FOUR,
+        FIVE
+    }
+
+    /// <summary>
+    /// 关卡游戏部分小区域ID
     /// </summary>
     public enum LevelPartID
     {
@@ -129,5 +149,25 @@ namespace Game
         injory,
         kotoul,
         step
+    }
+
+    public enum EnemyId
+    {
+        /// <summary>
+        /// 近战小怪
+        /// </summary>
+        EnemyPeasant,
+        /// <summary>
+        /// 弓箭手
+        /// </summary>
+        EnemyBowman,
+        /// <summary>
+        /// 近战精英怪
+        /// </summary>
+        EnemySwordsman,
+        /// <summary>
+        /// Boss
+        /// </summary>
+        EnemyMiniBoss
     }
 }
