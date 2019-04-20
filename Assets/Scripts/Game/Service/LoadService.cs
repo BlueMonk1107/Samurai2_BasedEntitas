@@ -1,4 +1,4 @@
-using Game.View;
+锘縰sing Game.View;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
@@ -7,12 +7,12 @@ using Util;
 namespace Game.Service
 {
     /// <summary>
-    /// 加载服务接口
+    /// 鍔犺浇鏈嶅姟鎺ュ彛
     /// </summary>
     public interface ILoadService : ILoad,IInitService
     {
         /// <summary>
-        /// 加载玩家预制
+        /// 鍔犺浇鐜╁棰勫埗
         /// </summary>
         void LoadPlayer();
 
@@ -69,7 +69,7 @@ namespace Game.Service
             Animator animator = player.GetComponent<Animator>();
             if (animator == null)
             {
-                Debug.LogError("玩家预制上为发现动画组件");
+                Debug.LogError("鐜╁棰勫埗涓婃湭鍙戠幇鍔ㄧ敾缁勪欢");
             }
             else
             {
