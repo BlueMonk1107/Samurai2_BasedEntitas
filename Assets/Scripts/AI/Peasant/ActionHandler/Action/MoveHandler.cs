@@ -1,7 +1,7 @@
 ﻿using BlueGOAP;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class MoveHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {

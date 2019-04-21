@@ -1,3 +1,6 @@
+ï»¿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Game;
 using Manager;
 using Model;
@@ -7,12 +10,12 @@ using UnityEngine;
 namespace Manager
 {
     /// <summary>
-    /// Êı¾İÄ£ĞÍ¹ÜÀíÀà
+    /// æ•°æ®æ¨¡å‹ç®¡ç†ç±»
     /// </summary>
     public class ModelManager : SingletonBase<ModelManager>
     {
         /// <summary>
-        /// Íæ¼ÒÊı¾İÅäÖÃÀà
+        /// ç©å®¶æ•°æ®é…ç½®ç±»
         /// </summary>
         public PlayerDataModel PlayerData { get; private set; }
 
@@ -22,12 +25,38 @@ namespace Manager
 
         public SpawnEnemyModel SpawnEnemyModel { get; private set; }
 
+        public EnemyDataModel EnemyDataModel { get; private set; }
+
+
         public void Init()
         {
             PlayerData = ConfigManager.Single.LoadJson<PlayerDataModel>(ConfigPath.PLAYER_CONFIG);
             HumanSkillModel = ConfigManager.Single.LoadJson<HumanSkillModel>(ConfigPath.HUMAN_SKILL_CONFIG);
             EnemyModel = ConfigManager.Single.LoadJson<EnemyModel>(ConfigPath.ENEMY_CONFIG);
             SpawnEnemyModel = ConfigManager.Single.LoadJson<SpawnEnemyModel>(ConfigPath.SPAWN_ENEMY_CONFIG);
+            InitEnemyDataModel();
+        }
+
+        private void InitEnemyDataModel()
+        {
+            EnemyDataModel = new EnemyDataModel();
+            EnemyDataModel.DataDic = new Dictionary<EnemyId, EnemyData>();
+
+            EnemyValueModel model = ConfigManager.Single.LoadJson<EnemyValueModel>(ConfigPath.ENEMY_VALUE_CONFIG);
+            EnemyData data = null;
+
+            foreach (EnemyId id in Enum.GetValues(typeof(EnemyId)))
+            {
+                data = model.EnemyList.FirstOrDefault(u => u.PrefabName == id.ToString());
+                if (data == null)
+                {
+                    Debug.Log("æ— æ³•æ‰¾åˆ°åŒ¹é…é¡¹ï¼Œåç§°ä¸º"+id);
+                }
+                else
+                {
+                    EnemyDataModel.DataDic.Add(id, data);
+                }
+            }
         }
     }
 }

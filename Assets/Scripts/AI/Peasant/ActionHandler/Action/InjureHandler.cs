@@ -1,7 +1,7 @@
 ﻿using BlueGOAP;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class InjureHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
@@ -14,11 +14,11 @@ namespace Game.UI
             base.Enter();
             DebugMsg.Log("进入受伤状态");
             int injureValue = (int) GetGameData(GameDataKeyEnum.INJURE_VALUE);
-            int life = (int) GetGameData(GameDataKeyEnum.LIFE);
+            EnemyData data = GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
 
-            life = life - injureValue;
+            data.Life = data.Life - injureValue;
 
-            if (life < 0)
+            if (data.Life < 0)
             {
                 SetAgentState(StateKeyEnum.DEAD, true);
             }

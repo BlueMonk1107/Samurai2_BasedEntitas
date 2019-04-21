@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class Const      
     {

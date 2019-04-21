@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     /// <summary>
     /// 动作
@@ -64,8 +64,8 @@ namespace Game.UI
         /// </summary>
         INJURE_VALUE,
         /// <summary>
-        /// 生命值
+        /// 此单位的基础配置文件
         /// </summary>
-        LIFE
+        CONFIG
     }
 }

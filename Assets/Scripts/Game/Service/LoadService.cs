@@ -1,8 +1,10 @@
-﻿using Game.View;
+﻿using System;
+using Game.View;
 using Manager;
 using Manager.Parent;
 using UnityEngine;
 using Util;
+using Object = UnityEngine.Object;
 
 namespace Game.Service
 {
@@ -94,6 +96,21 @@ namespace Game.Service
         public void LoadEnemy(string enemyName,Transform parent)
         {
             var enemy = LoadAndInstaniate(Path.ENEMY_PATH + enemyName, parent);
+            string scriptName = Consts.VIEW_NAMESPACE + "." + enemyName + Consts.VIEW_POSTFIX;
+            Type viewType = Type.GetType(scriptName);
+            IView view = null;
+            if (viewType != null)
+            {
+                view = enemy.AddComponent(viewType) as IView;
+            }
+            else
+            {
+                Debug.LogError("未找到类，名称为"+ scriptName);
+                return;
+            }
+
+            var entity = Contexts.sharedInstance.game.CreateEntity();
+            view.Init(Contexts.sharedInstance, entity);
         }
         
     }

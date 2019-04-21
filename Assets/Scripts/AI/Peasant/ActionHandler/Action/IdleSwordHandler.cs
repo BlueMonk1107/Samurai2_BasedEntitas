@@ -5,7 +5,7 @@ using Game.Service;
 using Module.Timer;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class IdleSwordHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {

@@ -2,7 +2,7 @@
 using BlueGOAP;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class PeasantMaps : MapsBase<ActionEnum, GoalEnum>
     {
@@ -33,7 +33,7 @@ namespace Game.UI
 
         protected override void InitGameData()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

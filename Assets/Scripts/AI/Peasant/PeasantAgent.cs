@@ -2,10 +2,13 @@
 using BlueGOAP;
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.AI
 {
     public class PeasantAgent : AgentBase<ActionEnum,GoalEnum>
     {
+
+        public PeasantAgent() : base() { }
+
         protected override IState InitAgentState()
         {
             State< StateKeyEnum > state = new State<StateKeyEnum>();

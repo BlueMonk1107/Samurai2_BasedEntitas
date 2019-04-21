@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Game
 {
@@ -11,5 +11,7 @@ namespace Game
         public static readonly string ENEMY_CONFIG = Application.streamingAssetsPath + "/Enemy.json";
 
         public static readonly string SPAWN_ENEMY_CONFIG = Application.streamingAssetsPath + "/SpawnEnemy.json";
+
+        public static readonly string ENEMY_VALUE_CONFIG = Application.streamingAssetsPath + "/EnemyValue.json";
     }
 }

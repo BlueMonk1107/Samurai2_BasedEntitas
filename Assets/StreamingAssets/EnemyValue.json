@@ -1,0 +1,14 @@
+﻿{
+  "EnemyList": [
+    {
+      "PrefabName": "EnemyPeasant",
+      "Life": 100,
+      "Attack": 2
+    },
+    {
+      "PrefabName": "EnemyBowman",
+      "Life": 60,
+      "Attack": 5
+    }
+  ]
+}
