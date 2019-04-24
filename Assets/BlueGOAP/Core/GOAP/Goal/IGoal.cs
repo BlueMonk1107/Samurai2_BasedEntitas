@@ -20,6 +20,11 @@ namespace BlueGOAP
         /// <returns></returns>
         IState GetEffects();
         /// <summary>
+        /// 获取目标激活的条件
+        /// </summary>
+        /// <returns></returns>
+        IState GetActiveCondition();
+        /// <summary>
         /// 是否已经实现目标
         /// </summary>
         /// <returns></returns>

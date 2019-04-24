@@ -53,6 +53,6 @@ namespace BlueGOAP
         /// 添加动作完成的监听
         /// </summary>
         /// <param name="actionComplete"></param>
-        void AddActionCompleteListener(Action actionComplete);
+        void AddActionCompleteListener(Action<TAction> actionComplete);
     }
 }

@@ -29,5 +29,10 @@ namespace BlueGOAP
         /// 中断计划
         /// </summary>
         void Interruptible();
+        /// <summary>
+        /// 获取当前动作处理器
+        /// </summary>
+        /// <returns></returns>
+        IActionHandler<TAction> GetCurrentHandler();
     }
 }

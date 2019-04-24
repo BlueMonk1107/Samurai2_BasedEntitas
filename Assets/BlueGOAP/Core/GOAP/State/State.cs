@@ -32,6 +32,9 @@ namespace BlueGOAP
 
         private void ChangeValue(string key, bool value)
         {
+            if (_onChange != null)
+                DebugMsg.Log("-----state值被改变了"+key+"  "+ value);
+
             _dataTable[key] = value;
             if (_onChange != null)
                 _onChange();
@@ -79,18 +82,6 @@ namespace BlueGOAP
 
         public bool ContainState(IState otherState)
         {
-            foreach (string key in otherState.GetKeys())
-            {
-                DebugMsg.Log("otherState key:"+ key+"   "+ otherState.Get(key));
-            }
-            foreach (var key in otherState.GetKeys())
-            {
-                if (ContainKey(key))
-                {
-                    DebugMsg.Log("key  " + key + "   当前状态的值  " + _dataTable[key] + "  另一状态的值 " + otherState.Get(key));
-                }
-            }
-
             foreach (var key in otherState.GetKeys())
             {
                 if (!ContainKey(key) || _dataTable[key] != otherState.Get(key))

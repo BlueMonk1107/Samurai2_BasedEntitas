@@ -56,10 +56,11 @@ namespace BlueGOAP
         }
 
         //计划完成了当前动作
-        private void PlanActionComplete()
+        private void PlanActionComplete(TAction actionLabel)
         {
             DebugMsg.Log("下一步");
-            _planHandler.NextAction();
+            if(_planHandler.GetCurrentHandler().Label.ToString() == actionLabel.ToString())
+                _planHandler.NextAction();
         }
 
         //检测是否需要重新制定计划

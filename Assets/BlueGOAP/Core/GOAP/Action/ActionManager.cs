@@ -19,7 +19,7 @@ namespace BlueGOAP
         public bool IsPerformAction { get; set; }
         //效果的键值和动作的映射关系
         public Dictionary<string, HashSet<IActionHandler<TAction>>> EffectsAndActionMap { get; private set; }
-        private Action _onActionComplete;
+        private Action<TAction> _onActionComplete;
 
         public ActionManagerBase(IAgent<TAction, TGoal> agent)
         {
@@ -35,8 +35,6 @@ namespace BlueGOAP
             InitMutilFSM();
             InitEffectsAndActionMap();
             InitInterruptibleDic();
-            //执行默认动作
-            ExcuteNewState(GetDefaultActionLabel());
         }
 
         /// <summary>
@@ -105,7 +103,11 @@ namespace BlueGOAP
             {
                 dic.Add(label, handler);
                 //这里写拉姆达表达式，是为了避免初始化的时候_onActionComplete还是null的
-                handler.AddFinishCallBack(() => _onActionComplete());
+                handler.AddFinishCallBack(() =>
+                {
+                    DebugMsg.Log("动作完成：   "+label);
+                    _onActionComplete(label);
+                });
             }
             else
             {
@@ -184,7 +186,7 @@ namespace BlueGOAP
             }
         }
 
-        public void AddActionCompleteListener(Action actionComplete)
+        public void AddActionCompleteListener(Action<TAction> actionComplete)
         {
             _onActionComplete = actionComplete;
         }

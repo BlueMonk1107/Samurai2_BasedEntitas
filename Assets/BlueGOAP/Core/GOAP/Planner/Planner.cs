@@ -11,12 +11,15 @@ namespace BlueGOAP
         public Planner(IAgent<TAction, TGoal> agent)
         {
             _agent = agent;
-
         }
 
         public Queue<IActionHandler<TAction>> BuildPlan(IGoal<TGoal> goal)
         {
             DebugMsg.Log("制定计划");
+            DebugMsg.Log("---------------当前代理状态------------");
+            DebugMsg.Log(_agent.AgentState.ToString());
+            DebugMsg.Log("---------------------------");
+
             Queue<IActionHandler<TAction>> plan = new Queue<IActionHandler<TAction>>();
 
             if (goal == null)
@@ -63,10 +66,12 @@ namespace BlueGOAP
                 //获取所有的子行为
                 List<IActionHandler<TAction>> handlers = GetSubHandlers(currentNode);
 
+                DebugMsg.Log("---------------currentNode:"+ currentNode.ID+ "-----------------");
                 foreach (IActionHandler<TAction> handler in handlers)
                 {
                     DebugMsg.Log("计划子行为:" + handler.Label);
                 }
+                DebugMsg.Log("--------------------------------");
 
                 foreach (IActionHandler<TAction> handler in handlers)
                 {
@@ -80,6 +85,7 @@ namespace BlueGOAP
                 currentNode = cheapestNode;
                 cheapestNode = null;
             }
+
 
             return currentNode;
         }
@@ -204,7 +210,7 @@ namespace BlueGOAP
                     foreach (IActionHandler<TAction> handler in map[key])
                     {
                         //筛选能够执行的动作
-                        if (!handlers.Contains(handler))
+                        if (!handlers.Contains(handler) && handler.Action.Effects.Get(key) == node.GoalState.Get(key))
                         {
                             handlers.Add(handler);
                         }

@@ -70,5 +70,10 @@ namespace BlueGOAP
         {
             _isInterruptible = true;
         }
+
+        public IActionHandler<TAction> GetCurrentHandler()
+        {
+            return _currentActionHandler;
+        }
     }
 }

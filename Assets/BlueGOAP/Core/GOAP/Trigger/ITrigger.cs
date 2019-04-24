@@ -21,7 +21,7 @@ namespace BlueGOAP
     public abstract class TriggerBase<TAction, TGoal> : ITrigger
     {
         private IState _effects;
-        private IAgent<TAction, TGoal> _agent;
+        protected IAgent<TAction, TGoal> _agent;
 
         public TriggerBase(IAgent<TAction, TGoal> agent)
         {

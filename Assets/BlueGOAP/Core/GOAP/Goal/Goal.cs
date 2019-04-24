@@ -6,6 +6,7 @@ namespace BlueGOAP
     public abstract class GoalBase<TAction, TGoal> : IGoal<TGoal>
     {
         private IState _effects;
+        private IState _activeCondition;
         private IAgent<TAction, TGoal> _agent;
         private Action<IGoal<TGoal>> _onActivate;
         private Action<IGoal<TGoal>> _onInactivate;
@@ -16,6 +17,7 @@ namespace BlueGOAP
         {
             _agent = agent;
             _effects = InitEffects();
+            _activeCondition = InitActiveCondition();
         }
 
         public abstract float GetPriority();
@@ -28,7 +30,13 @@ namespace BlueGOAP
             return _effects;
         }
 
+        public IState GetActiveCondition()
+        {
+            return _activeCondition;
+        }
+
         protected abstract IState InitEffects();
+        protected abstract IState InitActiveCondition();
 
         /// <summary>
         /// 是否已经实现目标
@@ -36,17 +44,6 @@ namespace BlueGOAP
         public virtual bool IsGoalComplete()
         {
             return _agent.AgentState.ContainState(_effects);
-        }
-
-        /// <summary>
-        /// 获取代理状态的值
-        /// </summary>
-        /// <typeparam name="Tkey"></typeparam>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        protected bool GetAgentState<Tkey>(Tkey key)
-        {
-            return _agent.AgentState.Get(key.ToString());
         }
 
         public void AddGoalActivateListener(Action<IGoal<TGoal>> onActivate)
@@ -72,10 +69,14 @@ namespace BlueGOAP
                 _onInactivate(this);
             }
         }
+
         /// <summary>
         /// 当前Goal的激活条件
         /// </summary>
         /// <returns></returns>
-        protected abstract bool ActiveCondition();
+        private bool ActiveCondition()
+        {
+            return _agent.AgentState.ContainState(_activeCondition);
+        }
     }
 }
