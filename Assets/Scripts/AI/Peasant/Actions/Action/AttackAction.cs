@@ -18,14 +18,15 @@ namespace Game.AI
         protected override IState InitPreconditions()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.NEAR_ENEMY, true);
+            state.Set(StateKeyEnum.CAN_ATTACK, true);
             return state;
         }
 
         protected override IState InitEffects()
         {
             State<StateKeyEnum> state = new State<StateKeyEnum>();
-            state.Set(StateKeyEnum.STEP_BACK, true);
+            state.Set(StateKeyEnum.CAN_ATTACK, false);
+            state.Set(StateKeyEnum.IS_SAFE_DISTANCE,false);
             return state;
         }
     }

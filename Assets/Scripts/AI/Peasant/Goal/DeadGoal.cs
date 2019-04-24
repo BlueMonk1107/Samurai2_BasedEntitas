@@ -22,9 +22,11 @@ namespace Game.AI
             return null;
         }
 
-        protected override bool ActiveCondition()
+        protected override IState InitActiveCondition()
         {
-            return GetAgentState(StateKeyEnum.DEAD) == true;
+            State<StateKeyEnum> state = new State<StateKeyEnum>();
+            state.Set(StateKeyEnum.IS_DEAD, true);
+            return state;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Game.View
             data.Copy(temp);
             _ai.Maps.SetGameData(GameDataKeyEnum.CONFIG, data);
             _ai.Maps.SetGameData(GameDataKeyEnum.SELF_TRANS,transform);
-            Transform player = contexts.game.gamePlayer.Player as Transform;
+            Transform player = (contexts.game.gamePlayer.Player as ViewBase).transform;
             _ai.Maps.SetGameData(GameDataKeyEnum.ENEMY_TRANS, player);
         }
 

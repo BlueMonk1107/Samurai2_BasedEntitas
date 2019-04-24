@@ -33,17 +33,34 @@ namespace Game.AI
     /// </summary>
     public enum StateKeyEnum
     {
-        ALERT,
-        FIND_ENEMY,
-        NEAR_ENEMY,
-        ATTACK,
-        MOVE,
-        INJURE,
-        DEAD,
         /// <summary>
-        /// 后退
+        /// 是否发现目标
         /// </summary>
-        STEP_BACK
+        FIND_ENEMY,
+        /// <summary>
+        /// 是否到达目标身边
+        /// </summary>
+        NEAR_ENEMY,
+        /// <summary>
+        /// 是否可以攻击
+        /// </summary>
+        CAN_ATTACK,
+        /// <summary>
+        /// 是否能够向前移动
+        /// </summary>
+        CAN_MOVE_FORWARD,
+        /// <summary>
+        /// 是否受伤
+        /// </summary>
+        IS_INJURE,
+        /// <summary>
+        /// 是否死亡
+        /// </summary>
+        IS_DEAD,
+        /// <summary>
+        /// 是否在安全距离
+        /// </summary>
+        IS_SAFE_DISTANCE
     }
 
     /// <summary>

@@ -3,12 +3,20 @@
     {
       "PrefabName": "EnemyPeasant",
       "Life": 100,
-      "Attack": 2
+      "Attack": 2,
+      "AttackRange": 1.5,
+      "SafeDistance": 5,
+      "FindDistance": 7,
+      "MoveSpeed": 4
     },
     {
       "PrefabName": "EnemyBowman",
       "Life": 60,
-      "Attack": 5
+      "Attack": 5,
+      "AttackRange": 4,
+      "SafeDistance": 6,
+      "FindDistance": 8,
+      "MoveSpeed": 3
     }
   ]
 }
