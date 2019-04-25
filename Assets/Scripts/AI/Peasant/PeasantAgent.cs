@@ -1,5 +1,6 @@
 ﻿using System;
 using BlueGOAP;
+using Game.AI.ViewEffect;
 using UnityEngine;
 
 namespace Game.AI
@@ -7,7 +8,10 @@ namespace Game.AI
     public class PeasantAgent : AgentBase<ActionEnum,GoalEnum>
     {
 
-        public PeasantAgent() : base() { }
+        public PeasantAgent() : base()
+        {
+            InitViewMgr();
+        }
 
         protected override IState InitAgentState()
         {
@@ -43,6 +47,15 @@ namespace Game.AI
         protected override DebugMsgBase InitDebugMsg()
         {
             return new AIDebug();
+        }
+
+        private void InitViewMgr()
+        {
+            object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
+            AIVIewEffectMgr viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(),audioSource); 
+
+            PeasantActMgr actMgr = ActionManager as PeasantActMgr;
+            actMgr.AddExcuteNewStateListener(viewMgr.ExcuteState);
         }
     }
 }

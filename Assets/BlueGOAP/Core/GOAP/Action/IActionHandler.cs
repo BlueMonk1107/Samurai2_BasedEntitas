@@ -12,7 +12,6 @@ namespace BlueGOAP
         /// 动作
         /// </summary>
         IAction<TAction> Action { get; }
-
         /// <summary>
         /// 判断当前状态是否能够执行动作
         /// </summary>

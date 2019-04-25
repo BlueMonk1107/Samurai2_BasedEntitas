@@ -13,6 +13,7 @@ namespace BlueGOAP
         IGoal<TGoal> GetGoal(TGoal goalLabel);
         void SetGameData<Tkey>(Tkey key,object value);
         object GetGameData<Tkey>(Tkey key);
+        void AddInitGameDataAction(Action onInitGameData);
     }
 
     public abstract class MapsBase<TAction, TGoal> : IMaps<TAction, TGoal>
@@ -22,6 +23,7 @@ namespace BlueGOAP
         protected IAgent<TAction, TGoal> _agent;
         private Dictionary<string, object> _gameData;
         private ObjectPool _pool;
+        private Action _onInitGameData;
 
         public MapsBase(IAgent<TAction, TGoal> agent)
         {
@@ -43,10 +45,15 @@ namespace BlueGOAP
         /// 在此函数内手动填写对应的目标数据
         /// </summary>
         protected abstract void InitGoalMaps();
+
         /// <summary>
         /// 初始化游戏内数据
         /// </summary>
-        protected abstract void InitGameData();
+        protected virtual void InitGameData()
+        {
+            if (_onInitGameData != null)
+                _onInitGameData();
+        }
 
         /// <summary>
         /// 获取动作数据
@@ -122,6 +129,11 @@ namespace BlueGOAP
             {
                 DebugMsg.LogError("发现具有相同目标的Goal，标签为：" + goal.Label);
             }
+        }
+
+        public void AddInitGameDataAction(Action onInitGameData)
+        {
+            _onInitGameData = onInitGameData;
         }
     }
 }

@@ -6,6 +6,8 @@ namespace Game.AI
 {
     public class PeasantActMgr : ActionManagerBase<ActionEnum, GoalEnum>
     {
+        private Action<ActionEnum> _excuteActionState;
+
         public PeasantActMgr(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
         }
@@ -29,6 +31,18 @@ namespace Game.AI
         protected override void InitMutilActionHandlers()
         {
             AddMutilActionHandler(ActionEnum.ALERT);
+        }
+
+        public void AddExcuteNewStateListener(Action<ActionEnum> excuteActionState)
+        {
+            _excuteActionState = excuteActionState;
+        }
+
+        public override void ExcuteNewState(ActionEnum label)
+        {
+            base.ExcuteNewState(label);
+            if(_excuteActionState != null)
+                _excuteActionState(label);
         }
     }
 }

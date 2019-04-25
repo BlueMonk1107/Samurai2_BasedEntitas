@@ -15,13 +15,20 @@ namespace Game.View
         {
              base.Init(contexts, entity);
              _ai = new PeasantAgent();
+
+            _ai.Maps.AddInitGameDataAction(()=> InitGameData(contexts));
+        }
+
+        private void InitGameData(Contexts contexts)
+        {
             EnemyData temp = ModelManager.Single.EnemyDataModel.DataDic[EnemyId.EnemyPeasant];
             EnemyData data = new EnemyData();
             data.Copy(temp);
             _ai.Maps.SetGameData(GameDataKeyEnum.CONFIG, data);
-            _ai.Maps.SetGameData(GameDataKeyEnum.SELF_TRANS,transform);
+            _ai.Maps.SetGameData(GameDataKeyEnum.SELF_TRANS, transform);
             Transform player = (contexts.game.gamePlayer.Player as ViewBase).transform;
             _ai.Maps.SetGameData(GameDataKeyEnum.ENEMY_TRANS, player);
+            _ai.Maps.SetGameData(GameDataKeyEnum.AUDIO_SOURCE, GetComponent<AudioSource>());
         }
 
         private void FixedUpdate()

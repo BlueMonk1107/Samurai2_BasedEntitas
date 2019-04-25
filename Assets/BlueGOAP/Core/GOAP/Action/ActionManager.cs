@@ -170,7 +170,7 @@ namespace BlueGOAP
             }
         }
 
-        public void ExcuteNewState(TAction label)
+        public virtual void ExcuteNewState(TAction label)
         {
             if (_handlerDic.ContainsKey(label))
             {
