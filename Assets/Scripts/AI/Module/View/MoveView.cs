@@ -5,21 +5,10 @@ namespace Game.AI.ViewEffect
 {
     public class MoveView : ViewBase<ActionEnum>
     {
-        public MoveView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
-        {
-        }
-        public ActionExcuteState ExcuteState { get; }
         public override ActionEnum Label { get { return ActionEnum.MOVE; } }
+        public override string AniName { get { return AIPeasantAniName.runSword.ToString(); } }
 
-        public override void Enter()
-        {
-        }
-
-        public override void Execute()
-        {
-        }
-
-        public override void Exit()
+        public MoveView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
     }

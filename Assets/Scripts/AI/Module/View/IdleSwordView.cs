@@ -9,12 +9,7 @@ namespace Game.AI.ViewEffect
         {
         }
         public override ActionEnum Label { get { return ActionEnum.IDLE_SWORD; } }
-
-        public override void Enter()
-        {
-            base.Enter();
-            _AniMgr.Play(AIPeasantAniName.idleSword);
-        }
+        public override string AniName { get { return AIPeasantAniName.idleSword.ToString(); } }
        
     }
 }

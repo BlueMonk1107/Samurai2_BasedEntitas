@@ -22,9 +22,12 @@ namespace BlueGOAP
         private IAction<TAction> action;
         protected System.Action _onFinishAction;
         protected IMaps<TAction, TGoal> _maps;
+        private static int _id;
+        protected int ID { get; set; }
 
         public ActionHandlerBase(IAgent<TAction, TGoal> agent, IMaps<TAction, TGoal> maps, IAction<TAction> action)
         {
+            ID = _id ++;
             _agent = agent;
             _maps = maps;
             Action = action;

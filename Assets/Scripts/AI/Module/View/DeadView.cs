@@ -5,23 +5,11 @@ namespace Game.AI.ViewEffect
 {
     public class DeadView : ViewBase<ActionEnum>
     {
+        public override ActionEnum Label { get { return ActionEnum.DEAD; } }
+        public override string AniName { get; }
+
         public DeadView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
-        public override ActionEnum Label { get { return ActionEnum.DEAD; } }
-
-        public override void Enter()
-        {
-        }
-
-        public override void Execute()
-        {
-        }
-
-        public override void Exit()
-        {
-        }
-
-    
     }
 }

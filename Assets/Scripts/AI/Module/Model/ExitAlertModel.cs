@@ -2,7 +2,7 @@
 
 namespace Game.AI.ViewEffect
 {
-    public class AttackModel : IModel     
+    public class ExitAlertModel : IModel
     {
         public float AniDutation { get; set; }
     }

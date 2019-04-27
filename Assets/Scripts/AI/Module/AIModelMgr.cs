@@ -18,7 +18,6 @@ namespace Game.AI.ViewEffect
         {
             if (!_modelsDic.ContainsKey(label))
             {
-                DebugMsg.LogError("缓存中未找到，未对该Model对象进行初始化，标签:" + label);
                 return null;
             }
             else
@@ -49,7 +48,8 @@ namespace Game.AI.ViewEffect
         protected override void InitModels()
         {
             AddModel(ActionEnum.ATTACK, new AttackModel());
-            AddModel(ActionEnum.ALERT, new AlertModel());
+            AddModel(ActionEnum.ENTER_ALERT, new EnterAlertModel());
+            AddModel(ActionEnum.EXIT_ALERT, new ExitAlertModel());
         }
     }
 }

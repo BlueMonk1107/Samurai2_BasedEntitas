@@ -21,6 +21,8 @@ namespace Game.AI
             AddAction<InjureHandler, InjureAction>();
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
             AddAction<DeadHandler, DeadAction>();
+            AddAction<EnterAlertHandler,EnterAlertAction>();
+            AddAction<ExitAlertHandler,ExitAlertAction>();
 
             AddAction<AlertStateHandler,AlertActionState>();
         }

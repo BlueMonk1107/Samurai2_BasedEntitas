@@ -7,9 +7,7 @@ namespace Game.AI.ViewEffect
     public abstract class AIVIewEffectMgrBase<T>
     {
         private IFSM<T> _fsm;
-        private IFSM<T> _mutilFsm;
         private Dictionary<T, IFsmState<T>> _viewDic;
-        private Dictionary<T, IFsmState<T>> _mutilActonsView;
         public AIModelMgrBase<T> ModelMgr { get; private set; }
         public EffectMgr EffectMgr { get; private set; }
         public AudioMgr AudioMgr { get; private set; }
@@ -18,9 +16,7 @@ namespace Game.AI.ViewEffect
         public AIVIewEffectMgrBase(string enemyID, object source, object ani)
         {
             _fsm = new ActionFSM<T>();
-            _mutilFsm = new ActionStateFSM<T>();
             _viewDic = new Dictionary<T, IFsmState<T>>();
-            _mutilActonsView = new Dictionary<T, IFsmState<T>>();
             EffectMgr = new EffectMgr();
             AudioMgr = new AudioMgr(enemyID, source);
             AniMgr = new AIAniMgr(ani);
@@ -29,9 +25,6 @@ namespace Game.AI.ViewEffect
 
             InitViews();
             InitFsm();
-
-            InitMutilViews();
-            InitMutilFsm();
         }
 
         private void InitFsm()
@@ -42,16 +35,7 @@ namespace Game.AI.ViewEffect
             }
         }
 
-        private void InitMutilFsm()
-        {
-            foreach (KeyValuePair<T, IFsmState<T>> state in _mutilActonsView)
-            {
-                _mutilFsm.AddState(state.Key, state.Value);
-            }
-        }
-
         protected abstract void InitViews();
-        protected abstract void InitMutilViews();
         protected abstract AIModelMgrBase<T> InitModelMgr();
 
         protected void AddView(IFsmState<T> state)
@@ -67,32 +51,15 @@ namespace Game.AI.ViewEffect
             }
         }
 
-        protected void AddMutilView(IFsmState<T> state)
-        {
-            T key = state.Label;
-            if (_mutilActonsView.ContainsKey(key))
-            {
-                DebugMsg.LogError("已包含当前键值");
-            }
-            else
-            {
-                _mutilActonsView.Add(key, state);
-            }
-        }
-
         public void ExcuteState(T key)
         {
             if (_viewDic.ContainsKey(key))
             {
                 _fsm.ExcuteNewState(key);
             }
-            else if (_mutilActonsView.ContainsKey(key))
-            {
-                _mutilFsm.ExcuteNewState(key);
-            }
             else
             {
-                DebugMsg.LogError("动作" + key + "不在当前动作缓存内");
+                DebugMsg.LogWarning("动作" + key + "不在当前动作缓存内");
             }
         }
     }
@@ -114,11 +81,8 @@ namespace Game.AI.ViewEffect
             AddView(new InjureView(this));
             AddView(new MoveBackwardView(this));
             AddView(new MoveView(this));
-        }
-
-        protected override void InitMutilViews()
-        {
-            AddMutilView(new AlertView(this));
+            AddView(new EnterAlertView(this));
+            AddView(new ExitAlertView(this));
         }
 
         protected override AIModelMgrBase<ActionEnum> InitModelMgr()

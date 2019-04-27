@@ -1,9 +1,10 @@
 ﻿using BlueGOAP;
+using Game.AI.ViewEffect;
 using UnityEngine;
 
 namespace Game.AI
 {
-    public class IdleHandler : ActionHandlerBase<ActionEnum, GoalEnum>
+    public class IdleHandler : HandlerBase<IModel>
     {
         public IdleHandler(IAgent<ActionEnum, GoalEnum> agent, 
             IMaps<ActionEnum, GoalEnum> maps, 

@@ -7,6 +7,7 @@ namespace Game.AI.ViewEffect
     {
         public ActionExcuteState ExcuteState { get; private set; }
         public abstract T Label { get; }
+        public abstract string AniName { get; }
 
         protected IModel _iModel;
         protected EffectMgr _effectMgr;
@@ -14,14 +15,26 @@ namespace Game.AI.ViewEffect
 
         public ViewBase(AIVIewEffectMgrBase<T> mgr)
         {
-            _iModel = mgr.ModelMgr.GetModel<IModel>(Label);
-            _effectMgr = mgr.EffectMgr;
+            _iModel = InitModel(mgr);
+             _effectMgr = mgr.EffectMgr;
             _AniMgr = mgr.AniMgr;
+        }
+
+        private IModel InitModel(AIVIewEffectMgrBase<T> mgr)
+        {
+            IModel model = mgr.ModelMgr.GetModel<IModel>(Label);
+            if (model != null)
+            {
+                Debug.Log(AniName);
+                model.AniDutation = mgr.AniMgr.GetAniLength(AniName);
+            }
+            return model;
         }
 
         public virtual void Enter()
         {
             ExcuteState = ActionExcuteState.ENTER;
+            _AniMgr.Play(AniName);
         }
 
         public virtual void Execute()

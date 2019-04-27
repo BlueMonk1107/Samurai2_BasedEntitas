@@ -14,7 +14,9 @@ namespace Game.AI
         INJJURE,
         MOVE,
         MOVE_BACKWARD,
-        ALERT
+        ALERT,
+        ENTER_ALERT,
+        EXIT_ALERT
     }
 
     /// <summary>
@@ -60,7 +62,11 @@ namespace Game.AI
         /// <summary>
         /// 是否在安全距离
         /// </summary>
-        IS_SAFE_DISTANCE
+        IS_SAFE_DISTANCE,
+        /// <summary>
+        /// 是否处在警戒状态
+        /// </summary>
+        IS_ALERT
     }
 
     /// <summary>
@@ -103,6 +109,9 @@ namespace Game.AI
         idle,
         idleSword,
         showSword,
-        hideSword
+        hideSword,
+        runSwordBackward,
+        runSword,
+        attackPeasant
     }
 }
