@@ -28,7 +28,7 @@ namespace Game.AI
             AddHandler(ActionEnum.DEAD);
         }
 
-        protected override void InitMutilActionHandlers()
+        protected override void InitActionStateHandlers()
         {
             AddMutilActionHandler(ActionEnum.ALERT);
         }

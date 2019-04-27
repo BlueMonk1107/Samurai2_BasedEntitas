@@ -13,17 +13,41 @@ namespace Game.AI.ViewEffect
         public AIModelMgrBase<T> ModelMgr { get; private set; }
         public EffectMgr EffectMgr { get; private set; }
         public AudioMgr AudioMgr { get; private set; }
+        public AIAniMgr AniMgr { get; private set; }
 
-        public AIVIewEffectMgrBase(string enemyID, object source)
+        public AIVIewEffectMgrBase(string enemyID, object source, object ani)
         {
-            _fsm = new FSM<T>();
-            _mutilFsm = new MutilActionFSM<T>();
+            _fsm = new ActionFSM<T>();
+            _mutilFsm = new ActionStateFSM<T>();
             _viewDic = new Dictionary<T, IFsmState<T>>();
             _mutilActonsView = new Dictionary<T, IFsmState<T>>();
-            InitViews();
-            ModelMgr = InitModelMgr();
             EffectMgr = new EffectMgr();
-            AudioMgr = new AudioMgr(enemyID,source);
+            AudioMgr = new AudioMgr(enemyID, source);
+            AniMgr = new AIAniMgr(ani);
+
+            ModelMgr = InitModelMgr();
+
+            InitViews();
+            InitFsm();
+
+            InitMutilViews();
+            InitMutilFsm();
+        }
+
+        private void InitFsm()
+        {
+            foreach (KeyValuePair<T, IFsmState<T>> state in _viewDic)
+            {
+                _fsm.AddState(state.Key, state.Value);
+            }
+        }
+
+        private void InitMutilFsm()
+        {
+            foreach (KeyValuePair<T, IFsmState<T>> state in _mutilActonsView)
+            {
+                _mutilFsm.AddState(state.Key, state.Value);
+            }
         }
 
         protected abstract void InitViews();
@@ -76,7 +100,7 @@ namespace Game.AI.ViewEffect
     public class AIVIewEffectMgr : AIVIewEffectMgrBase<ActionEnum>
     {
 
-        public AIVIewEffectMgr(string enemyID,object source) : base(enemyID,source)
+        public AIVIewEffectMgr(string enemyID,object source,object ani) : base(enemyID,source, ani)
         {
             
         }

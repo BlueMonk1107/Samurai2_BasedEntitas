@@ -87,11 +87,22 @@ namespace Game.AI
         /// <summary>
         /// 声音源组件
         /// </summary>
-        AUDIO_SOURCE
+        AUDIO_SOURCE,
+        /// <summary>
+        /// 动画组件
+        /// </summary>
+        ANIMATION,
+        /// <summary>
+        /// ai部分数据管理类
+        /// </summary>
+        AI_MODEL_MANAGER
     }
 
-    public enum AIEffectKeyEnum
+    public enum AIPeasantAniName
     {
-        
+        idle,
+        idleSword,
+        showSword,
+        hideSword
     }
 }

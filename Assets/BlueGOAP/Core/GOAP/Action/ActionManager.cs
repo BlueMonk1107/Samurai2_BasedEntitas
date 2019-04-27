@@ -7,32 +7,53 @@ namespace BlueGOAP
 {
     public abstract class ActionManagerBase<TAction, TGoal> : IActionManager<TAction>
     {
-        private Dictionary<TAction, IActionHandler<TAction>> _handlerDic;
-        private Dictionary<TAction, IActionHandler<TAction>> _mutilActionHandlers;
+        /// <summary>
+        /// 动作字典
+        /// </summary>
+        private Dictionary<TAction, IActionHandler<TAction>> _actionHandlerDic;
+        /// <summary>
+        /// 动作状态字典
+        /// </summary>
+        private Dictionary<TAction, IActionHandler<TAction>> _actionStateHandlers;
         /// <summary>
         /// 能够打断计划的动作
         /// </summary>
         private List<IActionHandler<TAction>> _interruptibleHandlers;
-        private IFSM<TAction> _fsm;
-        private IFSM<TAction> _mutilFsm;
+        /// <summary>
+        /// 动作 状态机
+        /// </summary>
+        private IFSM<TAction> _actionFsm;
+        /// <summary>
+        /// 动作状态 状态机
+        /// </summary>
+        private IFSM<TAction> _actionStateFsm;
         private IAgent<TAction, TGoal> _agent;
+        /// <summary>
+        /// 当前是否在执行动的标志位（用于避免动作已经结束，却还在执行帧函数的情况）
+        /// </summary>
         public bool IsPerformAction { get; set; }
-        //效果的键值和动作的映射关系
+        /// <summary>
+        /// 效果的键值和动作的映射关系
+        /// </summary>
         public Dictionary<string, HashSet<IActionHandler<TAction>>> EffectsAndActionMap { get; private set; }
+        //动作完成的回调
         private Action<TAction> _onActionComplete;
 
         public ActionManagerBase(IAgent<TAction, TGoal> agent)
         {
             _agent = agent;
-            _handlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
-            _mutilActionHandlers = new Dictionary<TAction, IActionHandler<TAction>>();
+            _actionHandlerDic = new Dictionary<TAction, IActionHandler<TAction>>();
+            _actionStateHandlers = new Dictionary<TAction, IActionHandler<TAction>>();
             _interruptibleHandlers = new List<IActionHandler<TAction>>();
-            _fsm = new FSM<TAction>();
+            _actionFsm = new ActionFSM<TAction>();
+            _actionStateFsm = new ActionStateFSM<TAction>();
+
             InitActionHandlers();
-            InitMutilActionHandlers();
-            _mutilFsm = new MutilActionFSM<TAction>();
+            InitActionStateHandlers();
+           
             InitFsm();
-            InitMutilFSM();
+            InitActionStateFSM();
+
             InitEffectsAndActionMap();
             InitInterruptibleDic();
         }
@@ -44,7 +65,7 @@ namespace BlueGOAP
         /// <summary>
         /// 初始化当前可叠加执行动作处理器
         /// </summary>
-        protected abstract void InitMutilActionHandlers();
+        protected abstract void InitActionStateHandlers();
         /// <summary>
         /// 初始化动作和动作影响的映射
         /// </summary>
@@ -52,7 +73,7 @@ namespace BlueGOAP
         {
             EffectsAndActionMap = new Dictionary<string, HashSet<IActionHandler<TAction>>>();
 
-            foreach (var handler in _handlerDic)
+            foreach (var handler in _actionHandlerDic)
             {
                 IState state = handler.Value.Action.Effects;
 
@@ -73,7 +94,7 @@ namespace BlueGOAP
         /// </summary>
         private void InitInterruptibleDic()
         {
-            foreach (KeyValuePair<TAction, IActionHandler<TAction>> handler in _handlerDic)
+            foreach (KeyValuePair<TAction, IActionHandler<TAction>> handler in _actionHandlerDic)
             {
                 if (handler.Value.Action.CanInterruptiblePlan)
                 {
@@ -88,12 +109,12 @@ namespace BlueGOAP
 
         public void AddHandler(TAction label)
         {
-            AddHandler(label, _handlerDic);
+            AddHandler(label, _actionHandlerDic);
         }
 
         public void AddMutilActionHandler(TAction label)
         {
-            AddHandler(label, _mutilActionHandlers);
+            AddHandler(label, _actionStateHandlers);
         }
 
         private void AddHandler(TAction label, Dictionary<TAction, IActionHandler<TAction>> dic)
@@ -117,14 +138,14 @@ namespace BlueGOAP
 
         public void RemoveHandler(TAction actionLabel)
         {
-            _handlerDic.Remove(actionLabel);
+            _actionHandlerDic.Remove(actionLabel);
         }
 
         public IActionHandler<TAction> GetHandler(TAction actionLabel)
         {
-            if (_handlerDic.ContainsKey(actionLabel))
+            if (_actionHandlerDic.ContainsKey(actionLabel))
             {
-                return _handlerDic[actionLabel];
+                return _actionHandlerDic[actionLabel];
             }
 
             DebugMsg.LogError("Not add action name:" + actionLabel);
@@ -134,9 +155,9 @@ namespace BlueGOAP
         public void FrameFun()
         {
             if (IsPerformAction)
-                _fsm.FrameFun();
+                _actionFsm.FrameFun();
 
-            _mutilFsm.FrameFun();
+            _actionStateFsm.FrameFun();
         }
 
         public void UpdateData()
@@ -160,7 +181,7 @@ namespace BlueGOAP
         //判断是否有满足条件的可叠加动作
         private void JudgeConformMutilAction()
         {
-            foreach (KeyValuePair<TAction, IActionHandler<TAction>> pair in _mutilActionHandlers)
+            foreach (KeyValuePair<TAction, IActionHandler<TAction>> pair in _actionStateHandlers)
             {
                 if (_agent.AgentState.ContainState(pair.Value.Action.Preconditions))
                 {
@@ -172,13 +193,13 @@ namespace BlueGOAP
 
         public virtual void ExcuteNewState(TAction label)
         {
-            if (_handlerDic.ContainsKey(label))
+            if (_actionHandlerDic.ContainsKey(label))
             {
-                _fsm.ExcuteNewState(label);
+                _actionFsm.ExcuteNewState(label);
             }
-            else if (_mutilActionHandlers.ContainsKey(label))
+            else if (_actionStateHandlers.ContainsKey(label))
             {
-                _mutilFsm.ExcuteNewState(label);
+                _actionStateFsm.ExcuteNewState(label);
             }
             else
             {
@@ -193,17 +214,17 @@ namespace BlueGOAP
 
         private void InitFsm()
         {
-            foreach (KeyValuePair<TAction, IActionHandler<TAction>> handler in _handlerDic)
+            foreach (KeyValuePair<TAction, IActionHandler<TAction>> handler in _actionHandlerDic)
             {
-                _fsm.AddState(handler.Key, handler.Value);
+                _actionFsm.AddState(handler.Key, handler.Value);
             }
         }
 
-        private void InitMutilFSM()
+        private void InitActionStateFSM()
         {
-            foreach (var handler in _mutilActionHandlers)
+            foreach (var handler in _actionStateHandlers)
             {
-                _mutilFsm.AddState(handler.Key, handler.Value);
+                _actionStateFsm.AddState(handler.Key, handler.Value);
             }
         }
     }

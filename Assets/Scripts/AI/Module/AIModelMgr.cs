@@ -11,9 +11,10 @@ namespace Game.AI.ViewEffect
         public AIModelMgrBase()
         {
             _modelsDic = new Dictionary<T, IModel>();
+            InitModels();
         }
 
-        public IModel GetModel(T label)
+        public TModel GetModel<TModel>(T label) where TModel : class , IModel
         {
             if (!_modelsDic.ContainsKey(label))
             {
@@ -22,7 +23,7 @@ namespace Game.AI.ViewEffect
             }
             else
             {
-                return _modelsDic[label];
+                return _modelsDic[label] as TModel;
             }
         }
 
@@ -47,7 +48,8 @@ namespace Game.AI.ViewEffect
 
         protected override void InitModels()
         {
-           AddModel(ActionEnum.ATTACK, new AttackModel());
+            AddModel(ActionEnum.ATTACK, new AttackModel());
+            AddModel(ActionEnum.ALERT, new AlertModel());
         }
     }
 }

@@ -5,7 +5,10 @@ namespace Game.AI
 {
     public class InjureHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
-        public InjureHandler(IAgent<ActionEnum, GoalEnum> agent, IAction<ActionEnum> action) : base(agent, action)
+        public InjureHandler(IAgent<ActionEnum, GoalEnum> agent,
+            IMaps<ActionEnum, GoalEnum> maps,
+            IAction<ActionEnum> action) 
+            : base(agent,maps, action)
         {
         }
 
@@ -13,8 +16,8 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("进入受伤状态");
-            int injureValue = (int) GetGameData(GameDataKeyEnum.INJURE_VALUE);
-            EnemyData data = GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+            int injureValue = GetGameDataValue<GameDataKeyEnum, int>(GameDataKeyEnum.INJURE_VALUE);
+            EnemyData data = GetGameData<GameDataKeyEnum, EnemyData>(GameDataKeyEnum.CONFIG);
 
             data.Life = data.Life - injureValue;
 

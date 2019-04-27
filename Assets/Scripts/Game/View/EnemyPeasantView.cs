@@ -1,4 +1,5 @@
-﻿using BlueGOAP;
+﻿using System;
+using BlueGOAP;
 using Entitas;
 using Entitas.Unity;
 using Game.AI;
@@ -14,21 +15,23 @@ namespace Game.View
         public override void Init(Contexts contexts,IEntity entity)         
         {
              base.Init(contexts, entity);
-             _ai = new PeasantAgent();
-
-            _ai.Maps.AddInitGameDataAction(()=> InitGameData(contexts));
+             _ai = new PeasantAgent((ai, maps) => InitGameData(ai, maps,contexts));
         }
 
-        private void InitGameData(Contexts contexts)
+        private void InitGameData(IAgent<ActionEnum, GoalEnum> ai,IMaps<ActionEnum, GoalEnum> maps, Contexts contexts)
         {
             EnemyData temp = ModelManager.Single.EnemyDataModel.DataDic[EnemyId.EnemyPeasant];
             EnemyData data = new EnemyData();
             data.Copy(temp);
-            _ai.Maps.SetGameData(GameDataKeyEnum.CONFIG, data);
-            _ai.Maps.SetGameData(GameDataKeyEnum.SELF_TRANS, transform);
+            maps.SetGameData(GameDataKeyEnum.CONFIG, data);
+            maps.SetGameData(GameDataKeyEnum.SELF_TRANS, transform);
             Transform player = (contexts.game.gamePlayer.Player as ViewBase).transform;
-            _ai.Maps.SetGameData(GameDataKeyEnum.ENEMY_TRANS, player);
-            _ai.Maps.SetGameData(GameDataKeyEnum.AUDIO_SOURCE, GetComponent<AudioSource>());
+            maps.SetGameData(GameDataKeyEnum.ENEMY_TRANS, player);
+            maps.SetGameData(GameDataKeyEnum.AUDIO_SOURCE, GetComponent<AudioSource>());
+            maps.SetGameData(GameDataKeyEnum.ANIMATION,GetComponent<Animation>());
+
+            PeasantAgent agent = ai as PeasantAgent;
+            maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, agent.ViewMgr(maps).ModelMgr);
         }
 
         private void FixedUpdate()

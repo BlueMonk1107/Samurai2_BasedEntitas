@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace BlueGOAP
 {
     public abstract class AgentBase<TAction, TGoal> : IAgent<TAction, TGoal>
@@ -12,9 +14,11 @@ namespace BlueGOAP
         public IPerformer Performer { get; private set; }
 
         private ITriggerManager _triggerManager;
+        protected Action<IAgent<TAction, TGoal>, IMaps<TAction, TGoal>> _onInitGameData;
 
-        public AgentBase()
+        public AgentBase(Action<IAgent<TAction, TGoal>, IMaps<TAction, TGoal>> onInitGameData)
         {
+            _onInitGameData = onInitGameData;
             DebugMsgBase.Instance = InitDebugMsg();
             AgentState = InitAgentState();
             Maps = InitMaps();

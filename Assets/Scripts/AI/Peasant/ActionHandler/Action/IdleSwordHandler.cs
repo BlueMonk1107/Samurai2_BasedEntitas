@@ -14,7 +14,10 @@ namespace Game.AI
         private static int _times;
         private int _id;
 
-        public IdleSwordHandler(IAgent<ActionEnum, GoalEnum> agent, IAction<ActionEnum> action) : base(agent, action)
+        public IdleSwordHandler(IAgent<ActionEnum, GoalEnum> agent,
+            IMaps<ActionEnum, GoalEnum> maps, 
+            IAction<ActionEnum> action) 
+            : base(agent,maps, action)
         {
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
             _id = _times++;
@@ -25,7 +28,7 @@ namespace Game.AI
             base.Enter();
             DebugMsg.Log("进入攻击待机状态");
             _timer = _timerService.CreatOrRestartTimer("IdleSwordHandler"+ _id, Const.IDLE_SWORD_DELAY_TIME, false);
-            _timer.AddCompleteListener(OnComplete);
+            _timer.AddCompleteListener(()=>OnComplete());
         }
 
         public override void Exit()

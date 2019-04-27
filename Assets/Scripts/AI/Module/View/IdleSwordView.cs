@@ -12,14 +12,8 @@ namespace Game.AI.ViewEffect
 
         public override void Enter()
         {
-        }
-
-        public override void Execute()
-        {
-        }
-
-        public override void Exit()
-        {
+            base.Enter();
+            _AniMgr.Play(AIPeasantAniName.idleSword);
         }
        
     }

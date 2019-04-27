@@ -7,8 +7,20 @@ namespace Game.AI
 {
     public class PeasantAgent : AgentBase<ActionEnum,GoalEnum>
     {
+        private AIVIewEffectMgr _viewMgr;
+        public AIVIewEffectMgr ViewMgr(IMaps<ActionEnum, GoalEnum> maps)
+        {
+            if (_viewMgr == null)
+            {
+                object audioSource = maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
+                object animation = maps.GetGameData(GameDataKeyEnum.ANIMATION);
+                _viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
+            }
 
-        public PeasantAgent() : base()
+            return _viewMgr;
+        }
+
+        public PeasantAgent(Action<IAgent<ActionEnum, GoalEnum>,IMaps<ActionEnum, GoalEnum>> onInitGameData) : base(onInitGameData)
         {
             InitViewMgr();
         }
@@ -26,7 +38,7 @@ namespace Game.AI
 
         protected override IMaps<ActionEnum, GoalEnum> InitMaps()
         {
-           return new PeasantMaps(this);
+           return new PeasantMaps(this, _onInitGameData);
         }
 
         protected override IActionManager<ActionEnum> InitActionManager()
@@ -51,11 +63,8 @@ namespace Game.AI
 
         private void InitViewMgr()
         {
-            object audioSource = Maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-            AIVIewEffectMgr viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(),audioSource); 
-
             PeasantActMgr actMgr = ActionManager as PeasantActMgr;
-            actMgr.AddExcuteNewStateListener(viewMgr.ExcuteState);
+            actMgr.AddExcuteNewStateListener(ViewMgr(Maps).ExcuteState);
         }
     }
 }

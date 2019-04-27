@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading.Tasks;
 
 namespace BlueGOAP
 {
@@ -20,10 +21,12 @@ namespace BlueGOAP
         protected IAgent<TAction, TGoal> _agent;
         private IAction<TAction> action;
         protected System.Action _onFinishAction;
+        protected IMaps<TAction, TGoal> _maps;
 
-        public ActionHandlerBase(IAgent<TAction, TGoal> agent, IAction<TAction> action)
+        public ActionHandlerBase(IAgent<TAction, TGoal> agent, IMaps<TAction, TGoal> maps, IAction<TAction> action)
         {
             _agent = agent;
+            _maps = maps;
             Action = action;
             ExcuteState = ActionExcuteState.INIT;
             _onFinishAction = null;
@@ -39,8 +42,13 @@ namespace BlueGOAP
             _agent.AgentState.Set(key.ToString(),value);
         }
 
-        protected void OnComplete()
+        protected async void OnComplete(float delayTime = 0)
         {
+            if(ExcuteState == ActionExcuteState.EXIT)
+                return;
+
+            await Task.Delay(TimeSpan.FromSeconds(delayTime));
+
             ExcuteState = ActionExcuteState.EXIT;
 
             DebugMsg.Log("------设置"+Label+"影响");
@@ -62,9 +70,17 @@ namespace BlueGOAP
             _onFinishAction = onFinishAction;
         }
 
-        protected object GetGameData<TKey>(TKey key)
+        protected TClass GetGameData<TKey,TClass>(TKey key) where TKey : struct where TClass : class
         {
-            return _agent.Maps.GetGameData(key);
+            return _maps.GetGameData<TKey, TClass>(key);
+        }
+        protected TValue GetGameDataValue<TKey, TValue>(TKey key) where TKey : struct where TValue : struct 
+        {
+            return _maps.GetGameDataValue<TKey, TValue>(key);
+        }
+        protected object GetGameData<TKey>(TKey key) where TKey : struct
+        {
+            return _maps.GetGameData(key);
         }
 
         public virtual void Enter()

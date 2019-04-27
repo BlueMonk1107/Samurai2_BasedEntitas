@@ -6,7 +6,9 @@ namespace Game.AI
 {
     public class PeasantMaps : MapsBase<ActionEnum, GoalEnum>
     {
-        public PeasantMaps(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
+        public PeasantMaps(IAgent<ActionEnum, GoalEnum> agent, 
+            Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData)
+            : base(agent, onInitGameData)
         {
         }
 
@@ -20,7 +22,7 @@ namespace Game.AI
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
             AddAction<DeadHandler, DeadAction>();
 
-            AddAction<AlertHandler,AlertAction>();
+            AddAction<AlertStateHandler,AlertActionState>();
         }
 
         protected override void InitGoalMaps()
@@ -29,11 +31,6 @@ namespace Game.AI
             AddGoal<AttackGoal>();
             AddGoal<DeadGoal>();
             AddGoal<InjureGoal>();
-        }
-
-        protected override void InitGameData()
-        {
-
         }
     }
 }

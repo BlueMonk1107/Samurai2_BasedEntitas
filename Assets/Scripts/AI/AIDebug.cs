@@ -16,19 +16,13 @@ namespace Game.AI
             Debug.Log(msg);
         }
 
-        public override void LogError(string msg)
+        public override void LogWarning(string msg)
         {
-            if (!_canDebug)
-                return;
-
             Debug.LogWarning(msg);
         }
 
-        public override void LogWarning(string msg)
+        public override void LogError(string msg)
         {
-            if (!_canDebug)
-                return;
-
             Debug.LogError(msg);
         }
     }

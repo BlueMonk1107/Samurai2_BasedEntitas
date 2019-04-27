@@ -9,7 +9,10 @@ namespace Game.AI
         private CharacterController _controller;
         private EnemyData _data;
 
-        public MoveBackwardHandler(IAgent<ActionEnum, GoalEnum> agent, IAction<ActionEnum> action) : base(agent, action)
+        public MoveBackwardHandler(IAgent<ActionEnum, GoalEnum> agent,
+            IMaps<ActionEnum, GoalEnum> maps,
+            IAction<ActionEnum> action) 
+            : base(agent,maps, action)
         {
         }
 
@@ -17,10 +20,10 @@ namespace Game.AI
         {
             base.Enter();
             DebugMsg.Log("进入后退状态");
-            _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
-            _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+            _self = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
             _controller = _self.GetComponent<CharacterController>();
-            _data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+            _data = _agent.Maps.GetGameData<GameDataKeyEnum, EnemyData>(GameDataKeyEnum.CONFIG);
         }
 
         public override void Execute()

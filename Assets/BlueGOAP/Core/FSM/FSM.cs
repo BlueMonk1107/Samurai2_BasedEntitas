@@ -60,13 +60,13 @@ namespace BlueGOAP
     /// 状态机
     /// </summary>
     /// <typeparam name="TLabel"></typeparam>
-    public class FSM<TLabel> : IFSM<TLabel>
+    public class ActionFSM<TLabel> : IFSM<TLabel>
     {
         private readonly Dictionary<TLabel, IFsmState<TLabel>> _stateDic;
         private IFsmState<TLabel> _currentState;
         private IFsmState<TLabel> _previousState;
 
-        public FSM()
+        public ActionFSM()
         {
             _stateDic = new Dictionary<TLabel, IFsmState<TLabel>>();
         }
@@ -105,10 +105,10 @@ namespace BlueGOAP
         }
     }
 
-    public class MutilActionFSM<TLabel> : IFSM<TLabel>
+    public class ActionStateFSM<TLabel> : IFSM<TLabel>
     {
         private Dictionary<TLabel, IFsmState<TLabel>> _stateDic;
-        public MutilActionFSM()
+        public ActionStateFSM()
         {
             _stateDic = new Dictionary<TLabel, IFsmState<TLabel>>();
         }

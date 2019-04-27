@@ -11,14 +11,14 @@ namespace Game.AI.ViewEffect
             _ani = ani as Animation;
         }
 
-        public void Play(string aniName)
+        public void Play<T>(T aniName)
         {
-            _ani.CrossFade(aniName);
+            _ani.CrossFade(aniName.ToString());
         }
 
-        public float GetAniLength(string aniName)
+        public float GetAniLength<T>(T aniName)
         {
-            return _ani[aniName].length;
+            return _ani[aniName.ToString()].length;
         }
     }
 }

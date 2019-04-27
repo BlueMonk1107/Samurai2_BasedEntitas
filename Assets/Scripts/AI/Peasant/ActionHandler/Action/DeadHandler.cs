@@ -5,7 +5,10 @@ namespace Game.AI
 {
     public class DeadHandler : ActionHandlerBase<ActionEnum, GoalEnum>
     {
-        public DeadHandler(IAgent<ActionEnum, GoalEnum> agent, IAction<ActionEnum> action) : base(agent, action)
+        public DeadHandler(IAgent<ActionEnum, GoalEnum> agent,
+            IMaps<ActionEnum, GoalEnum> maps,
+            IAction<ActionEnum> action)
+            : base(agent, maps,action)
         {
         }
 
@@ -13,7 +16,7 @@ namespace Game.AI
         {
             base.Enter();
 
-            int injureValue = (int)GetGameData(GameDataKeyEnum.INJURE_VALUE);
+            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
             
 
             switch (injureValue)

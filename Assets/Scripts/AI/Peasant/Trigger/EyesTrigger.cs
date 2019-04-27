@@ -17,14 +17,14 @@ namespace Game.AI
             {
                 if (_self == null || _enemy == null)
                 {
-                    _self = _agent.Maps.GetGameData(GameDataKeyEnum.SELF_TRANS) as Transform;
-                    _enemy = _agent.Maps.GetGameData(GameDataKeyEnum.ENEMY_TRANS) as Transform;
+                    _self = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
+                    _enemy = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
                 }
 
                 if (_enemy == null || _self == null)
                     return false;
 
-                EnemyData data = _agent.Maps.GetGameData(GameDataKeyEnum.CONFIG) as EnemyData;
+                EnemyData data = _agent.Maps.GetGameData<GameDataKeyEnum, EnemyData>(GameDataKeyEnum.CONFIG);
                 //比对发现目标的距离
                 if (Vector3.Distance(_self.position, _enemy.position) < data.FindDistance)
                 {
