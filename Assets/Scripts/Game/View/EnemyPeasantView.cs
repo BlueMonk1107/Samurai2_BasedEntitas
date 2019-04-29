@@ -15,10 +15,11 @@ namespace Game.View
         public override void Init(Contexts contexts,IEntity entity)         
         {
              base.Init(contexts, entity);
-             _ai = new PeasantAgent((ai, maps) => InitGameData(ai, maps,contexts));
+            UnityTrigger trigger = gameObject.AddComponent<UnityTrigger>();
+             _ai = new PeasantAgent((ai, maps) => InitGameData(ai, maps,contexts, trigger));
         }
 
-        private void InitGameData(IAgent<ActionEnum, GoalEnum> ai,IMaps<ActionEnum, GoalEnum> maps, Contexts contexts)
+        private void InitGameData(IAgent<ActionEnum, GoalEnum> ai,IMaps<ActionEnum, GoalEnum> maps, Contexts contexts, UnityTrigger trigger)
         {
             EnemyData temp = ModelManager.Single.EnemyDataModel.DataDic[EnemyId.EnemyPeasant];
             EnemyData data = new EnemyData();
@@ -32,6 +33,8 @@ namespace Game.View
 
             PeasantAgent agent = ai as PeasantAgent;
             maps.SetGameData(GameDataKeyEnum.AI_MODEL_MANAGER, agent.ViewMgr(maps).ModelMgr);
+
+            maps.SetGameData(GameDataKeyEnum.UNITY_TRIGGER,trigger);
         }
 
         private void FixedUpdate()

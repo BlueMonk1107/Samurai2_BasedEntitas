@@ -25,7 +25,6 @@ namespace Game.AI.ViewEffect
             IModel model = mgr.ModelMgr.GetModel<IModel>(Label);
             if (model != null)
             {
-                Debug.Log(AniName);
                 model.AniDutation = mgr.AniMgr.GetAniLength(AniName);
             }
             return model;

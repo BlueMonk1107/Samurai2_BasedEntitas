@@ -62,7 +62,7 @@ namespace BlueGOAP
                 _onFinishAction();
         }
 
-        public bool CanPerformAction()
+        public virtual bool CanPerformAction()
         {
             DebugMsg.Log("Action:"+ Action.Label);
             return Action.VerifyPreconditions();
@@ -73,15 +73,15 @@ namespace BlueGOAP
             _onFinishAction = onFinishAction;
         }
 
-        protected TClass GetGameData<TKey,TClass>(TKey key) where TKey : struct where TClass : class
+        protected virtual TClass GetGameData<TKey,TClass>(TKey key) where TKey : struct where TClass : class
         {
             return _maps.GetGameData<TKey, TClass>(key);
         }
-        protected TValue GetGameDataValue<TKey, TValue>(TKey key) where TKey : struct where TValue : struct 
+        protected virtual TValue GetGameDataValue<TKey, TValue>(TKey key) where TKey : struct where TValue : struct 
         {
             return _maps.GetGameDataValue<TKey, TValue>(key);
         }
-        protected object GetGameData<TKey>(TKey key) where TKey : struct
+        protected virtual object GetGameData<TKey>(TKey key) where TKey : struct
         {
             return _maps.GetGameData(key);
         }

@@ -1,9 +1,10 @@
 ﻿using BlueGOAP;
+using Game.AI.ViewEffect;
 using Game.Service;
 using Module.Timer;
 using UnityEngine;
 
-namespace Game.AI.ViewEffect
+namespace Game.AI
 {
     public abstract class HandlerBase<TModel> : ActionHandlerBase<ActionEnum, GoalEnum> where TModel : class ,IModel
     {
@@ -20,6 +21,16 @@ namespace Game.AI.ViewEffect
             _timer = null;
             _model = this.GetModel<TModel>(_maps);
             _timerService = Contexts.sharedInstance.service.gameServiceTimerService.TimerService;
+        }
+
+        public TClass GetGameData<TClass>(GameDataKeyEnum key) where TClass : class
+        {
+            return GetGameData<GameDataKeyEnum,TClass>(key);
+        }
+
+        public TValue GetGameDataValue<TValue>(GameDataKeyEnum key) where TValue : struct 
+        {
+            return GetGameDataValue<GameDataKeyEnum, TValue>(key);
         }
 
         public override void Enter()

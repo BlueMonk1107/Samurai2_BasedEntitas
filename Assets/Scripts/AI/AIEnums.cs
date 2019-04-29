@@ -11,7 +11,10 @@ namespace Game.AI
         IDLE_SWORD,
         ATTACK,
         DEAD,
-        INJJURE,
+        INJURE_UP,
+        INJURE_DOWN,
+        INJURE_LEFT,
+        INJURE_RIGHT,
         MOVE,
         MOVE_BACKWARD,
         ALERT,
@@ -101,7 +104,15 @@ namespace Game.AI
         /// <summary>
         /// ai部分数据管理类
         /// </summary>
-        AI_MODEL_MANAGER
+        AI_MODEL_MANAGER,
+        /// <summary>
+        /// unity触发器脚本
+        /// </summary>
+        UNITY_TRIGGER,
+        /// <summary>
+        /// 受伤碰撞判定数据（字典）
+        /// </summary>
+        INJURE_COLLODE_DATA
     }
 
     public enum AIPeasantAniName
@@ -112,6 +123,10 @@ namespace Game.AI
         hideSword,
         runSwordBackward,
         runSword,
-        attackPeasant
+        attackPeasant,
+        injuryFront01,
+        injuryFront02,
+        injuryFront03,
+        injuryFront04,
     }
 }

@@ -17,7 +17,7 @@ namespace Game.AI
         {
             base.Enter();
 
-            int injureValue = GetGameDataValue<GameDataKeyEnum,int>(GameDataKeyEnum.INJURE_VALUE);
+            int injureValue = GetGameDataValue<int>(GameDataKeyEnum.INJURE_VALUE);
             
 
             switch (injureValue)

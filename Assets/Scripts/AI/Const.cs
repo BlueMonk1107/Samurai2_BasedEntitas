@@ -16,5 +16,10 @@ namespace Game.AI
         /// 一击必杀伤害数值
         /// </summary>
         public const int INTANT_KILL_VALUE = 1000;
+
+        /// <summary>
+        /// 身体上下左右四个部分的角度范围
+        /// </summary>
+        public const int BODY_PART_RANGE = 30;
     }
 }

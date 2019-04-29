@@ -24,7 +24,10 @@ namespace Game.AI
             AddHandler(ActionEnum.MOVE);
             AddHandler(ActionEnum.MOVE_BACKWARD);
             AddHandler(ActionEnum.ATTACK);
-            AddHandler(ActionEnum.INJJURE);
+            AddHandler(ActionEnum.INJURE_RIGHT);
+            AddHandler(ActionEnum.INJURE_LEFT);
+            AddHandler(ActionEnum.INJURE_UP);
+            AddHandler(ActionEnum.INJURE_DOWN);
             AddHandler(ActionEnum.DEAD);
             AddHandler(ActionEnum.ENTER_ALERT);
             AddHandler(ActionEnum.EXIT_ALERT);

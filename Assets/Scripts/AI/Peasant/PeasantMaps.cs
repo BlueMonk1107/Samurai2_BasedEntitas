@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BlueGOAP;
 using UnityEngine;
 
@@ -18,7 +19,10 @@ namespace Game.AI
             AddAction<IdleSwordHandler, IdleSwordAction>();
             AddAction<MoveHandler, MoveAction>();
             AddAction<AttackHandler, AttackAction>();
-            AddAction<InjureHandler, InjureAction>();
+            AddAction<InjureUpHandler, InjureUpAction>();
+            AddAction<InjureDownHandler, InjureDownAction>();
+            AddAction<InjureLeftHandler, InjureLeftAction>();
+            AddAction<InjureRightHandler, InjureRightAction>();
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
             AddAction<DeadHandler, DeadAction>();
             AddAction<EnterAlertHandler,EnterAlertAction>();
@@ -33,6 +37,12 @@ namespace Game.AI
             AddGoal<AttackGoal>();
             AddGoal<DeadGoal>();
             AddGoal<InjureGoal>();
+        }
+
+        protected override void InitGameData(Action<IAgent<ActionEnum, GoalEnum>, IMaps<ActionEnum, GoalEnum>> onInitGameData)
+        {
+            base.InitGameData(onInitGameData);
+            SetGameData(GameDataKeyEnum.INJURE_COLLODE_DATA,new Dictionary<ActionEnum,bool>());
         }
     }
 }

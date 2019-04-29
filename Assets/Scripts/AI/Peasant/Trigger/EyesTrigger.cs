@@ -3,28 +3,23 @@ using UnityEngine;
 
 namespace Game.AI
 {
-    public class EyesTrigger : TriggerBase<ActionEnum, GoalEnum>
+    public class EyesTrigger : TriggerBase
     {
         private Transform _self, _enemy;
 
         public EyesTrigger(IAgent<ActionEnum, GoalEnum> agent) : base(agent)
         {
-        
+            _self = GetGameData<Transform>(GameDataKeyEnum.SELF_TRANS);
+            _enemy = GetGameData<Transform>(GameDataKeyEnum.ENEMY_TRANS);
         }
 
         public override bool IsTrigger {
             get
             {
-                if (_self == null || _enemy == null)
-                {
-                    _self = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.SELF_TRANS);
-                    _enemy = _agent.Maps.GetGameData<GameDataKeyEnum, Transform>(GameDataKeyEnum.ENEMY_TRANS);
-                }
-
                 if (_enemy == null || _self == null)
                     return false;
 
-                EnemyData data = _agent.Maps.GetGameData<GameDataKeyEnum, EnemyData>(GameDataKeyEnum.CONFIG);
+                EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
                 //比对发现目标的距离
                 if (Vector3.Distance(_self.position, _enemy.position) < data.FindDistance)
                 {

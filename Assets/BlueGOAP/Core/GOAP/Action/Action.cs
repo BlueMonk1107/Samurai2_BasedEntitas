@@ -51,7 +51,7 @@ namespace BlueGOAP
         /// 验证先决条件
         /// </summary>
         /// <returns></returns>
-        public bool VerifyPreconditions()
+        public virtual bool VerifyPreconditions()
         {
             return _agent.AgentState.ContainState(Preconditions);
         }

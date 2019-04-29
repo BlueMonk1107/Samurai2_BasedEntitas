@@ -172,7 +172,7 @@ namespace BlueGOAP
             {
                 if (handler.CanPerformAction())
                 {
-                    DebugMsg.LogError(handler.Label + "打断计划");
+                    DebugMsg.Log(handler.Label + "打断计划");
                     _agent.Performer.Interruptible();
                     break;
                 }
