@@ -122,6 +122,9 @@ namespace BlueGOAP
 
         public void Set(IState otherState)
         {
+            if(otherState == null)
+                return;
+
             foreach (var key in otherState.GetKeys())
             {
                 Set(key, otherState.Get(key));

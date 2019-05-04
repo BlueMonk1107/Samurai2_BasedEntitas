@@ -7,9 +7,11 @@ namespace BlueGOAP
         private IPlanner<TAction, TGoal> _planner;
         private IGoalManager<TGoal> _goalManager;
         private IActionManager<TAction> _actionManager;
+        private IAgent<TAction, TGoal> _agent;
 
         public Performer(IAgent<TAction, TGoal> agent)
         {
+            _agent = agent;
             _planHandler = new PlanHandler<TAction>();
             _planHandler.AddCompleteCallBack(PlanComplete);
             _planner = new Planner<TAction, TGoal>(agent);
@@ -20,6 +22,9 @@ namespace BlueGOAP
 
         public void UpdateData()
         {
+            if(_agent.IsAgentOver)
+                return;
+
             if (WhetherToReplan())
             {
                 DebugMsg.Log("制定新计划");

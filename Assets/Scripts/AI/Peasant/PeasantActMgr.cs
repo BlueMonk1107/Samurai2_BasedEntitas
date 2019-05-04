@@ -29,6 +29,9 @@ namespace Game.AI
             AddHandler(ActionEnum.INJURE_UP);
             AddHandler(ActionEnum.INJURE_DOWN);
             AddHandler(ActionEnum.DEAD);
+            AddHandler(ActionEnum.DEAD_HALF_BODY);
+            AddHandler(ActionEnum.DEAD_HALF_HEAD);
+            AddHandler(ActionEnum.DEAD_HALF_LEG);
             AddHandler(ActionEnum.ENTER_ALERT);
             AddHandler(ActionEnum.EXIT_ALERT);
         }
@@ -45,9 +48,10 @@ namespace Game.AI
 
         public override void ExcuteNewState(ActionEnum label)
         {
-            base.ExcuteNewState(label);
-            if(_excuteActionState != null)
+            if (_excuteActionState != null)
                 _excuteActionState(label);
+
+            base.ExcuteNewState(label);
         }
     }
 }

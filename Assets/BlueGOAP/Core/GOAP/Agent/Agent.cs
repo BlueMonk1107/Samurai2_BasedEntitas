@@ -7,6 +7,7 @@ namespace BlueGOAP
         where TAction : struct
         where TGoal : struct
     {
+        public abstract bool IsAgentOver { get; }
         public IState AgentState { get; private set; }
         public IMaps<TAction, TGoal> Maps { get; protected set; }
         public IActionManager<TAction> ActionManager { get; protected set; }
@@ -52,6 +53,9 @@ namespace BlueGOAP
 
         public void UpdateData()
         {
+            if (IsAgentOver)
+                return;
+
             if (ActionManager != null)
                 ActionManager.UpdateData();
 
@@ -63,6 +67,9 @@ namespace BlueGOAP
 
         public virtual void FrameFun()
         {
+            if (IsAgentOver)
+                return;
+
             if (_triggerManager != null)
                 _triggerManager.FrameFun();
 

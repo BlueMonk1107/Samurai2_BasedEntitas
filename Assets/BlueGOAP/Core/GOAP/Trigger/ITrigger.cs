@@ -9,6 +9,11 @@ namespace BlueGOAP
     public interface ITrigger
     {
         /// <summary>
+        /// 触发器优先级
+        /// </summary>
+        int Priority { get; }
+
+        /// <summary>
         /// 是否触发
         /// </summary>
         bool IsTrigger { get; set; }
@@ -20,6 +25,7 @@ namespace BlueGOAP
 
     public abstract class TriggerBase<TAction, TGoal> : ITrigger
     {
+        public abstract int Priority { get; }
         private IState _effects;
         protected IAgent<TAction, TGoal> _agent;
 

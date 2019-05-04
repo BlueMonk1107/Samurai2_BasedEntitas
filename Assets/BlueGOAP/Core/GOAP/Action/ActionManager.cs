@@ -99,6 +99,7 @@ namespace BlueGOAP
                 if (handler.Value.Action.CanInterruptiblePlan)
                 {
                     _interruptibleHandlers.Add(handler.Value);
+                    DebugMsg.LogError(handler.Value.Action.Priority.ToString());
                 }
             }
             //按照优先级排序
@@ -163,7 +164,7 @@ namespace BlueGOAP
         public void UpdateData()
         {
             JudgeInterruptibleHandler();
-            JudgeConformMutilAction();
+            JudgeConformActionState();
         }
         //判断是否有能够打断计划的动作执行
         private void JudgeInterruptibleHandler()
@@ -179,7 +180,7 @@ namespace BlueGOAP
             }
         }
         //判断是否有满足条件的可叠加动作
-        private void JudgeConformMutilAction()
+        private void JudgeConformActionState()
         {
             foreach (KeyValuePair<TAction, IActionHandler<TAction>> pair in _actionStateHandlers)
             {

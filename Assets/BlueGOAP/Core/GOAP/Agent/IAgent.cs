@@ -4,6 +4,10 @@ namespace BlueGOAP
     public interface IAgent<TAction, TGoal>
     {
         /// <summary>
+        /// 当前代理结束
+        /// </summary>
+        bool IsAgentOver { get; }
+        /// <summary>
         /// 当前状态
         /// </summary>
         IState AgentState { get; }

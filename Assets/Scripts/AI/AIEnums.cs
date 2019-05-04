@@ -11,6 +11,9 @@ namespace Game.AI
         IDLE_SWORD,
         ATTACK,
         DEAD,
+        DEAD_HALF_BODY,
+        DEAD_HALF_HEAD,
+        DEAD_HALF_LEG,
         INJURE_UP,
         INJURE_DOWN,
         INJURE_LEFT,
@@ -69,7 +72,11 @@ namespace Game.AI
         /// <summary>
         /// 是否处在警戒状态
         /// </summary>
-        IS_ALERT
+        IS_ALERT,
+        /// <summary>
+        /// 结束行动
+        /// </summary>
+        IS_OVER
     }
 
     /// <summary>
@@ -128,5 +135,10 @@ namespace Game.AI
         injuryFront02,
         injuryFront03,
         injuryFront04,
+        death01,
+        death02,
+        DeadPeasantHHead,
+        DeadPeasantHBody,
+        DeadPeasantHLegs
     }
 }

@@ -7,14 +7,18 @@ namespace Game.AI
 {
     public class PeasantAgent : AgentBase<ActionEnum,GoalEnum>
     {
+        public override bool IsAgentOver {
+            get { return AgentState.Get(StateKeyEnum.IS_OVER.ToString()); }
+        }
+
         private AIVIewEffectMgr _viewMgr;
         public AIVIewEffectMgr ViewMgr(IMaps<ActionEnum, GoalEnum> maps)
         {
             if (_viewMgr == null)
             {
                 object audioSource = maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
-                object animation = maps.GetGameData(GameDataKeyEnum.ANIMATION);
-                _viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, animation);
+                object self = maps.GetGameData(GameDataKeyEnum.SELF_TRANS);
+                _viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, self);
             }
 
             return _viewMgr;

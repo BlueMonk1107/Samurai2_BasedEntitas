@@ -13,6 +13,8 @@ namespace Game.AI
             _enemy = GetGameData<Transform>(GameDataKeyEnum.ENEMY_TRANS);
         }
 
+        public override int Priority { get; }
+
         public override bool IsTrigger {
             get
             {

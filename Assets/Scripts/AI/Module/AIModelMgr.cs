@@ -54,6 +54,10 @@ namespace Game.AI.ViewEffect
             AddModel(ActionEnum.INJURE_DOWN, new InjureModel());
             AddModel(ActionEnum.INJURE_LEFT, new InjureModel());
             AddModel(ActionEnum.INJURE_RIGHT, new InjureModel());
+            AddModel(ActionEnum.DEAD,new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_BODY, new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_HEAD, new DeadModel());
+            AddModel(ActionEnum.DEAD_HALF_LEG, new DeadModel());
         }
     }
 }

@@ -1,24 +1,36 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Game
 {
     public class Path      
     {
         /// <summary>
-        /// resourceÏÂÔ¤ÖÆÎÄ¼þ¼ÐÂ·¾¶
+        /// resourceä¸‹é¢„åˆ¶æ–‡ä»¶å¤¹è·¯å¾„
         /// </summary>
         private const string PREFAB_PATH = "Prefab/";
         /// <summary>
-        /// Íæ¼ÒÔ¤ÖÆÂ·¾¶
+        /// çŽ©å®¶é¢„åˆ¶è·¯å¾„
         /// </summary>
         public const string PLAYER_PREFAB = PREFAB_PATH + "Player";
         /// <summary>
-        /// Íæ¼ÒÔ¤ÖÆÂ·¾¶
+        /// çŽ©å®¶é¢„åˆ¶è·¯å¾„
         /// </summary>
         public const string TRAILS_COMBO_PREFAB = PREFAB_PATH + "trails_combo01";
         /// <summary>
-        /// µÐ·½Ô¤ÖÆÂ·¾¶
+        /// æ•Œæ–¹é¢„åˆ¶è·¯å¾„
         /// </summary>
         public const string ENEMY_PATH =  "Enemies/";
+        /// <summary>
+        /// peasantåˆ‡æ–­å¤´æ­»äº¡åŠ¨ç”»
+        /// </summary>
+        public const string PEASANT_DEAD_HEAD_PATH = ENEMY_PATH + "DeadPeasantHHead";
+        /// <summary>
+        /// peasantåˆ‡æ–­èº«ä½“æ­»äº¡åŠ¨ç”»
+        /// </summary>
+        public const string PEASANT_DEAD_BODY_PATH = ENEMY_PATH + "DeadPeasantHBody";
+        /// <summary>
+        /// peasantåˆ‡æ–­è…¿æ­»äº¡åŠ¨ç”»
+        /// </summary>
+        public const string PEASANT_DEAD_LEG_PATH = ENEMY_PATH + "DeadPeasantHLegs";
     }
 }

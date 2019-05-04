@@ -19,12 +19,17 @@ namespace Game.AI
             AddAction<IdleSwordHandler, IdleSwordAction>();
             AddAction<MoveHandler, MoveAction>();
             AddAction<AttackHandler, AttackAction>();
-            AddAction<InjureUpHandler, InjureUpAction>();
-            AddAction<InjureDownHandler, InjureDownAction>();
-            AddAction<InjureLeftHandler, InjureLeftAction>();
-            AddAction<InjureRightHandler, InjureRightAction>();
+            AddAction<InjureHandler, InjureUpAction>();
+            AddAction<InjureHandler, InjureDownAction>();
+            AddAction<InjureHandler, InjureLeftAction>();
+            AddAction<InjureHandler, InjureRightAction>();
             AddAction<MoveBackwardHandler, MoveBackwardAction>();
-            AddAction<DeadHandler, DeadAction>();
+
+            AddAction<DeadNormalHandler, DeadNormalAction>();
+            AddAction<DeadIntantKillHandler,DeadHeadAction>();
+            AddAction<DeadIntantKillHandler, DeadBodyAction>();
+            AddAction<DeadIntantKillHandler, DeadLegAction>();
+
             AddAction<EnterAlertHandler,EnterAlertAction>();
             AddAction<ExitAlertHandler,ExitAlertAction>();
 

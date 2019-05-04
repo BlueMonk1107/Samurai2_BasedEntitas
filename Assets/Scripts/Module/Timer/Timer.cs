@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,59 +6,59 @@ using UnityEngine;
 namespace Module.Timer
 {
     /// <summary>
-    /// ¼ÆÊ±Æ÷½Ó¿Ú
+    /// è®¡æ—¶å™¨æ¥å£
     /// </summary>
     public interface ITimer
     {
         /// <summary>
-        /// ¼ÆÊ±Æ÷Î¨Ò»±êÊ¶
+        /// è®¡æ—¶å™¨å”¯ä¸€æ ‡è¯†
         /// </summary>
         string ID { get; }
 
         /// <summary>
-        /// µ±Ç°µÄÊ±¼ä
+        /// å½“å‰çš„æ—¶é—´
         /// </summary>
         float CurrentTime { get; }
         /// <summary>
-        /// ÔËĞĞ°Ù·Ö±È
+        /// è¿è¡Œç™¾åˆ†æ¯”
         /// </summary>
         float Percent { get; }
         /// <summary>
-        /// µ¥´ÎÑ­»·³ÖĞøÊ±¼ä
+        /// å•æ¬¡å¾ªç¯æŒç»­æ—¶é—´
         /// </summary>
         float Duration { get; }
         /// <summary>
-        /// ÊÇ·ñÑ­»·Ö´ĞĞ
+        /// æ˜¯å¦å¾ªç¯æ‰§è¡Œ
         /// </summary>
         bool IsLoop { get; }
         /// <summary>
-        /// ÊÇ·ñÕıÔÚ¼ÆÊ±
+        /// æ˜¯å¦æ­£åœ¨è®¡æ—¶
         /// </summary>
         bool IsTiming { get; }
         /// <summary>
-        /// ÊÇ·ñÍê³É
+        /// æ˜¯å¦å®Œæˆ
         /// </summary>
         bool IsComplete { get; }
         /// <summary>
-        /// ÖØÖÃÊı¾İ
+        /// é‡ç½®æ•°æ®
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
         void ResetData(string id, float duration, bool loop);
         /// <summary>
-        /// Ö¡º¯Êı
+        /// å¸§å‡½æ•°
         /// </summary>
         void Update();
         /// <summary>
-        /// ¼ÌĞø¼ÆÊ±
+        /// ç»§ç»­è®¡æ—¶
         /// </summary>
         void Continue();
         /// <summary>
-        /// ÔİÍ£¼ÆÊ±
+        /// æš‚åœè®¡æ—¶
         /// </summary>
         void Pause();
         /// <summary>
-        /// Í£Ö¹¼ÆÊ±
+        /// åœæ­¢è®¡æ—¶
         /// </summary>
         void Stop(bool isComplete);
 
@@ -69,7 +69,7 @@ namespace Module.Timer
     public interface ITimerManager
     {
         /// <summary>
-        /// ´´½¨¼ÆÊ±Æ÷£¬Èçµ±Ç°Ö¸¶¨Ãû³Æ¼ÆÊ±Æ÷ÕıÔÚ¼ÆÊ±£¬·µ»Ønull
+        /// åˆ›å»ºè®¡æ—¶å™¨ï¼Œå¦‚å½“å‰æŒ‡å®šåç§°è®¡æ—¶å™¨æ­£åœ¨è®¡æ—¶ï¼Œè¿”å›null
         /// </summary>
         /// <param name="id"></param>
         /// <param name="duration"></param>
@@ -78,7 +78,7 @@ namespace Module.Timer
         ITimer CreateTimer(string id, float duration, bool loop);
 
         /// <summary>
-        /// ÖØÖÃÖ¸¶¨IDµÄTimerÊı¾İ
+        /// é‡ç½®æŒ‡å®šIDçš„Timeræ•°æ®
         /// </summary>
         /// <param name="id"></param>
         /// <param name="duration"></param>
@@ -86,7 +86,7 @@ namespace Module.Timer
         /// <returns></returns>
         ITimer ResetTimerData(string id, float duration, bool loop);
         /// <summary>
-        /// Ö¸¶¨IDµÄtimerÎª¿Õ£¬´´½¨timer£¬²»Îª¿Õ£¬ÖØĞÂÆô¶¯timer
+        /// æŒ‡å®šIDçš„timerä¸ºç©ºï¼Œåˆ›å»ºtimerï¼Œä¸ä¸ºç©ºï¼Œé‡æ–°å¯åŠ¨timer
         /// </summary>
         /// <param name="id"></param>
         /// <param name="duration"></param>
@@ -94,7 +94,7 @@ namespace Module.Timer
         /// <returns></returns>
         ITimer CreatOrRestartTimer(string id, float duration, bool loop);
         /// <summary>
-        /// Í¨¹ı±êÊ¶»ñÈ¡¼ÆÊ±Æ÷
+        /// é€šè¿‡æ ‡è¯†è·å–è®¡æ—¶å™¨
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -103,38 +103,38 @@ namespace Module.Timer
         void StopTimer(ITimer timer, bool isComplete);
 
         /// <summary>
-        /// Ö¡º¯Êı
+        /// å¸§å‡½æ•°
         /// </summary>
         void Update();
         /// <summary>
-        /// ¼ÌĞøÖ´ĞĞËùÓĞ¼ÆÊ±Æ÷
+        /// ç»§ç»­æ‰§è¡Œæ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         void ContinueAll();
 
         /// <summary>
-        /// ÔİÍ£ËùÓĞ¼ÆÊ±Æ÷
+        /// æš‚åœæ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         void PauseAll();
         /// <summary>
-        /// ¹Ø±ÕËùÓĞ¼ÆÊ±Æ÷
+        /// å…³é—­æ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         void StopAll();
     }
 
     /// <summary>
-    /// ¼ÆÊ±Æ÷¹ÜÀíÀà
+    /// è®¡æ—¶å™¨ç®¡ç†ç±»
     /// </summary>
     public class TimerManager : ITimerManager
     {
         /// <summary>
-        /// ¼ÆÊ±Æ÷
+        /// è®¡æ—¶å™¨
         /// </summary>
         private class Timer : ITimer
         {
             public string ID { get; private set; }
 
             /// <summary>
-            /// µ±Ç°µÄÊ±¼ä
+            /// å½“å‰çš„æ—¶é—´
             /// </summary>
             public float CurrentTime
             {
@@ -142,7 +142,7 @@ namespace Module.Timer
             }
 
             /// <summary>
-            /// ÔËĞĞ°Ù·Ö±È
+            /// è¿è¡Œç™¾åˆ†æ¯”
             /// </summary>
             public float Percent
             {
@@ -150,28 +150,28 @@ namespace Module.Timer
             }
 
             /// <summary>
-            /// µ¥´ÎÑ­»·³ÖĞøÊ±¼ä
+            /// å•æ¬¡å¾ªç¯æŒç»­æ—¶é—´
             /// </summary>
             public float Duration { get { return _duration; } }
-            //ÊÇ·ñÍê³É
+            //æ˜¯å¦å®Œæˆ
             public bool IsComplete { get; private set; }
-            //ÊÇ·ñÑ­»·Ö´ĞĞ
+            //æ˜¯å¦å¾ªç¯æ‰§è¡Œ
             public bool IsLoop { get; private set; }
-            //ÊÇ·ñÕıÔÚ¼ÆÊ±
+            //æ˜¯å¦æ­£åœ¨è®¡æ—¶
             public bool IsTiming { get; private set; }
 
             private Action _onUpdate;
             private Action _onComplete;
 
-            //¼ÆÊ±¿ªÊ¼Ê±¼ä
+            //è®¡æ—¶å¼€å§‹æ—¶é—´
             private DateTime _startTime;
-            //×ÜÔËĞĞÊ±¼ä
+            //æ€»è¿è¡Œæ—¶é—´
             private float _runTimeTotal;
 
-            //³ÖĞøÊ±¼ä
+            //æŒç»­æ—¶é—´
             private float _duration;
-            //Ë¢ĞÂ¼ä¸ôÖ¡Êı
-            private int _offsetFrame = 5;
+            //åˆ·æ–°é—´éš”å¸§æ•°
+            private int _offsetFrame = 0;
             private int _frameTimes;
 
             public Timer(string id, float duration, bool loop)
@@ -189,7 +189,7 @@ namespace Module.Timer
             }
 
             /// <summary>
-            /// ÖØÖÃÊı¾İ
+            /// é‡ç½®æ•°æ®
             /// </summary>
             /// <param name="id"></param>
             /// <param name="duration"></param>
@@ -238,8 +238,8 @@ namespace Module.Timer
                 if (IsComplete)
                 {
                     IsComplete = false;
-                    _onComplete?.Invoke();
                     ResetData();
+                    _onComplete?.Invoke();
                 }
             }
 
@@ -266,13 +266,14 @@ namespace Module.Timer
 
             public void Stop(bool isComplete)
             {
-                if (IsComplete && isComplete)
+                _runTimeTotal = 0;
+                IsTiming = false;
+
+                if (!IsComplete && isComplete)
                 {
                     _onComplete?.Invoke();
                 }
                 _onComplete = null;
-                _runTimeTotal = 0;
-                IsTiming = false;
             }
 
             public ITimer AddUpdateListener(Action update)
@@ -293,7 +294,7 @@ namespace Module.Timer
                 return (float)time.TotalSeconds;
             }
             /// <summary>
-            /// ÅĞ¶Ïµ±Ç°ÊÇ·ñÖ´ĞĞÍê±Ï
+            /// åˆ¤æ–­å½“å‰æ˜¯å¦æ‰§è¡Œå®Œæ¯•
             /// </summary>
             /// <returns></returns>
             private bool JudgeIsComplete()
@@ -315,7 +316,7 @@ namespace Module.Timer
         }
 
         /// <summary>
-        /// ´´½¨ĞÂ¼ÆÊ±Æ÷
+        /// åˆ›å»ºæ–°è®¡æ—¶å™¨
         /// </summary>
         /// <param name="duration"></param>
         /// <param name="loop"></param>
@@ -458,7 +459,7 @@ namespace Module.Timer
         }
 
         /// <summary>
-        /// ¼ÌĞøÖ´ĞĞËùÓĞ¼ÆÊ±Æ÷
+        /// ç»§ç»­æ‰§è¡Œæ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         public void ContinueAll()
         {
@@ -469,7 +470,7 @@ namespace Module.Timer
         }
 
         /// <summary>
-        /// ÔİÍ£ËùÓĞ¼ÆÊ±Æ÷
+        /// æš‚åœæ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         public void PauseAll()
         {
@@ -480,7 +481,7 @@ namespace Module.Timer
         }
 
         /// <summary>
-        /// ¹Ø±ÕËùÓĞ¼ÆÊ±Æ÷
+        /// å…³é—­æ‰€æœ‰è®¡æ—¶å™¨
         /// </summary>
         public void StopAll()
         {

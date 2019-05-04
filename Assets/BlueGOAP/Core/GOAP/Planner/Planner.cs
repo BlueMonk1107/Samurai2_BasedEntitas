@@ -69,7 +69,7 @@ namespace BlueGOAP
                 DebugMsg.Log("---------------currentNode:"+ currentNode.ID+ "-----------------");
                 foreach (IActionHandler<TAction> handler in handlers)
                 {
-                    DebugMsg.Log("计划子行为:" + handler.Label);
+                    DebugMsg.Log("计划子行为:" + handler.Label+"  优先级："+handler.Action.Priority);
                 }
                 DebugMsg.Log("--------------------------------");
 

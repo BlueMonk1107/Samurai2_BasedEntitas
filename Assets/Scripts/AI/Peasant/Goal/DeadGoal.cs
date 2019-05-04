@@ -19,7 +19,9 @@ namespace Game.AI
 
         protected override IState InitEffects()
         {
-            return null;
+            State<StateKeyEnum> state = new State<StateKeyEnum>();
+            state.Set(StateKeyEnum.IS_OVER, true);
+            return state;
         }
 
         protected override IState InitActiveCondition()

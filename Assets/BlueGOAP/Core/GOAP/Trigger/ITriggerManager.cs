@@ -1,12 +1,13 @@
-
+ï»¿
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BlueGOAP
 {
     public interface ITriggerManager    
     {
         /// <summary>
-        /// Ö¡º¯Êı
+        /// å¸§å‡½æ•°
         /// </summary>
         void FrameFun();
     }
@@ -14,12 +15,12 @@ namespace BlueGOAP
     public abstract class TriggerManagerBase<TAction, TGoal> : ITriggerManager
     {
         protected IAgent<TAction, TGoal> _agent;
-        private HashSet<ITrigger> _triggers; 
+        private List<ITrigger> _triggers; 
 
         public TriggerManagerBase(IAgent<TAction, TGoal> agent)
         {
             _agent = agent;
-            _triggers = new HashSet<ITrigger>();
+            _triggers = new List<ITrigger>();
             InitTriggers();
         }
 
@@ -34,9 +35,10 @@ namespace BlueGOAP
         protected void AddTrigger(ITrigger trigger)
         {
             _triggers.Add(trigger);
+            _triggers = _triggers.OrderByDescending(u => u.Priority).ToList();
         }
         /// <summary>
-        /// ËùÓĞĞèÒªÌí¼ÓµÄ´¥·¢Æ÷ÔÚ´Ëº¯ÊıÄÚ½øĞĞÌí¼Ó
+        /// æ‰€æœ‰éœ€è¦æ·»åŠ çš„è§¦å‘å™¨åœ¨æ­¤å‡½æ•°å†…è¿›è¡Œæ·»åŠ 
         /// </summary>
         protected abstract void InitTriggers();
     }

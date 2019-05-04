@@ -12,14 +12,16 @@ namespace Game.AI.ViewEffect
         public EffectMgr EffectMgr { get; private set; }
         public AudioMgr AudioMgr { get; private set; }
         public AIAniMgr AniMgr { get; private set; }
+        public object Self { get; private set; }
 
-        public AIVIewEffectMgrBase(string enemyID, object source, object ani)
+        public AIVIewEffectMgrBase(string enemyID, object source, object selfTrans)
         {
+            Self = selfTrans;
             _fsm = new ActionFSM<T>();
             _viewDic = new Dictionary<T, IFsmState<T>>();
             EffectMgr = new EffectMgr();
             AudioMgr = new AudioMgr(enemyID, source);
-            AniMgr = new AIAniMgr(ani);
+            AniMgr = new AIAniMgr(selfTrans);
 
             ModelMgr = InitModelMgr();
 
@@ -67,7 +69,7 @@ namespace Game.AI.ViewEffect
     public class AIVIewEffectMgr : AIVIewEffectMgrBase<ActionEnum>
     {
 
-        public AIVIewEffectMgr(string enemyID,object source,object ani) : base(enemyID,source, ani)
+        public AIVIewEffectMgr(string enemyID,object source,object selfTrans) : base(enemyID,source, selfTrans)
         {
             
         }
@@ -75,7 +77,10 @@ namespace Game.AI.ViewEffect
         protected override void InitViews()
         {
             AddView(new AttackView(this));
-            AddView(new DeadView(this));
+            AddView(new DeadNormalView(this));
+            AddView(new DeadHeadView(this));
+            AddView(new DeadBodyView(this));
+            AddView(new DeadLegView(this));
             AddView(new IdleSwordView(this));
             AddView(new IdleView(this));
             AddView(new UpInjureView(this));

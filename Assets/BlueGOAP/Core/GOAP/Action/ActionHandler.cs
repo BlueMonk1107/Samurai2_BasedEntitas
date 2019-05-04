@@ -64,7 +64,6 @@ namespace BlueGOAP
 
         public virtual bool CanPerformAction()
         {
-            DebugMsg.Log("Action:"+ Action.Label);
             return Action.VerifyPreconditions();
         }
 
