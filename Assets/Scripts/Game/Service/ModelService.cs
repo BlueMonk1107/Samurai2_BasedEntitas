@@ -3,6 +3,7 @@ using Game.Model;
 using Manager;
 using Model;
 using Module;
+using Module.Skill;
 
 namespace Game.Service
 {

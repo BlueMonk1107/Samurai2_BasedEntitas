@@ -11,14 +11,14 @@ namespace Game.AI
             get { return AgentState.Get(StateKeyEnum.IS_OVER.ToString()); }
         }
 
-        private AIVIewEffectMgr _viewMgr;
-        public AIVIewEffectMgr ViewMgr(IMaps<ActionEnum, GoalEnum> maps)
+        private AiViewMgr _viewMgr;
+        public AiViewMgr ViewMgr(IMaps<ActionEnum, GoalEnum> maps)
         {
             if (_viewMgr == null)
             {
                 object audioSource = maps.GetGameData(GameDataKeyEnum.AUDIO_SOURCE);
                 object self = maps.GetGameData(GameDataKeyEnum.SELF_TRANS);
-                _viewMgr = new AIVIewEffectMgr(EnemyId.EnemyPeasant.ToString(), audioSource, self);
+                _viewMgr = new AiViewMgr(EnemyId.EnemyPeasant.ToString(), audioSource, self);
             }
 
             return _viewMgr;

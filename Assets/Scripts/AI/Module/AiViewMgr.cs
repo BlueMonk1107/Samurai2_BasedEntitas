@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Game.AI.ViewEffect
 {
-    public abstract class AIVIewEffectMgrBase<T>
+    public abstract class AiViewMgrBase<T>
     {
         private IFSM<T> _fsm;
         private Dictionary<T, IFsmState<T>> _viewDic;
@@ -14,7 +14,7 @@ namespace Game.AI.ViewEffect
         public AIAniMgr AniMgr { get; private set; }
         public object Self { get; private set; }
 
-        public AIVIewEffectMgrBase(string enemyID, object source, object selfTrans)
+        public AiViewMgrBase(string enemyID, object source, object selfTrans)
         {
             Self = selfTrans;
             _fsm = new ActionFSM<T>();
@@ -66,12 +66,13 @@ namespace Game.AI.ViewEffect
         }
     }
 
-    public class AIVIewEffectMgr : AIVIewEffectMgrBase<ActionEnum>
+    public class AiViewMgr : AiViewMgrBase<ActionEnum>
     {
 
-        public AIVIewEffectMgr(string enemyID,object source,object selfTrans) : base(enemyID,source, selfTrans)
+        public AiViewMgr(string enemyID,object source,object selfTrans) : base(enemyID,source, selfTrans)
         {
-            
+            var spawnView = new SpawnView();
+            spawnView.Play(EffectMgr,AudioMgr, selfTrans);
         }
 
         protected override void InitViews()

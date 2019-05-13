@@ -32,5 +32,10 @@ namespace Game
         /// peasant切断腿死亡动画
         /// </summary>
         public const string PEASANT_DEAD_LEG_PATH = ENEMY_PATH + "DeadPeasantHLegs";
+
+        /// <summary>
+        /// 特效预制路径
+        /// </summary>
+        public const string EFFECTS_PATH = "Effects/";
     }
 }

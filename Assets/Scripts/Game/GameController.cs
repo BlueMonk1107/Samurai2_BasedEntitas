@@ -1,4 +1,4 @@
-using Entitas;
+﻿using Entitas;
 using Game.Service;
 using Game.View;
 using Manager;
@@ -33,22 +33,41 @@ namespace Game
             var parentManager = transform.GetOrAddComponent<GameParentManager>();
             parentManager.Init();
 
-            var cameraContrller = parentManager.GetParnetTrans(ParentName.CameraController);
-            CameraController cameraController = cameraContrller.gameObject.AddComponent<CameraController>();
-            var entity = _contexts.game.CreateEntity();
-            entity.AddGameCameraState(CameraAniName.NULL);
-            cameraController.Init(_contexts, entity);
+            InitCameraController(parentManager);
 
             ModelManager.Single.Init();
 
             _serviceManager = new ServiceManager(parentManager);
             _serviceManager.Init(_contexts);
 
+            InitUIController(parentManager);
+
+            LoadAudioManager.Single.Init();
+
+            InitPoolMgr();
+        }
+
+        private void InitCameraController(GameParentManager parentManager)
+        {
+            var cameraContrller = parentManager.GetParnetTrans(ParentName.CameraController);
+            CameraController cameraController = cameraContrller.gameObject.AddComponent<CameraController>();
+            var entity = _contexts.game.CreateEntity();
+            entity.AddGameCameraState(CameraAniName.NULL);
+            cameraController.Init(_contexts, entity);
+        }
+
+        private void InitUIController(GameParentManager parentManager)
+        {
             var uiParnet = parentManager.GetParnetTrans(ParentName.UIController);
             UIController uiCopntroller = uiParnet.gameObject.AddComponent<UIController>();
             uiCopntroller.Init();
+        }
 
-            LoadAudioManager.Single.Init();
+        private void InitPoolMgr()
+        {
+            GameObject poolMgr = new GameObject("PoolMgr");
+            poolMgr.transform.SetParent(transform);
+            poolMgr.AddComponent<PoolManager>();
         }
 
         private void Update()

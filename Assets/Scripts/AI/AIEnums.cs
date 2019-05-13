@@ -121,7 +121,9 @@ namespace Game.AI
         /// </summary>
         INJURE_COLLODE_DATA
     }
-
+    /// <summary>
+    /// Peasant怪物动画名称
+    /// </summary>
     public enum AIPeasantAniName
     {
         idle,
@@ -140,5 +142,23 @@ namespace Game.AI
         DeadPeasantHHead,
         DeadPeasantHBody,
         DeadPeasantHLegs
+    }
+
+    public enum EffectNameEnum
+    {
+        Spawn,
+        BloodOnGround,
+        Dead,
+        InjureLeft,
+        InjureRight,
+        COUNT
+    }
+
+    public enum AudioNameEnum
+    {
+        attack,
+        death,
+        injory,
+        spawn
     }
 }

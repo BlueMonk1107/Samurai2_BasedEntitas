@@ -1,10 +1,10 @@
-using Game;
+ï»¿using Game;
 using UnityEngine;
 
-namespace Module
+namespace Module.Skill
 {
     /// <summary>
-    /// ÈËÎï¼¼ÄÜ±àÂë¹¦ÄÜÄ£¿é
+    /// äººç‰©æŠ€èƒ½ç¼–ç åŠŸèƒ½æ¨¡å—
     /// </summary>
     public class SkillCodeModule     
     {
@@ -13,7 +13,7 @@ namespace Module
             int code = (int) button;
             if (currentCode < 0)
             {
-                Debug.LogError("SkillCode²»ÄÜĞ¡ÓÚ0");
+                Debug.LogError("SkillCodeä¸èƒ½å°äº0");
             }
             else if (currentCode == 0)
             {
@@ -28,7 +28,7 @@ namespace Module
         }
 
         /// <summary>
-        /// »ñÈ¡intÀàĞÍµÄ¼¼ÄÜ±àÂë
+        /// è·å–intç±»å‹çš„æŠ€èƒ½ç¼–ç 
         /// </summary>
         /// <param name="skillName"></param>
         /// <param name="prefix"></param>
@@ -56,7 +56,7 @@ namespace Module
         }
 
         /// <summary>
-        /// »ñÈ¡XXOOÀàĞÍµÄ¼¼ÄÜ±àÂë
+        /// è·å–XXOOç±»å‹çš„æŠ€èƒ½ç¼–ç 
         /// </summary>
         /// <returns></returns>
         public string GetCodeString(int code)
@@ -64,7 +64,7 @@ namespace Module
             return ConvertIntToString(code);
         }
 
-        //×ª»»string±àÂëµ½int ´ÓxxooÀàĞÍ×ª»»³ÉintÀàĞÍ±àÂë
+        //è½¬æ¢stringç¼–ç åˆ°int ä»xxooç±»å‹è½¬æ¢æˆintç±»å‹ç¼–ç 
         private int ConvertStringToInt(string codeString)
         {
             int[] codes = new int[codeString.Length];
@@ -91,7 +91,7 @@ namespace Module
 
             return code;
         }
-        //×ª»»int±àÂëµ½string ×ª»»³ÉxxooÀàĞÍµÄ±àÂë
+        //è½¬æ¢intç¼–ç åˆ°string è½¬æ¢æˆxxooç±»å‹çš„ç¼–ç 
         private string ConvertIntToString(int code)
         {
             string codeString = code.ToString();

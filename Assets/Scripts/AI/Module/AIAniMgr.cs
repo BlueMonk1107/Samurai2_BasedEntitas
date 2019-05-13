@@ -40,7 +40,6 @@ namespace Game.AI.ViewEffect
             if (_ani[name] != null)
             {
                 _ani.CrossFade(name);
-                Debug.Log(name);
             }
             else
             {

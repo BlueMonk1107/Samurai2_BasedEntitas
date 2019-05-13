@@ -11,18 +11,20 @@ namespace Game.AI.ViewEffect
 
         protected IModel _iModel;
         protected EffectMgr _effectMgr;
-        protected AIAniMgr _AniMgr;
-        protected AIVIewEffectMgrBase<T> _mgr;
+        protected AIAniMgr _aniMgr;
+        protected AiViewMgrBase<T> _mgr;
+        protected AudioMgr _AudioMgr;
 
-        public ViewBase(AIVIewEffectMgrBase<T> mgr)
+        public ViewBase(AiViewMgrBase<T> mgr)
         {
             _mgr = mgr;
             _iModel = InitModel(mgr);
              _effectMgr = mgr.EffectMgr;
-            _AniMgr = mgr.AniMgr;
+            _aniMgr = mgr.AniMgr;
+            _AudioMgr = mgr.AudioMgr;
         }
 
-        private IModel InitModel(AIVIewEffectMgrBase<T> mgr)
+        private IModel InitModel(AiViewMgrBase<T> mgr)
         {
             IModel model = mgr.ModelMgr.GetModel<IModel>(Label); 
             if (model != null)
@@ -35,7 +37,7 @@ namespace Game.AI.ViewEffect
         public virtual void Enter()
         {
             ExcuteState = ActionExcuteState.ENTER;
-            _AniMgr.Play(AniName);
+            _aniMgr.Play(AniName);
         }
 
         public virtual void Execute()

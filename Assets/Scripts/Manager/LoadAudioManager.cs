@@ -22,7 +22,7 @@ namespace Game
             foreach (EnemyId id in Enum.GetValues(typeof(EnemyId)))
             {
                 _enemyClipsDic[id.ToString()] = new Dictionary<string, AudioClip>();
-                LoadAllAudio(Const.Path.AUDIO_PATH + id+"/", _playerClipsDic);
+                LoadAllAudio(Const.Path.AUDIO_PATH + id+"/", _enemyClipsDic[id.ToString()]);
             }
         }
 

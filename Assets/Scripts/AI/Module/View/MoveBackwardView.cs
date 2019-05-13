@@ -8,7 +8,7 @@ namespace Game.AI.ViewEffect
         public override ActionEnum Label { get { return ActionEnum.MOVE_BACKWARD; } }
         public override string AniName { get { return AIPeasantAniName.runSwordBackward.ToString(); } }
 
-        public MoveBackwardView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public MoveBackwardView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
      

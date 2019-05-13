@@ -99,7 +99,6 @@ namespace BlueGOAP
                 if (handler.Value.Action.CanInterruptiblePlan)
                 {
                     _interruptibleHandlers.Add(handler.Value);
-                    DebugMsg.LogError(handler.Value.Action.Priority.ToString());
                 }
             }
             //按照优先级排序

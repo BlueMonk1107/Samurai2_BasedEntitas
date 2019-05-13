@@ -9,14 +9,43 @@ namespace Game.AI.ViewEffect
 {
     public abstract class DeadView : ViewBase<ActionEnum>
     {
-        public DeadView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        private Action _onExcuteAfterAni;
+
+        public DeadView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
+            _onExcuteAfterAni = null;
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            _AudioMgr.Play(AudioNameEnum.death, AudioVolumeConst.DEAD_VOLUME);
+            ExcuteAfterAni();
         }
 
         protected void Destroy()
         {
             Transform self = _mgr.Self as Transform;
-            GameObject.Destroy(self.gameObject);
+            if(self != null)
+                GameObject.Destroy(self.gameObject);
+        }
+
+        protected async void ExcuteAfterAni()
+        {
+            await Task.Delay(TimeSpan.FromSeconds(_aniMgr.GetAniLength(AniName)));
+            if(_onExcuteAfterAni != null)
+                _onExcuteAfterAni();
+        }
+
+        protected void AddExcuteAfterAniListener(Action excuteAfterAni)
+        {
+            _onExcuteAfterAni = excuteAfterAni;
+        }
+
+        protected void DeadEffect()
+        {
+            Vector3 pos = (_mgr.Self as Transform).position;
+            _effectMgr.Play(EffectNameEnum.Dead, pos);
         }
     }
 
@@ -39,21 +68,24 @@ namespace Game.AI.ViewEffect
         private AIPeasantAniName[] _aniNames = { AIPeasantAniName.death01, AIPeasantAniName.death02};
         private string _currentAniName;
 
-        public DeadNormalView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public DeadNormalView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
 
-        public async override void Enter()
+        public override void Enter()
         {
             base.Enter();
-            await Task.Delay(TimeSpan.FromSeconds(_AniMgr.GetAniLength(AniName)));
-            Destroy();
+            AddExcuteAfterAniListener(() =>
+            {
+                Destroy();
+                DeadEffect();
+            });
         }
     }
 
     public class DeadHeadView : DeadView
     {
-        public DeadHeadView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public DeadHeadView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
 
@@ -64,12 +96,13 @@ namespace Game.AI.ViewEffect
         {
             base.Enter();
             Destroy();
+            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 
     public class DeadBodyView : DeadView
     {
-        public DeadBodyView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public DeadBodyView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
 
@@ -80,12 +113,13 @@ namespace Game.AI.ViewEffect
         {
             base.Enter();
             Destroy();
+            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 
     public class DeadLegView : DeadView
     {
-        public DeadLegView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public DeadLegView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
 
@@ -96,6 +130,7 @@ namespace Game.AI.ViewEffect
         {
             base.Enter();
             Destroy();
+            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 }

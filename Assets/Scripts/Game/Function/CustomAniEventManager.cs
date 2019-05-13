@@ -1,6 +1,7 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using Module;
+using Module.Skill;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -96,7 +97,7 @@ namespace Game
         }
     }
     /// <summary>
-    /// ¼¼ÄÜ½Å±¾Ãû³Æ³õÊ¼»¯
+    /// æŠ€èƒ½è„šæœ¬åç§°åˆå§‹åŒ–
     /// </summary>
     public class InitSkillAni
     {
@@ -137,7 +138,7 @@ namespace Game
     }
 
     /// <summary>
-    /// ¶¯»­×´Ì¬Ãû³Æ¶ÔÓ¦Ã¶¾Ù
+    /// åŠ¨ç”»çŠ¶æ€åç§°å¯¹åº”æšä¸¾
     /// </summary>
     public enum PlayerAniStateName
     {

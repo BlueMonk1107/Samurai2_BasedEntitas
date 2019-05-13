@@ -1,7 +1,8 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Const;
 using Entitas;
 using Module;
+using Module.Skill;
 using UnityEngine;
 
 namespace Game.View
@@ -47,7 +48,7 @@ namespace Game.View
                 }
                 else
                 {
-                    Debug.LogWarning("¶¯»­ÖÐÎ´ÕÒµ½¶ÔÓ¦CodeÎª"+code+"µÄ¶¯»­Æ¬¶Î");
+                    Debug.LogWarning("åŠ¨ç”»ä¸­æœªæ‰¾åˆ°å¯¹åº”Codeä¸º"+code+"çš„åŠ¨ç”»ç‰‡æ®µ");
                     _trailsDic[code] = tran.gameObject.AddComponent<TrailsEffect>();
                     _trailsDic[code].Init(0);
                 }

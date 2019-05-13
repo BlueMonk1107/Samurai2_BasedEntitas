@@ -7,7 +7,7 @@ namespace Game.AI.ViewEffect
         public override ActionEnum Label { get { return ActionEnum.EXIT_ALERT;} }
         public override string AniName { get { return AIPeasantAniName.hideSword.ToString(); } }
 
-        public ExitAlertView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public ExitAlertView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
     }

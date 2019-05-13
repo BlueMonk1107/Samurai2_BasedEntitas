@@ -1,4 +1,5 @@
 ﻿using Module;
+using Module.Skill;
 
 namespace Game.Service
 {

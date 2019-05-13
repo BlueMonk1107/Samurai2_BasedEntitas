@@ -8,7 +8,7 @@ namespace Game.AI.ViewEffect
         public override ActionEnum Label { get { return ActionEnum.ATTACK; } }
         public override string AniName { get { return AIPeasantAniName.attackPeasant.ToString(); } }
 
-        public AttackView(AIVIewEffectMgrBase<ActionEnum> mgr) : base(mgr)
+        public AttackView(AiViewMgrBase<ActionEnum> mgr) : base(mgr)
         {
         }
     }

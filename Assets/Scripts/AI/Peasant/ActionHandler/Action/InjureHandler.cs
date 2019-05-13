@@ -6,6 +6,8 @@ namespace Game.AI
 {
     public class InjureHandler : HandlerBase<InjureModel>
     {
+        private bool isDead;
+
         public InjureHandler(IAgent<ActionEnum, GoalEnum> agent,
             IMaps<ActionEnum, GoalEnum> maps,
             IAction<ActionEnum> action) 
@@ -20,7 +22,8 @@ namespace Game.AI
             EnemyData data = GetGameData<EnemyData>(GameDataKeyEnum.CONFIG);
 
             data.Life = data.Life - injureValue;
-            if (data.Life <= 0)
+            isDead = data.Life <= 0;
+            if (isDead)
             {
                 SetAgentState(StateKeyEnum.IS_DEAD, true);
             }
@@ -28,6 +31,12 @@ namespace Game.AI
             {
                 base.Enter();
             }
+        }
+
+        public override void Exit()
+        {
+            if (!isDead)
+                base.Exit();
         }
 
         public override bool CanPerformAction()
