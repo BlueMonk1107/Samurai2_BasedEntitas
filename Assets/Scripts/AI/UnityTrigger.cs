@@ -35,14 +35,15 @@ namespace Game.AI
             //await Task.Delay(TimeSpan.FromSeconds(1));
 
             EnemyPeasantView view = GetComponent<EnemyPeasantView>();
-            view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 100);
-            //普通死亡
-            _colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
-            await Task.Delay(TimeSpan.FromSeconds(2));
 
-            //view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE,1000);
+            //普通死亡
+            //view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 100);
+            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
+            //await Task.Delay(TimeSpan.FromSeconds(2));
+
+            //view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 1000);
             ////头部
-            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y + controller.height*0.5f - 0.3f, center.z)));
+            //_colliderAction(GetPosCollider(new Vector3(center.x, center.y + controller.height * 0.5f - 0.3f, center.z)));
             //await Task.Delay(TimeSpan.FromSeconds(2));
             //身体
             //_colliderAction(GetPosCollider(new Vector3(center.x, center.y, center.z)));
@@ -53,7 +54,7 @@ namespace Game.AI
 
         private Collider GetDirectionCollider(Vector3 center,float degress)
         {
-            GameObject go = new GameObject();
+            GameObject go = new GameObject("TestObject");
             go.tag = TagAndLayer.WEAPON_TAG;
             Collider c = go.AddComponent<BoxCollider>();
             c.transform.position = center + new Vector3(Mathf.Sin(Mathf.Deg2Rad * degress), Mathf.Cos(Mathf.Deg2Rad * degress), 0);
@@ -62,7 +63,7 @@ namespace Game.AI
 
         private Collider GetPosCollider(Vector3 pos)
         {
-            GameObject go = new GameObject();
+            GameObject go = new GameObject("TestObject");
             go.tag = TagAndLayer.WEAPON_TAG;
             Collider c = go.AddComponent<BoxCollider>();
             c.transform.position = pos;

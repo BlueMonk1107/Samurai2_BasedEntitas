@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class AniControl : MonoBehaviour
+public class SpecialDeadAniControl : MonoBehaviour
 {
-
     private Animation _ani;
 
     public void Init(Vector3 position)
@@ -27,7 +26,7 @@ public class AniControl : MonoBehaviour
 
         _ani.Play(GetClip().name);
 
-        await Task.Delay(TimeSpan.FromSeconds(GetClip().length));
+        await Task.Delay(TimeSpan.FromSeconds(GetClip().length + 1));
 
         Destroy(gameObject);
     }

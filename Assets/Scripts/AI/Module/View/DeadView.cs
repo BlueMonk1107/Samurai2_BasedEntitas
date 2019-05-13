@@ -42,10 +42,14 @@ namespace Game.AI.ViewEffect
             _onExcuteAfterAni = excuteAfterAni;
         }
 
-        protected void DeadEffect()
+        protected void DeadEffect(Vector3 pos)
         {
-            Vector3 pos = (_mgr.Self as Transform).position;
             _effectMgr.Play(EffectNameEnum.Dead, pos);
+        }
+
+        protected Vector3 GetSelfPos()
+        {
+            return (_mgr.Self as Transform).position;
         }
     }
 
@@ -77,8 +81,8 @@ namespace Game.AI.ViewEffect
             base.Enter();
             AddExcuteAfterAniListener(() =>
             {
+                DeadEffect(GetSelfPos());
                 Destroy();
-                DeadEffect();
             });
         }
     }
@@ -95,8 +99,9 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             base.Enter();
+            Vector3 pos = GetSelfPos();
+            AddExcuteAfterAniListener(()=>DeadEffect(pos));
             Destroy();
-            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 
@@ -112,8 +117,9 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             base.Enter();
+            Vector3 pos = GetSelfPos();
+            AddExcuteAfterAniListener(() => DeadEffect(pos));
             Destroy();
-            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 
@@ -129,8 +135,9 @@ namespace Game.AI.ViewEffect
         public override void Enter()
         {
             base.Enter();
+            Vector3 pos = GetSelfPos();
+            AddExcuteAfterAniListener(() => DeadEffect(pos));
             Destroy();
-            AddExcuteAfterAniListener(DeadEffect);
         }
     }
 }

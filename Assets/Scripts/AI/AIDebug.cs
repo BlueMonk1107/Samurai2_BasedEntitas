@@ -6,7 +6,7 @@ namespace Game.AI
 {
     public class AIDebug : DebugMsgBase
     {
-        private bool _canDebug = true;
+        private bool _canDebug = false;
 
         public override void Log(string msg)
         {

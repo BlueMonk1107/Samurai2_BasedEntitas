@@ -10,11 +10,11 @@ namespace Game.AI.ViewEffect
     {
         private Animation _ani;
         private Transform _self;
-        private Dictionary<string, AniControl> _specialAniDic;
+        private Dictionary<string, GameObject> _specialAniPrefabDic;
 
         public AIAniMgr(object selfTrans)
         {
-            _specialAniDic = new Dictionary<string, AniControl>();
+            _specialAniPrefabDic = new Dictionary<string, GameObject>();
 
             try
             {
@@ -56,46 +56,43 @@ namespace Game.AI.ViewEffect
             }
             else
             {
-                return GetAniClip(name).length;
+                return GetSpecialClipLength(name);
             }
             
         }
 
-        private AniControl GetAniControl(string name)
+        private float GetSpecialClipLength(string name)
         {
-            if (!_specialAniDic.ContainsKey(name))
-            {
-                _specialAniDic[name] = InitSpecial(Path.ENEMY_PATH + name);
-            }
-
-            return _specialAniDic[name];
+            InitSpecialAniDIc(name);
+            return _specialAniPrefabDic[name].GetComponent<Animation>().clip.length;
         }
 
-        private AnimationClip GetAniClip(string name)
+        private SpecialDeadAniControl GetAniControl(string name)
         {
-            if (_ani[name] != null)
+            InitSpecialAniDIc(name);
+            return InitSpecial(_specialAniPrefabDic[name]); 
+        }
+
+        private void InitSpecialAniDIc(string name)
+        {
+            if (!_specialAniPrefabDic.ContainsKey(name))
             {
-                return _ani[name].clip;
-            }
-            else
-            {
-                return GetAniControl(name).GetClip();
+                _specialAniPrefabDic[name] = LoadManager.Single.Load<GameObject>(Path.ENEMY_PATH + name, "");
             }
         }
 
-        private AniControl InitSpecial(string path)
+        private SpecialDeadAniControl InitSpecial(GameObject prefab)
         {
-            AniControl control = null;
-            GameObject deadPrefab = LoadManager.Single.Load<GameObject>(path, "");
-            GameObject dead = GameObject.Instantiate(deadPrefab);
+            SpecialDeadAniControl control = null;
+            GameObject dead = GameObject.Instantiate(prefab);
             if (dead != null)
             {
-                control = dead.AddComponent<AniControl>();
+                control = dead.AddComponent<SpecialDeadAniControl>();
                 control.Init(_self.position);
             }
             else
             {
-               DebugMsg.LogError("动画预制未找到，路径为：" + path);
+               DebugMsg.LogError("动画预制未找到");
             }
 
             return control;

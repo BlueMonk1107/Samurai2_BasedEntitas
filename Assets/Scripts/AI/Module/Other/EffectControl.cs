@@ -20,7 +20,11 @@ namespace Game.AI.ViewEffect
                     duration = emitter.maxEnergy;
                 }
             }
-            //AutoHide(duration);
+
+            if (emits != null && emits.Length > 0)
+            {
+                AutoHide(duration);
+            }
         }
 
         private async void AutoHide(float duration)
