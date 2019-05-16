@@ -38,7 +38,6 @@ namespace Game
                     _contexts.game.gamePlayer.Audio.Attack(code);
                     _contexts.game.gamePlayer.Behaviour.Attack(code);
                 }
-                Debug.Log(code);
             }
         }
     }

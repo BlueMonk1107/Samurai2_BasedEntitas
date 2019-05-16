@@ -21,10 +21,12 @@ namespace Game.AI
             var controller = GetComponent<CharacterController>();
             var center = controller.center;
             await Task.Delay(TimeSpan.FromSeconds(1));
+            EnemyPeasantView view = GetComponent<EnemyPeasantView>();
+            view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 1);
             ////上方向
             //_colliderAction(GetDirectionCollider(center, 20));
             //await Task.Delay(TimeSpan.FromSeconds(1));
-            ////右方向
+            //右方向
             //_colliderAction(GetDirectionCollider(center, 35));
             //await Task.Delay(TimeSpan.FromSeconds(1));
             ////左方向
@@ -34,7 +36,7 @@ namespace Game.AI
             //_colliderAction(GetDirectionCollider(center, 160));
             //await Task.Delay(TimeSpan.FromSeconds(1));
 
-            EnemyPeasantView view = GetComponent<EnemyPeasantView>();
+            
 
             //普通死亡
             //view.AIAgent.Maps.SetGameData(GameDataKeyEnum.INJURE_VALUE, 100);

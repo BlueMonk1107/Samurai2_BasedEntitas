@@ -1,11 +1,11 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using Model;
 using UnityEngine;
 
 namespace Game
 {
     /// <summary>
-    /// Íæ¼ÒÐÐÎªÀà
+    /// çŽ©å®¶è¡Œä¸ºç±»
     /// </summary>
     public class PlayerBehaviour : IPlayerBehaviour
     {

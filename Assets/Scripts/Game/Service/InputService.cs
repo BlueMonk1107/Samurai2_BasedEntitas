@@ -1,18 +1,18 @@
-using System;
+ï»¿using System;
 using UIFrame;
 using UnityEngine;
 
 namespace Game.Service
 {
     /// <summary>
-    /// ÊäÈë·şÎñ½Ó¿Ú
+    /// è¾“å…¥æœåŠ¡æ¥å£
     /// </summary>
     public interface IInputService
     {
         void Input(InputButton button, InputState state);
     }
     /// <summary>
-    /// ÓëEntitas½»»¥µÄÊäÈë·şÎñ
+    /// ä¸Entitasäº¤äº’çš„è¾“å…¥æœåŠ¡
     /// </summary>
     public class EntitasInputService : IInputService,IInitService
     {
@@ -42,7 +42,7 @@ namespace Game.Service
     }
 
     /// <summary>
-    /// ÓëUnity½»»¥µÄÊäÈë·şÎñ
+    /// ä¸Unityäº¤äº’çš„è¾“å…¥æœåŠ¡
     /// </summary>
     public class UnityInputService : IInputService, IInitService,IExecuteService,IPlayerBehaviour
     {

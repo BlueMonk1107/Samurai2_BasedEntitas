@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Game.View
 {
-    public class TrailComboManager : ViewBase, IGameStartHumanSkillListener
+    public class TrailComboView : ViewBase, IGameStartHumanSkillListener
     {
         private string prefixName = "trail_";
         private Dictionary<int, TrailsEffect> _trailsDic;

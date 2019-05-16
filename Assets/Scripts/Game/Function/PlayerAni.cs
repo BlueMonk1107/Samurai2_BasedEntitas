@@ -1,11 +1,11 @@
-using System;
+ï»¿using System;
 using Const;
 using UnityEngine;
 
 namespace Game
 {
     /// <summary>
-    /// Íæ¼Ò¶¯»­Àà
+    /// çŽ©å®¶åŠ¨ç”»ç±»
     /// </summary>
     public class PlayerAni : IPlayerAni
     {

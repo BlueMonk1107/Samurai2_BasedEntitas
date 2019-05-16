@@ -88,7 +88,7 @@ namespace Game.Service
         private void LoadTrails(Transform player, Animator animator)
         {
             var trails = LoadAndInstaniate(Path.TRAILS_COMBO_PREFAB, player);
-            var manager = trails.transform.GetOrAddComponent<TrailComboManager>();
+            var manager = trails.transform.GetOrAddComponent<TrailComboView>();
             var entity = Contexts.sharedInstance.game.CreateEntity();
             manager.Init(Contexts.sharedInstance, entity, animator);
         }
