@@ -12,7 +12,11 @@ namespace Game
         private readonly Transform _playerTrans;
         private readonly PlayerDataModel _model;
         private Vector3 _faceDirection;
-        private bool _isFaceDirectionChange;
+
+        private bool IsFaceDirectionChange
+        {
+            get { return _playerTrans.eulerAngles != _faceDirection; }
+        }
 
         public PlayerBehaviour(Transform player, PlayerDataModel model)
         {
@@ -20,7 +24,6 @@ namespace Game
             _model = model;
             IsAttack = false;
             _faceDirection = Vector3.zero;
-            _isFaceDirectionChange = false;
         }
 
         public void Idle()
@@ -61,13 +64,12 @@ namespace Game
             if (_faceDirection != direction)
             {
                 _faceDirection = direction;
-                _isFaceDirectionChange = true;
             }
         }
 
         public void Move()
         {
-            if (_isFaceDirectionChange)
+            if (IsFaceDirectionChange)
             {
                 IsCollideWall = false;
             }
@@ -86,9 +88,8 @@ namespace Game
 
         private void RotateFace()
         {
-            if (_isFaceDirectionChange)
+            if (IsFaceDirectionChange)
             {
-                _isFaceDirectionChange = false;
                 PlayerOrientation(_faceDirection);
             }
         }
