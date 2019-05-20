@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using DesperateDevs.Serialization;
@@ -9,94 +9,98 @@ using UnityEngine;
 namespace CustomTool
 {
     /// <summary>
-    /// ¹¤¾ßÊı¾İÀà
+    /// å·¥å…·æ•°æ®ç±»
     /// </summary>
     public class ToolData      
     {
         /// <summary>
-        /// view½Å±¾´æ·ÅÂ·¾¶
+        /// viewè„šæœ¬å­˜æ”¾è·¯å¾„
         /// </summary>
         public static string ViewPath;
         /// <summary>
-        /// service½Å±¾´æ·ÅÂ·¾¶
+        /// serviceè„šæœ¬å­˜æ”¾è·¯å¾„
         /// </summary>
         public static string ServicePath;
         /// <summary>
-        /// serviceManager½Å±¾Â·¾¶
+        /// serviceManagerè„šæœ¬è·¯å¾„
         /// </summary>
         public static string ServiceManagerPath;
         /// <summary>
-        /// ÏµÍ³½Å±¾´æ·ÅÂ·¾¶
+        /// ç³»ç»Ÿè„šæœ¬å­˜æ”¾è·¯å¾„
         /// </summary>
         public static string SystemPath;
         /// <summary>
-        /// ²å¼ş³Ö¾Ã»¯Êı¾İ»º´æÂ·¾¶
+        /// æ’ä»¶æŒä¹…åŒ–æ•°æ®ç¼“å­˜è·¯å¾„
         /// </summary>
         public static string DataPah = "Assets/Editor/AutoGenerateFrameCode/Data/";
         /// <summary>
-        /// ²å¼ş³Ö¾Ã»¯Êı¾İÎÄ¼şÃû³Æ
+        /// æ’ä»¶æŒä¹…åŒ–æ•°æ®æ–‡ä»¶åç§°
         /// </summary>
         public static string DataFileName = "Data.asset";
         /// <summary>
-        /// View²ã½Å±¾ºó×º
+        /// Viewå±‚è„šæœ¬åç¼€
         /// </summary>
         public static string ViewPostfix = "View";
         /// <summary>
-        /// ÓÃ»§ÊäÈëµÄView²ã½Å±¾Ãû³Æ
+        /// ç”¨æˆ·è¾“å…¥çš„Viewå±‚è„šæœ¬åç§°
         /// </summary>
         public static string ViewName;
         /// <summary>
-        /// Service²ã½Å±¾ºó×º
+        /// Serviceå±‚è„šæœ¬åç¼€
         /// </summary>
         public static string ServicePostfix = "Service";
         /// <summary>
-        /// ÓÃ»§ÊäÈëµÄService²ã½Å±¾Ãû³Æ
+        /// ç”¨æˆ·è¾“å…¥çš„Serviceå±‚è„šæœ¬åç§°
         /// </summary>
         public static string ServiceName;
         /// <summary>
-        /// System²ã½Å±¾ºó×º
+        /// Systemå±‚è„šæœ¬åç¼€
         /// </summary>
         public static string SystemPostfix = "System";
         /// <summary>
-        /// ÊäÈëµÄÏìÓ¦ÏµÍ³½Å±¾Ãû³Æ
+        /// ReactiveSystemè„šæœ¬åç¼€
+        /// </summary>
+        public static string ReactiveSystemPostfix = "ReactiveSystem";
+        /// <summary>
+        /// è¾“å…¥çš„å“åº”ç³»ç»Ÿè„šæœ¬åç§°
         /// </summary>
         public static string ReactiveSystemName;
         /// <summary>
-        /// »ù´¡ÃüÃû¿Õ¼ä
+        /// åŸºç¡€å‘½åç©ºé—´
         /// </summary>
         public static string NamespaceBase = "Game";
         /// <summary>
-        /// µ±Ç°ÒÑÓĞµÄÉÏÏÂÎÄÊı×é
+        /// å½“å‰å·²æœ‰çš„ä¸Šä¸‹æ–‡æ•°ç»„
         /// </summary>
         public static string[] ContextNames;
         /// <summary>
-        /// Ã¿¸öÉÏÏÂÎÄµÄÑ¡ÖĞ×´Ì¬ key£ºÉÏÏÂÎÄÃû³Æ value£ºÊÇ·ñÑ¡Ôñ£¨trueÎªÑ¡ÖĞ£©
+        /// æ¯ä¸ªä¸Šä¸‹æ–‡çš„é€‰ä¸­çŠ¶æ€ keyï¼šä¸Šä¸‹æ–‡åç§° valueï¼šæ˜¯å¦é€‰æ‹©ï¼ˆtrueä¸ºé€‰ä¸­ï¼‰
         /// </summary>
         public static Dictionary<string, bool> ContextSelectedState;
         /// <summary>
-        /// µ±Ç°Ñ¡ÖĞÉÏÏÂÎÄÃû³Æ
+        /// å½“å‰é€‰ä¸­ä¸Šä¸‹æ–‡åç§°
         /// </summary>
         public static string SelectedContextName;
 
         /// <summary>
-        /// ViewFeature½Å±¾Â·¾¶
+        /// ViewFeatureè„šæœ¬è·¯å¾„
         /// </summary>
         public static string ViewFeaturePath;
         /// <summary>
-        ///  InputFeature½Å±¾Â·¾¶
+        ///  InputFeatureè„šæœ¬è·¯å¾„
         /// </summary>
         public static string InputFeaturePath;
         /// <summary>
-        ///  GameFeature½Å±¾Â·¾¶
+        ///  GameFeatureè„šæœ¬è·¯å¾„
         /// </summary>
         public static string GameFeaturePath;
 
         /// <summary>
-        /// ÆäËûÏµÍ³ÊäÈëµÄÃû³Æ
+        /// å…¶ä»–ç³»ç»Ÿè¾“å…¥çš„åç§°
         /// </summary>
         public static string OtherSystemName;
         /// <summary>
-        /// ÆäËûÏµÍ³½Ó¿ÚÃû³ÆÊı×é
+        /// å…¶ä»–ç³»ç»Ÿæ¥å£åç§°æ•°ç»„
         /// </summary>
         public static string[] SystemInterfaceName =
         {
@@ -106,7 +110,7 @@ namespace CustomTool
             "ITearDownSystem"
         };
         /// <summary>
-        /// ÏµÍ³Ñ¡Ôñ×´Ì¬»º´æ key£ºÏµÍ³Ãû³Æ value£ºÊÇ·ñÑ¡Ôñ£¨trueÎªÑ¡ÖĞ£©
+        /// ç³»ç»Ÿé€‰æ‹©çŠ¶æ€ç¼“å­˜ keyï¼šç³»ç»Ÿåç§° valueï¼šæ˜¯å¦é€‰æ‹©ï¼ˆtrueä¸ºé€‰ä¸­ï¼‰
         /// </summary>
         public static Dictionary<string, bool> SystemSelectedState;
 
@@ -144,7 +148,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡ËùÓĞÉÏÏÂÎÄÃû³Æ
+        /// è·å–æ‰€æœ‰ä¸Šä¸‹æ–‡åç§°
         /// </summary>
         private static void GetContextName()
         {
@@ -154,7 +158,7 @@ namespace CustomTool
             ContextNames = data.Select(u => u.GetContextName()).ToArray();
         }
 
-        //±£´æÊı¾İµ½±¾µØ
+        //ä¿å­˜æ•°æ®åˆ°æœ¬åœ°
         public static void SaveDataToLocal()
         {
             Directory.CreateDirectory(DataPah);
@@ -169,7 +173,7 @@ namespace CustomTool
             AssetDatabase.CreateAsset(data, DataPah + DataFileName);
         }
 
-        //´Ó±¾µØ¶ÁÈ¡Êı¾İ
+        //ä»æœ¬åœ°è¯»å–æ•°æ®
         private static void ReadDataFromLocal()
         {
             EntitasData data = AssetDatabase.LoadAssetAtPath<EntitasData>(DataPah + DataFileName);

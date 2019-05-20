@@ -1,16 +1,16 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 namespace CustomTool
 {
     /// <summary>
-    /// ´úÂëÄ£°å
+    /// ä»£ç æ¨¡æ¿
     /// </summary>
     public class CodeTemplate     
     {
         /// <summary>
-        /// »ñÈ¡VIew²ã´úÂëÄ£°å
+        /// è·å–VIewå±‚ä»£ç æ¨¡æ¿
         /// </summary>
         /// <returns></returns>
         public static string GetViewCode()
@@ -40,7 +40,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡Service²ã´úÂëÄ£°å
+        /// è·å–Serviceå±‚ä»£ç æ¨¡æ¿
         /// </summary>
         /// <returns></returns>
         public static string GetServiceCode()
@@ -55,18 +55,18 @@ namespace CustomTool
             build.ToContentEnd();
             //class
             build.WriteClass(className, "I" + className);
-            //initº¯Êı
+            //initå‡½æ•°
             build.IndentTimes++;
             List<string> initKey = new List<string>();
             initKey.Add("void");
             build.WriteFun(initKey, "Init", "", "Contexts contexts");
-            //init ÄÚÈİ
+            //init å†…å®¹
             build.BackToInsertContent();
             build.IndentTimes++;
             build.WriteLine("//contexts.service.SetGameService" + className + "(this);", true);
             build.IndentTimes--;
             build.ToContentEnd();
-            //GetPriorityº¯Êı
+            //GetPriorityå‡½æ•°
             var key = new List<string>();
             key.Add("int");
             build.WriteFun(key, "GetPriority");
@@ -80,12 +80,12 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡ReactiveSystem²ã´úÂëÄ£°å
+        /// è·å–ReactiveSystemå±‚ä»£ç æ¨¡æ¿
         /// </summary>
         /// <returns></returns>
         public static string GetReactiveSystemCode()
         {
-            string className = ToolData.SelectedContextName + ToolData.ReactiveSystemName + "Reactive" + ToolData.SystemPostfix;
+            string className = ToolData.SelectedContextName + ToolData.ReactiveSystemName + ToolData.ReactiveSystemPostfix;
             string entityName = ToolData.SelectedContextName + "Entity";
 
             var build = new ScriptBuildHelp();
@@ -99,7 +99,7 @@ namespace CustomTool
             build.IndentTimes++;
             build.WriteLine(" protected Contexts _contexts;", true);
             build.WriteEmptyLine();
-            //¹¹Ôì
+            //æ„é€ 
             build.WriteFun(new List<string>(), className, " : base(context."+ ToolData.SelectedContextName.ToLower() + ")", "Contexts context");
             build.BackToInsertContent();
             build.IndentTimes++;
@@ -140,7 +140,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡ÆäËûÏµÍ³´úÂëÄ£°å
+        /// è·å–å…¶ä»–ç³»ç»Ÿä»£ç æ¨¡æ¿
         /// </summary>
         /// <returns></returns>
         public static string GetOthersSystemCode()
@@ -158,14 +158,14 @@ namespace CustomTool
             build.IndentTimes++;
             build.WriteLine("protected Contexts _contexts;", true);
             build.WriteEmptyLine();
-            //¹¹Ôì
+            //æ„é€ 
             build.WriteFun(new List<string>(), className, "", "Contexts context");
             build.BackToInsertContent();
             build.IndentTimes++;
             build.WriteLine("_contexts = context;", true);
             build.IndentTimes--;
             build.ToContentEnd();
-            //ÊµÏÖ·½·¨
+            //å®ç°æ–¹æ³•
             List<string> funName = GetFunName(selectedSystem);
             List<string> key = new List<string>();
             key.Add("void");
@@ -177,7 +177,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡Ñ¡ÖĞµÄÏµÍ³½Ó¿Ú×Ö·û´®
+        /// è·å–é€‰ä¸­çš„ç³»ç»Ÿæ¥å£å­—ç¬¦ä¸²
         /// </summary>
         /// <returns></returns>
         private static string GetSelectedSystemInterface(List<string> selected)
@@ -196,7 +196,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡Ñ¡ÖĞµÄÏµÍ³½Ó¿ÚÃû³Æ
+        /// è·å–é€‰ä¸­çš„ç³»ç»Ÿæ¥å£åç§°
         /// </summary>
         /// <returns></returns>
         public static List<string> GetSelectedSysytem()
@@ -214,7 +214,7 @@ namespace CustomTool
         }
 
         /// <summary>
-        /// »ñÈ¡ÏµÍ³½Ó¿Ú¶ÔÓ¦µÄÊµÏÖ·½·¨Ãû³Æ
+        /// è·å–ç³»ç»Ÿæ¥å£å¯¹åº”çš„å®ç°æ–¹æ³•åç§°
         /// </summary>
         /// <returns></returns>
         public static List<string> GetFunName(List<string> selected)

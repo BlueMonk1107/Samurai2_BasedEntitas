@@ -165,9 +165,9 @@ namespace CustomTool
 
             CreateButton("生成脚本", () =>
             {
-                GenerateCode.CreateScript(ToolData.SystemPath + "/" + ToolData.SelectedContextName, ToolData.ReactiveSystemName + ToolData.SystemPostfix, CodeTemplate.GetReactiveSystemCode());
+                GenerateCode.CreateScript(ToolData.SystemPath + "/" + ToolData.SelectedContextName, ToolData.ReactiveSystemName + ToolData.ReactiveSystemPostfix, CodeTemplate.GetReactiveSystemCode());
                 GenerateCode.InitSystem(ToolData.SelectedContextName,
-                    ToolData.SelectedContextName + ToolData.ReactiveSystemName + ToolData.SystemPostfix,
+                    ToolData.SelectedContextName + ToolData.ReactiveSystemName + ToolData.ReactiveSystemPostfix,
                     "ReactiveSystem");
                 Close();
             });
